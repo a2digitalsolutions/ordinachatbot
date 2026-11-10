@@ -1,6 +1,6 @@
 # Ordinachatbot — manuale di utilizzo
 
-Versione 0.2 (10/11/2026). Descrive il prodotto **come è stato progettato**: va
+Versione 0.3 (10/11/2026). Descrive il prodotto **come è stato progettato**: va
 aggiornato a ogni task chiuso e completato con le schermate nel task OC6-08.
 I nomi di pulsanti e menu potranno cambiare leggermente.
 
@@ -66,17 +66,45 @@ rispondere a «pizze con i funghi» o «un panino senza cipolla».
 
 ### 1.4 Allergeni e celiachia
 
-- Nella scheda del prodotto trovi le **14 spunte degli allergeni** e la spunta
-  **senza glutine**. Se segni l'allergene su un ingrediente (es. *mozzarella →
-  latte*), vale da solo per tutti i piatti che lo contengono.
-- In *Chatbot → Argomenti delicati* scegli su cosa il chatbot **non deve
-  rispondere**: *Allergeni*, *Celiachia*, *Tutti e due*, *Nessuno*. Quando un
-  cliente tocca l'argomento, il chatbot risponde subito: «Su questo non posso
-  rispondere: chiama il cameriere» e mostra il pulsante di chiamata.
-- Il testo del messaggio lo puoi personalizzare.
+Gli allergeni si indicano **sugli ingredienti**, una volta sola: ogni piatto li
+prende da solo dai suoi ingredienti e dalle aggiunte.
 
-L'informazione sugli allergeni resta una responsabilità del locale: tieni
-aggiornate le spunte e istruisci il personale.
+**Scheda dell'ingrediente** — *Menu → Ingredienti*
+
+1. Scrivi il nome. Il programma **propone** in giallo allergeni e glutine tipici
+   (mozzarella → latte). Sono solo proposte: valgono dopo la tua conferma.
+2. Per ognuno dei **14 allergeni** scegli una di tre posizioni: **Contiene**,
+   **Può contenere tracce**, **Non contiene**. Guarda l'etichetta del prodotto.
+3. **Glutine**: scegli tra *Contiene glutine*, *Senza glutine per natura*,
+   *Senza glutine con dicitura in etichetta*, *Non verificato*.
+4. Premi **«Ho controllato l'etichetta»**: resta scritto chi l'ha fatto e quando.
+
+Scorciatoie: *Non contiene nessun allergene* (acqua, sale, verdure fresche),
+*Copia da un altro ingrediente*, elenco *Da verificare* con ciò che manca.
+
+Finché un ingrediente non è verificato, sui piatti che lo contengono il cliente
+legge «Allergeni non dichiarati: chiedi al personale». Se cambi marca o
+fornitore, premi *Cambiato fornitore*: l'ingrediente torna da verificare.
+
+**Scheda del piatto** — vedi il riepilogo già calcolato e aggiungi solo:
+- *Lavorazione condivisa* (stessa friggitrice, stesso forno, stesso piano);
+- la conferma *Preparazione separata*, necessaria per l'etichetta **Senza
+  glutine**. L'etichetta compare solo se tutti gli ingredienti sono senza
+  glutine e verificati e non c'è lavorazione condivisa; se una di queste cose
+  cambia, sparisce da sola e ricevi un avviso.
+
+In *Impostazioni* trovi l'avviso generale «In cucina si usa farina: tutti i
+piatti possono contenere tracce di glutine».
+
+**Cosa fa il chatbot** — in *Chatbot → Argomenti delicati* scegli su cosa **non
+deve rispondere**: *Allergeni*, *Celiachia*, *Tutti e due* (già acceso per i
+locali nuovi), *Nessuno*. Quando un cliente tocca l'argomento, il chatbot
+risponde subito «Su questo non posso rispondere: chiama il cameriere» e il
+personale riceve l'avviso. Il testo lo puoi personalizzare. Se un cliente
+scrive di un'allergia, la comanda esce con una riga di **ATTENZIONE**.
+
+Il programma riporta ciò che dichiari tu: tieni aggiornati gli ingredienti e
+istruisci il personale. La responsabilità delle informazioni resta del locale.
 
 ### 1.5 Insegnare al chatbot
 

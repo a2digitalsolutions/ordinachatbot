@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ordinachatbot Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+/* Layout: barra del locale in alto, quattro viste (sito, menu, chat, gestore) su una colonna larga al massimo 1040px.
+   Un solo mondo visivo, quello scelto dal locale: tema unico, i colori cambiano con le combinazioni del gestore. */
+:root{
+  color-scheme: light;
+  --bg:#f3f5ef; --surface:#ffffff; --ink:#17211c; --muted:#5d6a62; --line:#dfe4da;
+  --accent:#c9301f; --accent-ink:#ffffff; --second:#f0b323; --soft:#e9eee4;
+  --ok:#1f7a4d; --warn:#b26a00;
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"DM Sans","Segoe UI",Arial,sans-serif;
+  --r:14px;
+}
+:root[data-pal="notte"]{ --bg:#14181f; --surface:#1e242e; --ink:#f1f3f6; --muted:#a3adba; --line:#303846; --accent:#f0b323; --accent-ink:#1a1400; --second:#e2574c; --soft:#262d39; --ok:#59c48c; --warn:#f0b323; color-scheme:dark;}
+:root[data-pal="mare"]{ --bg:#eef4f6; --surface:#ffffff; --ink:#10242d; --muted:#557079; --line:#d5e1e5; --accent:#0d6e8a; --accent-ink:#ffffff; --second:#f28c5b; --soft:#e2edf0;}
+:root[data-pal="orto"]{ --bg:#f2f5ea; --surface:#ffffff; --ink:#1c2412; --muted:#606a4f; --line:#dde3cf; --accent:#3f7a2a; --accent-ink:#ffffff; --second:#d9541e; --soft:#e7edd9;}
+:root[data-pal="vino"]{ --bg:#f6f1f1; --surface:#ffffff; --ink:#251418; --muted:#6f5a5e; --line:#e6dadb; --accent:#7d1f3a; --accent-ink:#ffffff; --second:#c9952b; --soft:#efe4e5;}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.1;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--second);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.demo-strip{background:var(--ink);color:var(--bg);font-size:13px;padding:6px 0}
+.demo-strip .wrap{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.pals{display:flex;gap:6px;align-items:center}
+.pals button{width:22px;height:22px;border-radius:50%;border:2px solid var(--bg);padding:0}
+.pals button[aria-pressed="true"]{outline:2px solid var(--second);outline-offset:2px}
+header.bar{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+header.bar .wrap{display:flex;gap:12px 20px;align-items:center;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:20px;margin-right:auto}
+.logo span.mark{width:36px;height:36px;border-radius:10px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:20px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:8px 12px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:500}
+nav a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+main{padding:24px 0 56px}
+.view{display:none}.view.on{display:block}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:11px 18px;background:var(--accent);color:var(--accent-ink);font-weight:700;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.small{padding:7px 12px;font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.muted{color:var(--muted)}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--muted)}
+.tag.prova{background:var(--second);color:#1a1400;font-weight:700}
+
+/* Sito */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:stretch}
+.hero h1{font-size:clamp(34px,6vw,56px);font-weight:800}
+.hero p.lead{font-size:18px;max-width:52ch}
+.hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.plate{border-radius:var(--r);background:var(--accent);color:var(--accent-ink);padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:220px}
+.plate .big{font-family:var(--display);font-size:64px;line-height:1}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.story{margin-top:20px;display:grid;grid-template-columns:140px 1fr;gap:20px}
+.story .year{font-family:var(--display);font-weight:800;font-size:44px;color:var(--accent)}
+.story p{max-width:65ch;margin:0 0 10px}
+.social{display:flex;gap:8px;flex-wrap:wrap}
+.social button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px}
+table.hours{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+table.hours td{padding:3px 0}table.hours td:last-child{text-align:right}
+
+/* Menu */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 18px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:500}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cat-title{font-size:26px;margin:26px 0 12px;display:flex;align-items:baseline;gap:10px}
+.items{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;align-items:start}
+.thumb{width:64px;height:64px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:32px}
+.item h3{font-size:18px}
+.item .price{font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.item p{margin:2px 0;font-size:14px}
+.opts{font-size:13px;color:var(--muted)}
+
+/* Chat */
+.chat-layout{display:grid;grid-template-columns:minmax(0,460px) 1fr;gap:24px;align-items:start}
+.phone{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;height:660px;max-height:82vh}
+.phone-top{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.phone-top b{font-family:var(--display)}
+.log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.msg{max-width:92%;padding:10px 12px;border-radius:14px;font-size:15px}
+.msg.bot{background:var(--surface);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{background:var(--accent);color:var(--accent-ink);align-self:flex-end;border-bottom-right-radius:4px}
+.msg.sys{align-self:center;font-size:13px;color:var(--muted);background:transparent;padding:0}
+.msg p{margin:0 0 6px}.msg p:last-child{margin:0}
+.quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.quick button{border:1.5px solid var(--accent);color:var(--accent);background:transparent;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700}
+.quick button.sel{background:var(--accent);color:var(--accent-ink)}
+.pcard{display:grid;grid-template-columns:48px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.pcard:first-of-type{border-top:0}
+.pcard .thumb{width:48px;height:48px;font-size:24px;border-radius:10px}
+.pcard .row{display:flex;justify-content:space-between;gap:8px;font-weight:700}
+.pcard small{color:var(--muted);display:block}
+.cartline{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-top:1px dashed var(--line);font-variant-numeric:tabular-nums}
+.cartline:first-of-type{border-top:0}
+.compose{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+.compose input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:999px;padding:10px 14px;font:inherit;background:var(--bg);color:var(--ink)}
+.side h2{font-size:24px;margin-bottom:8px}
+.side ul{padding-left:18px;margin:8px 0}
+.side li{margin:4px 0}
+.try{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.try button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;font-size:14px;text-align:left}
+
+/* Gestore */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.order{border-top:1px solid var(--line);padding:12px 0}
+.order:first-of-type{border-top:0}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:700;background:var(--soft)}
+.pill.cucina{background:var(--second);color:#1a1400}.pill.pronto{background:var(--ok);color:#fff}.pill.servito{background:var(--soft);color:var(--muted)}
+.pill.pagato{background:var(--ok);color:#fff}.pill.dapagare{border:1.5px solid var(--warn);color:var(--warn);background:transparent}
+.ticket{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fffef6;color:#111;border:1px dashed #b9b39a;padding:10px;white-space:pre-wrap;border-radius:4px;margin-top:8px}
+.qa textarea{width:100%;min-height:54px;border:1.5px solid var(--line);border-radius:10px;padding:8px;font:inherit;background:var(--bg);color:var(--ink)}
+.qa{border-top:1px solid var(--line);padding:12px 0}.qa:first-of-type{border-top:0}
+.empty{color:var(--muted);font-style:italic}
+
+@media (max-width:820px){
+  .hero,.chat-layout,.cols,.story{grid-template-columns:1fr}
+  .grid3{grid-template-columns:1fr}
+  .items{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:no-preference){.msg{animation:in .18s ease-out}@keyframes in{from{transform:translateY(4px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+<div class="demo-strip"><div class="wrap">
+  <span><b>DEMO Ordinachatbot</b> · locale inventato, dati dimostrativi, nessun ordine o pagamento reale</span>
+  <span class="pals" id="pals" aria-label="Combinazione di colori del locale">Colori del locale:</span>
+</div></div>
+
+<header class="bar"><div class="wrap">
+  <div class="logo"><span class="mark" aria-hidden="true">🏮</span>La Lanterna Storta</div>
+  <nav aria-label="Sezioni">
+    <a href="#sito">Sito</a><a href="#menu">Menu</a><a href="#chat">Chatbot al tavolo</a><a href="#gestore">Vista gestore</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+
+<!-- ================= SITO ================= -->
+<section class="view" id="v-sito">
+  <div class="hero">
+    <div class="card">
+      <span class="tag">Pizzeria · Pub</span>
+      <h1 style="margin-top:10px">Forno a legna, birre alla spina, tavoli lunghi.</h1>
+      <p class="lead muted">Dal martedì alla domenica, in via dei Mulini 12. Si ordina dal tavolo inquadrando il QR code, oppure chiamando noi.</p>
+      <div class="cta">
+        <a class="btn" href="#menu">Guarda il menu</a>
+        <a class="btn ghost" href="#chat">Prova a ordinare dal tavolo 7</a>
+      </div>
+    </div>
+    <div class="plate">
+      <div class="big" aria-hidden="true">🍕🍺</div>
+      <div><b id="oggi"></b><br><span id="aperto"></span></div>
+    </div>
+  </div>
+
+  <div class="card story">
+    <div><div class="year">1987</div><div class="muted">la nostra storia</div></div>
+    <div>
+      <p>La Lanterna Storta nasce nel 1987 come forno di quartiere. La lanterna sopra la porta era già storta allora: nonno Aldo non l'ha mai voluta raddrizzare, e il nome è rimasto.</p>
+      <p>Nel 2009 i nipoti hanno aggiunto il bancone con sei spine e i tavoli lunghi da condividere. L'impasto è ancora quello di Aldo, 48 ore di lievitazione; gli hamburger sono arrivati dopo, e non se ne sono più andati.</p>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card"><h3>Orari</h3>
+      <table class="hours" style="margin-top:8px">
+        <tr><td>Lunedì</td><td>chiuso</td></tr>
+        <tr><td>Martedì – Giovedì</td><td>18:30 – 24:00</td></tr>
+        <tr><td>Venerdì e Sabato</td><td>18:30 – 01:30</td></tr>
+        <tr><td>Domenica</td><td>12:00 – 15:00 · 18:30 – 24:00</td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>Contatti</h3>
+      <p style="margin:8px 0 0">Via dei Mulini 12<br>Telefono 0000 123456<br>ciao@lanternastorta.example</p>
+      <p class="muted" style="font-size:13px;margin:8px 0 0">Recapiti inventati per la demo.</p>
+    </div>
+    <div class="card"><h3>Seguici</h3>
+      <div class="social" style="margin-top:10px">
+        <button type="button" data-act="social">Instagram</button>
+        <button type="button" data-act="social">Facebook</button>
+        <button type="button" data-act="social">TikTok</button>
+        <button type="button" data-act="social">Recensioni Google</button>
+      </div>
+      <p class="muted" id="social-note" style="font-size:13px;margin:8px 0 0">Nel sito vero questi pulsanti aprono i profili del locale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MENU ================= -->
+<section class="view" id="v-menu">
+  <h1 style="font-size:38px">Il menu</h1>
+  <p class="muted" style="margin:6px 0 0">Menu da consultare, senza chatbot. Per ordinare inquadra il QR code del tuo tavolo.</p>
+  <div class="chips" id="menu-chips"></div>
+  <div id="menu-body"></div>
+  <p class="muted" style="margin-top:24px;font-size:14px">Allergeni indicati dal locale per ogni piatto. Per qualsiasi dubbio chiedi al personale.</p>
+</section>
+
+<!-- ================= CHAT ================= -->
+<section class="view" id="v-chat">
+  <div class="chat-layout">
+    <div class="phone">
+      <div class="phone-top"><span class="logo" style="font-size:16px;margin:0"><span class="mark" style="width:28px;height:28px;font-size:15px" aria-hidden="true">🏮</span></span>
+        <div style="margin-right:auto"><b>La Lanterna Storta</b><br><span class="muted" style="font-size:13px">Tavolo 7 · Sala interna</span></div>
+        <button class="btn small ghost" type="button" data-act="cart">Carrello <span id="cart-n">1</span></button>
+      </div>
+      <div class="log" id="log" aria-live="polite"></div>
+      <form class="compose" id="compose">
+        <label for="chat-input" style="position:absolute;left:-9999px">Scrivi un messaggio</label>
+        <input id="chat-input" autocomplete="off" placeholder="Scrivi qui, es. pizze con salsiccia">
+        <button class="btn" type="submit">Invia</button>
+      </form>
+    </div>
+    <div class="side">
+      <h2>Cosa stai vedendo</h2>
+      <p>È quello che compare sul telefono di chi inquadra il QR code del <b>tavolo 7</b>. Il numero del tavolo non va mai scritto.</p>
+      <ul>
+        <li>Al tavolo c'è già <b>Giulia</b>, che ha messo una birra nel carrello comune.</li>
+        <li>Uno solo conferma per tutto il tavolo, poi si sceglie come pagare.</li>
+        <li>Gli ordini confermati arrivano nella <a href="#gestore">vista gestore</a>.</li>
+      </ul>
+      <p><b>Frasi da provare</b></p>
+      <div class="try" id="try"></div>
+      <p class="muted" style="font-size:14px;margin-top:14px">In questa demo le risposte sono simulate con regole semplici, senza intelligenza artificiale: serve a mostrare il percorso, non la qualità delle risposte del prodotto finito.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GESTORE ================= -->
+<section class="view" id="v-gestore">
+  <h1 style="font-size:38px">Vista gestore</h1>
+  <p class="muted" style="margin:6px 0 16px">Un assaggio di ciò che vede il locale: gli ordini in arrivo, le comande per zona e le domande a cui il chatbot non ha saputo rispondere.</p>
+  <div class="cols">
+    <div class="card"><h2 style="font-size:22px">Ordini del tavolo 7</h2><div id="orders" style="margin-top:8px"></div></div>
+    <div class="card"><h2 style="font-size:22px">Domande da rivedere</h2>
+      <p class="muted" style="font-size:14px;margin:6px 0">Scrivi la risposta giusta: da quel momento il chatbot la usa con tutti i clienti.</p>
+      <div id="questions"></div>
+      <h3 style="font-size:18px;margin-top:16px">Domande e risposte del locale</h3>
+      <div id="learned" style="margin-top:6px"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+"use strict";
+/* ---------- Formato italiano ---------- */
+const euro = n => "€ " + n.toFixed(2).replace(".", ",");
+const delta = n => n === 0 ? "" : " +" + euro(n);
+const fmtData = d => new Intl.DateTimeFormat("it-IT",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"Europe/Rome"}).format(d);
+const fmtOra = d => new Intl.DateTimeFormat("it-IT",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/Rome"}).format(d);
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9 ,.]/g," ").replace(/\s+/g," ").trim();
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* ---------- Dati dimostrativi del locale ---------- */
+const CATS = [
+  {id:"pizze", name:"Pizze", zone:"Forno", syn:["pizze","pizza"]},
+  {id:"hamburger", name:"Hamburger", zone:"Cucina", syn:["hamburger","hamburgher","burger","panini","panino"]},
+  {id:"xxl", name:"Hamburger XXL", zone:"Cucina", syn:["xxl"]},
+  {id:"fritti", name:"Fritti", zone:"Cucina", syn:["fritti","fritto","sfizi","antipasti","antipasto"]},
+  {id:"birre", name:"Birre", zone:"Bar", syn:["birre","birra"]},
+  {id:"drink", name:"Drink e bibite", zone:"Bar", syn:["drink","cocktail","bibite","bibita","da bere","bere","bevande"]},
+  {id:"dolci", name:"Dolci", zone:"Cucina", syn:["dolci","dolce","dessert"]}
+];
+const ALLERGENI = {mozzarella:"latte", bufala:"latte", cheddar:"latte", mascarpone:"latte", "formaggio cremoso":"latte",
+  impasto:"glutine", pane:"glutine", pastella:"glutine", savoiardi:"glutine", biscotto:"glutine", birra:"glutine",
+  uovo:"uova", maionese:"uova", "salsa bbq":"senape"};
+const GROUPS = {
+  impasto:{label:"Impasto", type:"one", opts:[["Classico",0],["Integrale",1],["Ai cereali",1.5]]},
+  aggPizza:{label:"Aggiunte", type:"many", opts:[["Mozzarella extra",1.5],["Bufala",2],["Funghi",1],["Salame piccante",1.5],["Salsiccia",2]]},
+  carne:{label:"Carne", type:"one", opts:[["Singolo",0],["Doppio",3]]},
+  aggBurger:{label:"Aggiunte", type:"many", opts:[["Bacon",2],["Cheddar",1],["Uovo",1],["Cipolla caramellata",1]]},
+  via:{label:"Si può togliere", type:"many", opts:[["Senza cipolla",0],["Senza pomodoro",0]]},
+  porzione:{label:"Porzione", type:"one", opts:[["Piccola",0],["Grande",1.5]]},
+  spina:{label:"Formato", type:"one", opts:[["Piccola 0,2 l",0],["Media 0,4 l",1.5]]},
+  spritz:{label:"Tipo", type:"one", opts:[["Aperol",0],["Campari",0],["Analcolico",0]]},
+  gin:{label:"Aggiunte", type:"many", opts:[["Gin premium",2],["Doppia dose",3]]},
+  ghiaccio:{label:"Si può togliere", type:"many", opts:[["Senza ghiaccio",0],["Senza limone",0]]}
+};
+const I = (id,cat,name,price,em,ing,groups) => ({id,cat,name,price,em,ing,groups:groups||[]});
+const ITEMS = [
+  I("margherita","pizze","Margherita",6,"🍕",["impasto","pomodoro","mozzarella","basilico"],["impasto","aggPizza"]),
+  I("diavola","pizze","Diavola",7.5,"🍕",["impasto","pomodoro","mozzarella","salame piccante"],["impasto","aggPizza"]),
+  I("salsfriar","pizze","Salsiccia e friarielli",8.5,"🍕",["impasto","mozzarella","salsiccia","friarielli"],["impasto","aggPizza"]),
+  I("boscaiola","pizze","Boscaiola",8.5,"🍕",["impasto","pomodoro","mozzarella","funghi","salsiccia"],["impasto","aggPizza"]),
+  I("ortolana","pizze","Ortolana",8,"🍕",["impasto","pomodoro","mozzarella","zucchine","melanzane","peperoni"],["impasto","aggPizza"]),
+  I("bufalina","pizze","Bufalina",9,"🍕",["impasto","pomodoro","bufala","basilico"],["impasto","aggPizza"]),
+  I("classico","hamburger","Classico",9,"🍔",["pane","manzo","lattuga","pomodoro","cipolla"],["carne","aggBurger","via"]),
+  I("cheese","hamburger","Cheeseburger",10,"🍔",["pane","manzo","cheddar","lattuga","pomodoro","cipolla"],["carne","aggBurger","via"]),
+  I("baconbbq","hamburger","Bacon BBQ",11.5,"🍔",["pane","manzo","bacon","cheddar","cipolla","salsa bbq"],["carne","aggBurger","via"]),
+  I("gigante","xxl","Il Gigante",15,"🍔",["pane","manzo","bacon","cheddar","uovo","cipolla","salsa bbq"],["aggBurger","via"]),
+  I("patatine","fritti","Patatine fritte",4,"🍟",["patate"],["porzione"]),
+  I("crocchette","fritti","Crocchette di patate",5,"🧆",["patate","mozzarella","pastella"]),
+  I("anelli","fritti","Anelli di cipolla",4.5,"🧅",["cipolla","pastella"]),
+  I("bionda","birre","Bionda alla spina",3.5,"🍺",["birra"],["spina"]),
+  I("rossa","birre","Rossa alla spina",4,"🍺",["birra"],["spina"]),
+  I("ipa","birre","IPA artigianale 0,33 l",6,"🍺",["birra"]),
+  I("spritz","drink","Spritz",6,"🍹",["prosecco","soda","arancia"],["spritz","ghiaccio"]),
+  I("gintonic","drink","Gin tonic",7,"🍸",["gin","acqua tonica","limone"],["gin","ghiaccio"]),
+  I("cola","drink","Cola 0,33 l",3,"🥤",[]),
+  I("acqua","drink","Acqua 0,75 l",2,"💧",[]),
+  I("tiramisu","dolci","Tiramisù",5,"🍰",["mascarpone","savoiardi","uovo","caffè","cacao"]),
+  I("cheesecake","dolci","Cheesecake ai frutti di bosco",5.5,"🍰",["formaggio cremoso","biscotto","frutti di bosco"])
+];
+const byId = id => ITEMS.find(i => i.id === id);
+const catOf = it => CATS.find(c => c.id === it.cat);
+const hasVariantPrice = it => it.groups.some(g => GROUPS[g].opts.some(o => o[1] > 0) && GROUPS[g].type === "one");
+const allergeniDi = it => [...new Set(it.ing.map(x => ALLERGENI[x]).filter(Boolean))];
+const INGREDIENTI = [...new Set(ITEMS.flatMap(i => i.ing))].filter(x => !["impasto","pane"].includes(x)).sort((a,b) => b.length - a.length);
+const ING_SYN = {fungo:"funghi", funghetti:"funghi", salame:"salame piccante", piccante:"salame piccante", cipolle:"cipolla", patata:"patate", uova:"uovo", formaggio:"cheddar", salsicce:"salsiccia", verdure:"zucchine"};
+
+/* ---------- Stato della demo (solo in memoria) ---------- */
+const state = {
+  cart:[{id:"bionda", name:"Bionda alla spina", opts:["Media 0,4 l"], price:5, who:"Giulia"}],
+  orders:[], questions:[], learned:[
+    {q:"Avete il Wi-Fi?", a:"Sì: rete «Lanterna Ospiti», la password è sul retro del segnaposto."},
+    {q:"Posso portare il cane?", a:"Certo, i cani sono i benvenuti in sala e nel dehors."}],
+  config:null, blocked:"entrambi"
+};
+
+/* ---------- Comprensione della richiesta (regole semplici, solo per la demo) ---------- */
+function interpret(raw){
+  const t = norm(raw);
+  if(!t) return {type:"empty"};
+  if(/allerg|celiac|glutin|intolleran|lattosio|senza lattosio/.test(t)) return {type:"blocked"};
+  if(/camerier/.test(t)) return {type:"waiter"};
+  if(/carrello|riepilogo|cosa abbiamo/.test(t)) return {type:"cart"};
+  if(/conferm|invia l ordine|ordina tutto|ordiniamo/.test(t)) return {type:"confirm"};
+  if(/\bconto\b|pagare|pago\b|pagamento/.test(t)) return {type:"pay"};
+  if(/menu complet|tutto il menu|menu inter|^menu$|il menu$|vedere il menu/.test(t)) return {type:"fullmenu"};
+  const STOP = ["avete","avere","posso","possiamo","potete","cosa","come","quanto","dove","quando","fate","siete","sono","anche","vostro","vostra"];
+  const toks = x => norm(x).replace(/wi fi/g,"wifi").split(" ").filter(w => w.length > 3 && !STOP.includes(w));
+  const words = toks(raw);
+  for(const l of state.learned){
+    const lw = toks(l.q);
+    const hit = lw.filter(w => words.includes(w)).length;
+    if(lw.length && hit / lw.length >= 0.6) return {type:"learned", a:l.a};
+  }
+  const f = {cats:[], con:[], senza:[], max:null, item:null};
+  for(const c of CATS) if(c.syn.some(s => new RegExp("\\b"+s+"\\b").test(t))) f.cats.push(c.id);
+  if(f.cats.includes("xxl")) f.cats = ["xxl"];
+  const m = t.match(/(?:sotto|meno di|massimo|max|entro)\s+(?:i|gli|le)?\s*(\d+)(?:[.,](\d+))?/);
+  if(m) f.max = parseFloat(m[1] + "." + (m[2] || "0"));
+  let rest = " " + t + " ";
+  for(const [k,v] of Object.entries(ING_SYN)) rest = rest.replace(new RegExp("\\b"+k+"\\b","g"), v);
+  const senzaPart = rest.split(/\bsenza\b/).slice(1).join(" , ");
+  for(const ing of INGREDIENTI){
+    const n = norm(ing);
+    if(senzaPart.includes(n)) f.senza.push(ing);
+    else if(rest.includes(" "+n) ) f.con.push(ing);
+  }
+  if(/vegetarian/.test(t)) f.veg = true;
+  const named = ITEMS.filter(i => { const n = norm(i.name).split(" ")[0]; return n.length > 3 && new RegExp("\\b"+norm(i.name)+"\\b").test(t) || (norm(i.name).split(" ").length === 1 && new RegExp("\\b"+n+"\\b").test(t)); });
+  if(named.length === 1 && !f.con.length && !f.senza.length && f.max === null) return {type:"item", id:named[0].id};
+  if(!f.cats.length && !f.con.length && !f.senza.length && f.max === null && !f.veg){
+    if(/^(ciao|salve|buonasera|buongiorno|hey|ehi)\b/.test(t)) return {type:"hello"};
+    return {type:"unknown"};
+  }
+  const CARNE = ["manzo","salsiccia","bacon","salame piccante"];
+  const res = ITEMS.filter(i =>
+    (!f.cats.length || f.cats.includes(i.cat)) &&
+    f.con.every(x => i.ing.includes(x)) &&
+    (f.max === null || i.price <= f.max) &&
+    (!f.veg || (!i.ing.some(x => CARNE.includes(x)) && !["birre","drink"].includes(i.cat))) &&
+    f.senza.every(x => !i.ing.includes(x) || removable(i, x)));
+  return {type:"search", f, ids:res.map(i => i.id)};
+}
+function removable(it, ing){ return it.groups.some(g => GROUPS[g].opts.some(o => norm(o[0]) === "senza " + norm(ing))); }
+function describe(f){
+  const p = [];
+  if(f.cats.length) p.push(f.cats.map(c => CATS.find(x => x.id === c).name.toLowerCase()).join(" e "));
+  if(f.veg) p.push("vegetariani");
+  if(f.con.length) p.push("con " + f.con.join(" e "));
+  if(f.senza.length) p.push("senza " + f.senza.join(" e "));
+  if(f.max !== null) p.push("fino a " + euro(f.max));
+  return p.join(", ");
+}
+
+/* ---------- Chat ---------- */
+const log = document.getElementById("log");
+function add(cls, html){ const d = document.createElement("div"); d.className = "msg " + cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+const bot = html => add("bot", html);
+const quick = arr => '<div class="quick">' + arr.map(([l,a,v]) => `<button type="button" data-act="${a}" data-v="${esc(v||"")}">${esc(l)}</button>`).join("") + "</div>";
+const MAINQ = () => quick([["Menu completo","say","menu completo"], ...CATS.map(c => [c.name,"say",c.name]), ["Chiama il cameriere","waiter"]]);
+function pcard(it, note){
+  const al = "";
+  return `<div class="pcard"><div class="thumb" aria-hidden="true">${it.em}</div><div>
+    <div class="row"><span>${esc(it.name)}</span><span>${hasVariantPrice(it) ? "da " : ""}${euro(it.price)}</span></div>
+    <small>${esc(it.ing.join(", "))}</small>${note ? `<small>${esc(note)}</small>` : ""}${al}
+    <div class="quick" style="margin-top:6px"><button type="button" data-act="pick" data-v="${it.id}">Aggiungi</button>${it.groups.length ? `<button type="button" data-act="info" data-v="${it.id}">Varianti e prezzi</button>` : ""}</div></div></div>`;
+}
+function optionsText(it){
+  return it.groups.map(g => { const G = GROUPS[g]; return `<p><b>${esc(G.label)}:</b> ${G.opts.map(o => esc(o[0]) + (o[1] ? " (+" + euro(o[1]) + ")" : "")).join(", ")}</p>`; }).join("");
+}
+function showItems(ids, intro, notes){
+  const list = ids.map(byId);
+  let html = `<p>${intro}</p>`;
+  let last = null;
+  for(const it of list){
+    if(ids.length > 4 && it.cat !== last){ html += `<p style="margin-top:8px"><b>${esc(catOf(it).name)}</b></p>`; last = it.cat; }
+    html += pcard(it, notes && notes[it.id]);
+  }
+  bot(html);
+}
+function welcome(){
+  const now = new Date();
+  bot(`<p>Buonasera e benvenuti alla <b>Lanterna Storta</b>! Siete al <b>tavolo 7</b>.</p>
+       <p class="muted" style="font-size:13px">${fmtData(now)}, ore ${fmtOra(now)}</p>
+       <p>Posso mostrarvi il menu, anche solo una parte: scrivete cosa vi va oppure toccate un pulsante.</p>` + MAINQ());
+}
+function cartTotal(){ return state.cart.reduce((s,c) => s + c.price, 0); }
+function showCart(){
+  document.getElementById("cart-n").textContent = state.cart.length;
+  if(!state.cart.length){ bot("<p>Il carrello del tavolo è vuoto.</p>" + MAINQ()); return; }
+  bot(`<p><b>Carrello del tavolo 7</b></p>` + state.cart.map((c,i) =>
+      `<div class="cartline"><span>${esc(c.name)}${c.opts.length ? `<br><small class="muted">${esc(c.opts.join(", "))}</small>` : ""}<br><small class="muted">messo da ${esc(c.who)}</small></span>
+       <span>${euro(c.price)} <button type="button" data-act="rm" data-v="${i}" aria-label="Togli ${esc(c.name)}" style="border:0;background:none;color:var(--accent);font-weight:700">✕</button></span></div>`).join("") +
+      `<div class="cartline"><b>Totale</b><b>${euro(cartTotal())}</b></div>` +
+      quick([["Conferma per tutto il tavolo","confirm"],["Aggiungi altro","say","menu completo"]]));
+}
+function startConfig(it){
+  state.config = {id:it.id, one:{}, many:{}};
+  it.groups.forEach(g => { if(GROUPS[g].type === "one") state.config.one[g] = 0; });
+  renderConfig();
+}
+function configPrice(){
+  const it = byId(state.config.id); let p = it.price;
+  for(const [g,i] of Object.entries(state.config.one)) p += GROUPS[g].opts[i][1];
+  for(const k of Object.keys(state.config.many)){ const [g,i] = k.split(":"); p += GROUPS[g].opts[+i][1]; }
+  return p;
+}
+function renderConfig(){
+  const c = state.config, it = byId(c.id);
+  let html = `<p><b>${esc(it.name)}</b>: come la vuoi?</p>`;
+  for(const g of it.groups){
+    const G = GROUPS[g];
+    html += `<p style="margin-top:8px"><b>${esc(G.label)}</b>${G.type === "one" ? " (una scelta)" : ""}</p><div class="quick">` +
+      G.opts.map((o,i) => { const on = G.type === "one" ? c.one[g] === i : !!c.many[g+":"+i];
+        return `<button type="button" class="${on ? "sel" : ""}" aria-pressed="${on}" data-act="opt" data-v="${g}:${i}">${esc(o[0])}${delta(o[1])}</button>`; }).join("") + "</div>";
+  }
+  html += `<div class="quick" style="margin-top:12px"><button type="button" class="sel" data-act="addcfg">Aggiungi al carrello · ${euro(configPrice())}</button></div>`;
+  if(c.el && c.el.isConnected) c.el.innerHTML = html; else c.el = bot(html);
+}
+function addToCart(it, opts, price){
+  state.cart.push({id:it.id, name:it.name, opts, price, who:"Tu"});
+  document.getElementById("cart-n").textContent = state.cart.length;
+  bot(`<p>Aggiunto: <b>${esc(it.name)}</b>${opts.length ? " (" + esc(opts.join(", ")) + ")" : ""}, ${euro(price)}.</p>` +
+      quick([["Vedi il carrello","cart"],["Conferma per tutto il tavolo","confirm"],["Aggiungi altro","say","menu completo"]]));
+}
+function saveQuestion(text){
+  const q = state.questions.find(x => norm(x.q) === norm(text));
+  if(q) q.n++; else state.questions.push({q:text, n:1, when:new Date()});
+  renderGestore();
+}
+function waiter(reason){
+  bot(`<p>Ho avvisato il personale: <b>il tavolo 7 chiama</b>${reason ? " (" + esc(reason) + ")" : ""}. Arrivano subito.</p>`);
+}
+function handle(text){
+  const r = interpret(text);
+  switch(r.type){
+    case "empty": return;
+    case "hello": return welcome();
+    case "blocked": bot(`<p><b>Su questo non posso rispondere: chiama il cameriere.</b></p><p class="muted" style="font-size:13px">Il locale ha scelto di far rispondere il personale su allergeni e celiachia.</p>` + quick([["Chiama il cameriere","waiter","domanda su allergeni"]])); return;
+    case "waiter": return waiter();
+    case "cart": return showCart();
+    case "confirm": return confirmOrder();
+    case "pay": return payMenu();
+    case "learned": bot(`<p>${esc(r.a)}</p>`); return;
+    case "fullmenu": return showItems(ITEMS.map(i => i.id), "Ecco il menu completo.");
+    case "item": { const it = byId(r.id);
+      bot(`<p>${pcard(it)}</p>` + (it.groups.length ? optionsText(it) : "")); return; }
+    case "search": {
+      if(!r.ids.length){ bot(`<p>Non ho trovato nulla ${esc(describe(r.f))} nel menu.</p>` + MAINQ()); return; }
+      const notes = {};
+      r.f.senza.forEach(x => r.ids.forEach(id => { const it = byId(id); if(it.ing.includes(x)) notes[id] = "Si può chiedere senza " + x; }));
+      return showItems(r.ids, `Ecco cosa abbiamo: <b>${esc(describe(r.f))}</b>.`, notes); }
+    default:
+      saveQuestion(text);
+      bot(`<p>A questa domanda non so rispondere. L'ho messa da parte per il gestore, così la prossima volta saprò cosa dire.</p>` + quick([["Chiama il cameriere","waiter"],["Menu completo","say","menu completo"]]));
+  }
+}
+function confirmOrder(){
+  if(!state.cart.length){ bot("<p>Non c'è nulla da confermare: il carrello è vuoto.</p>"); return; }
+  bot(`<p>Confermi l'ordine <b>per tutto il tavolo 7</b>? Totale ${euro(cartTotal())}, ${state.cart.length} ${state.cart.length === 1 ? "voce" : "voci"}.</p>` +
+      quick([["Sì, pago in cassa","send","cassa"],["Sì, pago ora dal telefono","send","ora"],["Non ancora","cart"]]));
+}
+function sendOrder(mode){
+  if(!state.cart.length) return;
+  const o = {n:state.orders.length + 1, items:state.cart, total:cartTotal(), when:new Date(), stato:"cucina", pagato:false, metodo:null};
+  state.orders.push(o); state.cart = []; document.getElementById("cart-n").textContent = 0;
+  add("sys", `Ordine n. ${o.n} confermato da Tu per tutto il tavolo · ore ${fmtOra(o.when)}`);
+  if(mode === "ora") payMenu(o.n);
+  else bot(`<p>Fatto! L'ordine n. ${o.n} è <b>in cucina</b>. Pagherete in cassa (${euro(o.total)}).</p><p>Se vi va altro, aggiungete pure: sarà un nuovo ordine dello stesso tavolo.</p>` + quick([["Aggiungi altro","say","menu completo"],["Paga ora dal telefono","paymenu"]]));
+  renderGestore();
+}
+function dueOrders(){ return state.orders.filter(o => !o.pagato); }
+function payMenu(){
+  const due = dueOrders();
+  if(!due.length){ bot(state.orders.length ? "<p>Il conto del tavolo è già saldato.</p>" : "<p>Non c'è ancora nessun ordine da pagare. Conferma prima l'ordine del tavolo.</p>"); return; }
+  const tot = due.reduce((s,o) => s + o.total, 0);
+  bot(`<p>Conto del tavolo 7: <b>${euro(tot)}</b>. Come vuoi pagare?</p>` +
+      quick(["Apple Pay","Google Pay","Satispay","Revolut Pay","Bancomat Pay","Carta"].map(m => [m,"paywith",m]).concat([["Pago in cassa","paycassa"]])) +
+      `<p style="margin-top:8px"><span class="tag prova">PROVA</span> <span class="muted" style="font-size:13px">In questa demo non parte nessun pagamento.</span></p>`);
+}
+function payWith(m){
+  const due = dueOrders(); if(!due.length) return;
+  const tot = due.reduce((s,o) => s + o.total, 0);
+  due.forEach(o => { o.pagato = true; o.metodo = m; });
+  add("sys", `Pagamento di prova con ${m} · ${euro(tot)} · ore ${fmtOra(new Date())}`);
+  bot(`<p><b>Pagato</b> (prova). Il conto del tavolo risulta saldato anche in cassa, e l'ordine è in preparazione.</p>` + quick([["Aggiungi altro","say","menu completo"]]));
+  renderGestore();
+}
+
+/* ---------- Vista gestore ---------- */
+const STATI = {cucina:"In cucina", pronto:"Pronto", servito:"Servito"};
+function ticket(o, zone){
+  const rows = o.items.filter(i => catOf(byId(i.id)).zone === zone);
+  if(!rows.length) return "";
+  return `<div class="ticket">*** ${zone.toUpperCase()} ***\nTAVOLO 7      ordine n. ${o.n}\n${new Intl.DateTimeFormat("it-IT",{dateStyle:"short",timeZone:"Europe/Rome"}).format(o.when)} ore ${fmtOra(o.when)}\n------------------------------\n` +
+    rows.map(i => "1 x " + esc(i.name) + (i.opts.length ? "\n    " + esc(i.opts.join(", ")) : "") + "\n    (" + esc(i.who) + ")").join("\n") + "</div>";
+}
+function renderGestore(){
+  const ob = document.getElementById("orders");
+  ob.innerHTML = state.orders.length ? state.orders.slice().reverse().map(o =>
+    `<div class="order"><b>Ordine n. ${o.n}</b> · ore ${fmtOra(o.when)} · ${euro(o.total)}<br>
+     <span class="pill ${o.stato}">${STATI[o.stato]}</span>
+     <span class="pill ${o.pagato ? "pagato" : "dapagare"}">${o.pagato ? "Pagato dal tavolo (" + esc(o.metodo) + ", prova)" : "Da pagare in cassa"}</span>
+     <div class="quick">${o.stato === "cucina" ? `<button type="button" data-act="adv" data-v="${o.n}">Segna pronto</button>` : ""}${o.stato === "pronto" ? `<button type="button" data-act="adv" data-v="${o.n}">Segna servito</button>` : ""}</div>
+     <p class="muted" style="font-size:13px;margin:8px 0 0">Comande stampate per zona:</p>${["Forno","Cucina","Bar"].map(z => ticket(o,z)).join("")}</div>`).join("")
+    : `<p class="empty">Ancora nessun ordine. Vai al <a href="#chat">chatbot</a>, riempi il carrello e conferma per il tavolo.</p>`;
+  const qb = document.getElementById("questions");
+  qb.innerHTML = state.questions.length ? state.questions.map((q,i) =>
+    `<div class="qa"><b>«${esc(q.q)}»</b><br><span class="muted" style="font-size:13px">${fmtData(q.when)}, ore ${fmtOra(q.when)} · tavolo 7 · chiesta ${q.n} ${q.n === 1 ? "volta" : "volte"}</span>
+     <label for="ans-${i}" style="position:absolute;left:-9999px">Risposta</label><textarea id="ans-${i}" placeholder="Scrivi la risposta che il chatbot dovrà dare"></textarea>
+     <div class="quick"><button type="button" data-act="teach" data-v="${i}">Salva risposta</button><button type="button" data-act="ignore" data-v="${i}">Ignora</button></div></div>`).join("")
+    : `<p class="empty">Nessuna domanda in attesa. Prova a chiedere al chatbot «avete il seggiolone?».</p>`;
+  document.getElementById("learned").innerHTML = state.learned.map(l => `<p style="margin:6px 0"><b>${esc(l.q)}</b><br><span class="muted">${esc(l.a)}</span></p>`).join("");
+}
+
+/* ---------- Menu pubblico ---------- */
+let menuCat = "tutto";
+function renderMenu(){
+  document.getElementById("menu-chips").innerHTML = [["tutto","Tutto"], ...CATS.map(c => [c.id,c.name])].map(([id,n]) =>
+    `<button type="button" class="chip" aria-pressed="${menuCat === id}" data-act="mcat" data-v="${id}">${esc(n)}</button>`).join("");
+  document.getElementById("menu-body").innerHTML = CATS.filter(c => menuCat === "tutto" || c.id === menuCat).map(c =>
+    `<h2 class="cat-title">${esc(c.name)}</h2><div class="items">` + ITEMS.filter(i => i.cat === c.id).map(it => {
+      const al = allergeniDi(it);
+      return `<div class="item"><div class="thumb" aria-hidden="true">${it.em}</div><div><h3>${esc(it.name)}</h3>
+        ${it.ing.length ? `<p class="muted">${esc(it.ing.join(", "))}</p>` : ""}
+        ${it.groups.map(g => { const G = GROUPS[g]; return `<p class="opts"><b>${esc(G.label)}:</b> ${G.opts.map(o => esc(o[0]) + (o[1] ? " +" + euro(o[1]) : "")).join(" · ")}</p>`; }).join("")}
+        ${al.length ? `<p>${al.map(a => `<span class="tag">${esc(a)}</span>`).join(" ")}</p>` : ""}</div>
+        <div class="price">${hasVariantPrice(it) ? "da " : ""}${euro(it.price)}</div></div>`; }).join("") + "</div>").join("");
+}
+
+/* ---------- Eventi ---------- */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const a = b.dataset.act, v = b.dataset.v;
+  if(a === "say"){ add("me", esc(v)); handle(v); }
+  else if(a === "waiter") waiter(v);
+  else if(a === "cart") { if(location.hash !== "#chat") location.hash = "#chat"; showCart(); }
+  else if(a === "pick"){ const it = byId(v); it.groups.length ? startConfig(it) : addToCart(it, [], it.price); }
+  else if(a === "info"){ const it = byId(v); bot(`<p><b>${esc(it.name)}</b> costa ${hasVariantPrice(it) ? "da " : ""}${euro(it.price)}.</p>` + optionsText(it) + quick([["Aggiungi","pick",it.id]])); }
+  else if(a === "opt"){ const [g,i] = v.split(":"), c = state.config; if(!c) return;
+    if(GROUPS[g].type === "one") c.one[g] = +i; else if(c.many[v]) delete c.many[v]; else c.many[v] = true; renderConfig(); }
+  else if(a === "addcfg"){ const c = state.config; if(!c) return; const it = byId(c.id);
+    const opts = [...Object.entries(c.one).map(([g,i]) => GROUPS[g].opts[i][0]), ...Object.keys(c.many).map(k => { const [g,i] = k.split(":"); return GROUPS[g].opts[+i][0]; })];
+    const p = configPrice(); c.el.innerHTML = `<p class="muted">Scelte fatte per ${esc(it.name)}.</p>`; state.config = null; addToCart(it, opts, p); }
+  else if(a === "rm"){ state.cart.splice(+v,1); showCart(); }
+  else if(a === "confirm") confirmOrder();
+  else if(a === "send") sendOrder(v);
+  else if(a === "paymenu") payMenu();
+  else if(a === "paywith") payWith(v);
+  else if(a === "paycassa") bot("<p>Va bene: pagherete in cassa. Dite solo «tavolo 7».</p>");
+  else if(a === "adv"){ const o = state.orders.find(x => x.n === +v); o.stato = o.stato === "cucina" ? "pronto" : "servito";
+    bot(o.stato === "pronto" ? `<p>L'ordine n. ${o.n} è <b>pronto</b>: sta arrivando al tavolo.</p>` : `<p>Ordine n. ${o.n} servito. Buon appetito!</p>`); renderGestore(); }
+  else if(a === "teach"){ const q = state.questions[+v], ta = document.getElementById("ans-" + v); const ans = ta.value.trim();
+    if(!ans){ ta.focus(); ta.placeholder = "Scrivi prima la risposta"; return; }
+    state.learned.push({q:q.q, a:ans}); state.questions.splice(+v,1); renderGestore(); }
+  else if(a === "ignore"){ state.questions.splice(+v,1); renderGestore(); }
+  else if(a === "mcat"){ menuCat = v; renderMenu(); }
+  else if(a === "social"){ document.getElementById("social-note").textContent = "Collegamento dimostrativo a " + b.textContent + ": nel sito vero apre il profilo del locale."; }
+  else if(a === "pal"){ setPal(v); }
+});
+document.getElementById("compose").addEventListener("submit", e => {
+  e.preventDefault(); const inp = document.getElementById("chat-input"); const v = inp.value.trim(); if(!v) return;
+  add("me", esc(v)); inp.value = ""; handle(v);
+});
+
+/* ---------- Colori del locale ---------- */
+const PALS = [["forno","#c9301f"],["notte","#14181f"],["mare","#0d6e8a"],["orto","#3f7a2a"],["vino","#7d1f3a"]];
+function setPal(p){
+  if(p === "forno") document.documentElement.removeAttribute("data-pal"); else document.documentElement.setAttribute("data-pal", p);
+  document.querySelectorAll("#pals button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === p));
+}
+document.getElementById("pals").insertAdjacentHTML("beforeend", PALS.map(([n,c]) => `<button type="button" data-act="pal" data-v="${n}" style="background:${c}" aria-label="Colori ${n}" aria-pressed="${n === "forno"}"></button>`).join(""));
+
+/* ---------- Viste ---------- */
+const VIEWS = ["sito","menu","chat","gestore"];
+function route(){
+  const h = location.hash.replace("#",""); const v = VIEWS.includes(h) ? h : "sito";
+  VIEWS.forEach(x => document.getElementById("v-" + x).classList.toggle("on", x === v));
+  document.querySelectorAll("nav a").forEach(a => a.getAttribute("href") === "#" + v ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
+  if(v === "chat") log.scrollTop = log.scrollHeight;
+}
+window.addEventListener("hashchange", route);
+
+/* ---------- Avvio ---------- */
+(function init(){
+  const now = new Date();
+  const s = fmtData(now); document.getElementById("oggi").textContent = s.charAt(0).toUpperCase() + s.slice(1);
+  document.getElementById("aperto").textContent = "Ore " + fmtOra(now) + " · cucina aperta fino a mezz'ora prima della chiusura";
+  document.getElementById("try").innerHTML = ["solo le pizze","pizze con salsiccia","hamburger senza cipolla","qualcosa sotto i 5 euro","quanto costa la margherita?","è senza glutine?","avete il seggiolone?","avete il wifi?"]
+    .map(t => `<button type="button" data-act="say" data-v="${esc(t)}">${esc(t)}</button>`).join("");
+  renderMenu(); renderGestore(); welcome(); route();
+})();
+</script>
+</body>
+</html>

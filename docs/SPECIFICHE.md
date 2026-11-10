@@ -57,10 +57,13 @@ fa da riserva.
   cliente tutte le possibilità con i prezzi e calcola il totale giusto.
 - **Ingredienti**: elenco del locale, riutilizzabile; è ciò che permette al
   chatbot di rispondere a «pizze con i funghi» o «senza cipolla».
-- **Allergeni e celiachia**: i 14 allergeni di legge con una spunta ciascuno,
-  sul prodotto o sull'ingrediente (dall'ingrediente passano al piatto);
-  etichetta «senza glutine» separata. Altre etichette: vegetariano, vegano,
-  piccante, surgelato.
+- **Allergeni e celiachia**: si inseriscono **sugli ingredienti**, con una
+  scheda guidata (tre posizioni per ognuno dei 14 allergeni, stato del glutine,
+  conferma «ho controllato l'etichetta»); il piatto eredita tutto. Un dato non
+  verificato vale «non dichiarato», mai «non contiene». L'etichetta «senza
+  glutine» la concede il programma solo a condizioni precise. Regole complete e
+  prove obbligatorie in `docs/allergeni.md`. Altre etichette: vegetariano,
+  vegano, piccante, surgelato.
 - **Inserimento facile**: griglia tipo foglio di calcolo, duplica prodotto,
   importa da Excel/CSV, cambia prezzi in blocco, trascina per riordinare,
   interruttore «esaurito» che toglie subito il prodotto dal menu.
@@ -70,7 +73,8 @@ fa da riserva.
 - **Tavoli e QR**: sale, tavoli numerati, QR generati e stampabili in fogli PDF
   (con logo e numero del tavolo). Un QR si può rigenerare se viene copiato.
 - **Comportamento del chatbot su allergeni e celiachia**: il titolare sceglie
-  *allergeni*, *celiachia*, *tutti e due* o *nessuno*. Sugli argomenti scelti il
+  *allergeni*, *celiachia*, *tutti e due* o *nessuno* (per i locali nuovi è
+  acceso *tutti e due*). Sugli argomenti scelti il
   chatbot risponde subito con il messaggio fisso «Su questo non posso
   rispondere: chiama il cameriere» e offre il pulsante di chiamata.
 

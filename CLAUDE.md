@@ -20,6 +20,9 @@ con parole semplici, e non chiedere di lanciare comandi sul proprio computer
 - **Allergeni e celiachia.** Se il titolare ha bloccato l'argomento, il chatbot
   risponde subito col messaggio fisso e propone di chiamare il cameriere. Il
   blocco è una regola scritta nel codice, non un'istruzione al modello.
+  Regole complete in `docs/allergeni.md`: un dato non verificato vale «non
+  dichiarato», mai «non contiene»; le prove su allergeni e celiachia non si
+  saltano e non si allentano per far passare una modifica.
 - **Varianti e aggiunte.** Il chatbot elenca sempre varianti e aggiunte
   possibili con i prezzi inseriti dal gestore.
 - **Il chatbot impara dal gestore.** Le domande senza risposta finiscono in

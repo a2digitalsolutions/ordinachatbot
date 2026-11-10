@@ -25,7 +25,7 @@ progetto:
   nome: Ordinachatbot
   inizio_previsto: 2026-11-10
   persone_in_parallelo: 2   # Enrico e Paolo, ognuno con le proprie sessioni di Claude
-  # scadenza_obiettivo: da decidere (Paolo ed Enrico lavorano anche su altri progetti)
+  scadenza_obiettivo: 2026-11-24   # richiesta di Paolo del 10/11: pronto in 10 giorni lavorativi
   festivi:
     - 2026-12-08
     - 2026-12-24
@@ -151,6 +151,31 @@ tasks:
       pagamenti online, reparti e aliquote IVA, chi è titolare dei dati dei
       clienti, obblighi sugli allergeni nel menu digitale, contratto SaaS.
 
+  - id: OC0-08
+    titolo: Demo cliccabile da mostrare ai locali (sito, menu, chatbot, vista gestore)
+    fase: 0
+    giorni: 0.5
+    dipende_da: [OC0-01]
+    stato: fatto
+    assegnato: Claude
+    inizio: 2026-11-10
+    fine: 2026-11-10
+    note: >
+      demo/index.html, pubblicata anche come pagina. Locale inventato, risposte
+      simulate con regole semplici, nessun ordine o pagamento reale (etichette
+      DEMO/PROVA). Non è codice del prodotto: serve per le presentazioni.
+
+  - id: OC0-09
+    titolo: Regole di sicurezza su allergeni e celiachia — logica comune con prove automatiche
+    fase: 0
+    giorni: 1
+    dipende_da: [OC0-04]
+    note: >
+      Libreria condivisa (packages/shared): i 14 allergeni, passaggio
+      ingrediente → piatto, regola dell'etichetta «senza glutine», riconoscimento
+      dei messaggi su allergeni/celiachia. Regole in docs/allergeni.md. Le prove
+      girano a ogni modifica e bloccano l'unione se falliscono.
+
   # ---------------- FASE 1 — LOCALE, MENU, ASPETTO, QR ----------------
   - id: OC1-01
     titolo: Schema dei dati multi-locale e isolamento tra locali
@@ -214,13 +239,17 @@ tasks:
       pizza") e si applicano a un'intera categoria o a singoli prodotti.
 
   - id: OC1-08
-    titolo: Allergeni (14 di legge), senza glutine e altre etichette del prodotto
+    titolo: Scheda ingrediente guidata — allergeni, glutine, verifica dell'etichetta
     fase: 1
-    giorni: 1
-    dipende_da: [OC1-07]
+    giorni: 1.5
+    dipende_da: [OC1-07, OC0-09]
     note: >
-      Spunte veloci per prodotto e per ingrediente (l'allergene dell'ingrediente
-      si propaga al piatto). Etichette: vegetariano, vegano, piccante, surgelato.
+      Come in docs/allergeni.md: per ogni ingrediente tre scelte per allergene
+      (contiene / può contenere tracce / non contiene), stato del glutine,
+      suggerimenti da un elenco di ingredienti comuni, conferma «ho controllato
+      l'etichetta» con nome e data. Finché non è verificato l'ingrediente vale
+      come «non dichiarato». Il piatto eredita tutto dagli ingredienti e dalle
+      aggiunte. Altre etichette: vegetariano, vegano, piccante, surgelato.
 
   - id: OC1-09
     titolo: Inserimento veloce — griglia modificabile, duplica, importa da Excel, prezzi in blocco, esaurito
@@ -298,7 +327,7 @@ tasks:
     titolo: Blocco allergeni e celiachia configurabile e pulsante «Chiama il cameriere»
     fase: 2
     giorni: 1
-    dipende_da: [OC2-03]
+    dipende_da: [OC2-03, OC0-09]
     note: >
       Il titolare sceglie: allergeni, celiachia, tutti e due o nessuno. Sugli
       argomenti bloccati il chatbot risponde subito con il messaggio fisso e
@@ -358,7 +387,7 @@ tasks:
     titolo: Prove complete del chatbot e Demo 2
     fase: 2
     giorni: 1
-    dipende_da: [OC2-04, OC2-08, OC2-09, OC2-10, OC2-11, OC2-14]
+    dipende_da: [OC2-04, OC2-08, OC2-09, OC2-10, OC2-11, OC2-14, OC2-15]
     note: Elenco di frasi vere (errori di battitura, dialetto, richieste strane) in docs/test.
 
   - id: OC2-13
@@ -382,6 +411,19 @@ tasks:
       chatbot usa da subito; si possono correggere e cancellare. Le risposte
       del gestore non scavalcano il blocco allergeni/celiachia e non cambiano
       prezzi o menu. Lo possono fare anche i super amministratori.
+
+  - id: OC2-15
+    titolo: Prove severe su allergeni e celiachia (obbligatorie prima di ogni rilascio)
+    fase: 2
+    giorni: 1.5
+    dipende_da: [OC2-04, OC2-14, OC1-08]
+    note: >
+      Elenco in docs/allergeni.md §6: almeno 300 frasi (italiano, errori di
+      battitura, dialetto, inglese, giri di parole, tentativi di aggirare il
+      blocco) che devono essere bloccate tutte; frasi innocenti che non devono
+      esserlo; piatto mai «senza glutine» se manca una verifica; risposte del
+      gestore che non scavalcano il blocco; nota di allergia evidenziata sulla
+      comanda. Un solo errore blocca il rilascio.
 
   # ---------------- FASE 3 — STAMPANTI ----------------
   - id: OC3-01
@@ -603,7 +645,7 @@ tasks:
     fase: 6
     giorni: 3
     impegno: 1.5
-    dipende_da: [OC6-05, OC6-07, OC6-08, OC3-05]
+    dipende_da: [OC6-05, OC6-07, OC6-08, OC3-05, OC2-15]
     esterno: true
 
   - id: OC6-10

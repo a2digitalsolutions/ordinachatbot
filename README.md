@@ -12,6 +12,8 @@ dal telefono. Per bar, pub, ristoranti e pizzerie, in abbonamento (SaaS).
 | [Gantt](docs/GANTT.md) | Diagramma con le date previste di task e demo |
 | [Specifiche](docs/SPECIFICHE.md) | Come funziona il prodotto, stati di tavolo, ordine e pagamento |
 | [Manuale di utilizzo](docs/MANUALE.md) | Guida per titolare, personale, clienti e amministratori |
+| [Allergeni e celiachia](docs/allergeni.md) | Cosa inserisce il gestore, regole di sicurezza, prove obbligatorie |
+| [Demo cliccabile](demo/index.html) | Prototipo dimostrativo: sito, menu, chatbot del tavolo, vista gestore |
 | [Elenco task](project/tasks.yaml) | Fonte unica di task, dipendenze e stato |
 | [Regole di lavoro](CLAUDE.md) | Come avviare, chiudere e verificare i task |
 

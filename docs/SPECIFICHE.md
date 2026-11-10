@@ -24,6 +24,11 @@ e pizzerie.
 
 Il modulo base è sempre attivo; gli altri si accendono locale per locale.
 
+**Ordine di sviluppo e di vendita.** La **versione 1** (obiettivo: primi di
+dicembre 2026) comprende base, pagamenti dal tavolo, stampanti per le comande e
+sito. **Cassa e gestionale** si sviluppano dopo e si vendono a parte: un locale
+con la versione 1 continua a usare il proprio registratore di cassa.
+
 | Modulo | Contenuto | Obbligatorio |
 |---|---|---|
 | **Base** | Menu, aspetto, tavoli e QR, chatbot, ordini, schermo ordini per il personale | sì |

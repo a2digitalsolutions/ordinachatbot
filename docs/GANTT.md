@@ -38,69 +38,69 @@ gantt
     Demo 1 — menu, grafica e QR code dei tavoli :milestone, m1, 2026-12-02, 0d
     section Fase 2 Chatbot e ordini dal tavolo (Demo 2)
     OC2-01 Sessione del tavolo — apertura dal QR, partecipanti… :oc2_01, 2026-12-01, 2026-12-03
+    OC2-03 Motore del chatbot — capisce la richiesta e cerca ne… :oc2_03, 2026-12-02, 2026-12-05
     OC2-02 Schermata della chat — messaggi, schede prodotto con… :oc2_02, 2026-12-03, 2026-12-05
-    OC2-03 Motore del chatbot — capisce la richiesta e cerca ne… :oc2_03, 2026-12-03, 2026-12-08
     OC2-05 Carrello condiviso del tavolo — voci per persona, va… :oc2_05, 2026-12-07, 2026-12-10
+    OC2-04 Blocco allergeni e celiachia configurabile e pulsant… :oc2_04, 2026-12-09, 2026-12-10
     OC2-06 Conferma unica per tutto il tavolo e ordini successi… :oc2_06, 2026-12-10, 2026-12-11
+    OC2-13 Domande senza risposta — il chatbot le mette da part… :oc2_13, 2026-12-10, 2026-12-11
     OC2-07 Stati dell'ordine e storico :oc2_07, 2026-12-11, 2026-12-12
+    OC2-14 Il gestore risponde con calma e il chatbot impara :oc2_14, 2026-12-11, 2026-12-15
     OC2-08 Scelta del pagamento in cassa e regole del locale (s… :oc2_08, 2026-12-14, 2026-12-15
-    OC2-04 Blocco allergeni e celiachia configurabile e pulsant… :oc2_04, 2026-12-15, 2026-12-16
-    OC2-13 Domande senza risposta — il chatbot le mette da part… :oc2_13, 2026-12-16, 2026-12-17
-    OC2-14 Il gestore risponde con calma e il chatbot impara :oc2_14, 2026-12-18, 2026-12-22
-    OC2-11 Schermo ordini per il personale, in tempo reale con… :oc2_11, 2026-12-29, 2026-12-31
-    OC2-15 Prove severe su allergeni e celiachia (obbligatorie… :oc2_15, 2026-12-30, 2027-01-05
-    OC2-09 Protezioni — ordini da fuori locale, limiti, tavolo… :oc2_09, 2027-01-04, 2027-01-05
-    OC2-10 Lingue — italiano e inglese per menu e chatbot :oc2_10, 2027-01-05, 2027-01-06
-    OC2-12 Prove complete del chatbot e Demo 2 :oc2_12, 2027-01-13, 2027-01-14
-    Demo 2 — si ordina dal tavolo con il chatbot :milestone, m2, 2027-01-13, 0d
-    section Fase 3 Stampanti di cucina e di cassa (Demo 3)
-    OC3-01 Servizio di stampa — coda, formato della comanda, ri… :oc3_01, 2026-12-21, 2026-12-23
-    OC3-02 Collegamento delle stampanti termiche del locale :oc3_02, 2027-01-05, 2027-01-08
-    OC3-03 Zone di stampa (cucina, pizzeria, bar, cassa) e cate… :oc3_03, 2027-01-14, 2027-01-15
-    OC3-04 Controllo delle stampanti — carta finita, spenta, st… :oc3_04, 2027-01-18, 2027-01-19
-    OC3-05 Collaudo sul kit reale e Demo 3 :oc3_05, 2027-01-21, 2027-01-22
-    Demo 3 — le comande escono dalle stampanti :milestone, m3, 2027-01-21, 0d
-    section Fase 4 Pagamenti dal tavolo (Demo 4)
-    OC4-01 Collegamento del conto di incasso del locale :oc4_01, 2026-12-11, 2026-12-15
-    OC4-02 Pagamento dal tavolo con Apple Pay, Google Pay e car… :oc4_02, 2026-12-17, 2026-12-19
-    OC4-05 Conferma dell'incasso, invio in cucina dopo il pagam… :oc4_05, 2026-12-29, 2026-12-31
-    OC4-04 Pagamento con Bancomat Pay :oc4_04, 2027-01-08, 2027-01-12
-    OC4-06 Conto del tavolo — paga tutto, paga la tua parte, di… :oc4_06, 2027-01-11, 2027-01-13
-    OC4-03 Pagamento con Satispay e Revolut Pay :oc4_03, 2027-01-14, 2027-01-15
-    OC4-07 Ricevuta al cliente e riepilogo incassi per il titol… :oc4_07, 2027-01-15, 2027-01-16
-    OC4-08 Prove in ambiente di test dei pagamenti e Demo 4 :oc4_08, 2027-01-18, 2027-01-19
-    Demo 4 — si paga dal tavolo :milestone, m4, 2027-01-18, 0d
-    section Fase 5 Cassa e gestionale, modulo facoltativo…
-    OC5-01 Attivazione del modulo cassa per locale e postazioni… :oc5_01, 2026-11-27, 2026-11-28
-    OC5-02 Reparti, aliquote IVA, metodi di pagamento, coperto… :oc5_02, 2026-12-02, 2026-12-03
-    OC5-03 Schermata di cassa per monitor touch — vendita veloc… :oc5_03, 2026-12-09, 2026-12-11
-    OC5-04 Mappa dei tavoli — stati a colori, apri, sposta, uni… :oc5_04, 2026-12-14, 2026-12-16
-    OC5-05 Conto del tavolo in cassa — preconto, sconti, divisi… :oc5_05, 2026-12-16, 2026-12-18
-    OC5-07 Stampante fiscale RT — scontrino, annullo, reso, lot… :oc5_07, 2026-12-22, 2026-12-29
-    OC5-08 Apertura e chiusura giornaliera, fondo cassa, turni… :oc5_08, 2026-12-23, 2026-12-29
-    OC5-10 Resoconti — incassi per metodo, reparto, prodotto, f… :oc5_10, 2027-01-07, 2027-01-09
-    OC5-06 Ordini del chatbot in cassa in automatico pagato dal… :oc5_06, 2027-01-12, 2027-01-13
-    OC5-09 Storni e annulli con permessi per operatore e regist… :oc5_09, 2027-01-13, 2027-01-14
-    OC5-12 Collaudo sul kit reale e Demo 5 :oc5_12, 2027-01-15, 2027-01-16
-    OC5-11 Cassa utilizzabile senza internet e ripresa automati… :oc5_11, 2027-01-27, 2027-01-29
-    Demo 5 — cassa con tavoli e stampante fiscale :milestone, m5, 2027-01-15, 0d
-    section Fase 6 Sito, domini, SaaS e rilascio
-    OC6-05 Privacy — informative, cookie, conservazione dei dat… :oc6_05, 2027-01-19, 2027-01-21
-    OC6-07 Sicurezza, copie di salvataggio, controllo del servi… :oc6_07, 2027-01-19, 2027-01-21
-    OC6-08 Manuale definitivo con le schermate e guida di avvio… :oc6_08, 2027-01-20, 2027-01-21
-    OC6-02 Indirizzi — sottodominio nostro e dominio proprio de… :oc6_02, 2027-01-21, 2027-01-23
-    OC6-09 Locale pilota — installazione e prova con clienti ve… :oc6_09, 2027-01-22, 2027-01-27
-    OC6-01 Sito del locale (facoltativo) — social, contatti, or… :oc6_01, 2027-01-25, 2027-01-27
-    OC6-03 Passaggio dal nostro dominio a quello del locale sen… :oc6_03, 2027-01-25, 2027-01-26
-    OC6-04 Piani e moduli SaaS (base, stampanti, pagamenti, cas… :oc6_04, 2027-01-26, 2027-01-27
-    OC6-06 Statistiche per il titolare (più ordinati, orari di… :oc6_06, 2027-01-27, 2027-01-28
-    OC6-10 Rilascio versione 1 :oc6_10, 2027-01-28, 2027-01-29
-    Rilascio versione 1 :milestone, m6, 2027-01-28, 0d
-    section Fase 7 Dopo il rilascio
-    OC7-01 Registrazione autonoma dei locali e pagamento dell'a… :oc7_01, 2027-01-29, 2027-02-03
-    OC7-03 Asporto e consegna a domicilio :oc7_03, 2027-01-29, 2027-02-04
-    OC7-02 Prenotazione dei tavoli :oc7_02, 2027-02-03, 2027-02-06
-    OC7-04 Altre lingue, offerte a orario (es. aperitivo), racc… :oc7_04, 2027-02-04, 2027-02-09
+    OC2-11 Schermo ordini per il personale, in tempo reale con… :oc2_11, 2026-12-18, 2026-12-22
+    OC2-15 Prove severe su allergeni e celiachia (obbligatorie… :oc2_15, 2026-12-21, 2026-12-23
+    OC2-09 Protezioni — ordini da fuori locale, limiti, tavolo… :oc2_09, 2026-12-22, 2026-12-23
+    OC2-10 Lingue — italiano e inglese per menu e chatbot :oc2_10, 2026-12-23, 2026-12-24
+    OC2-12 Prove complete del chatbot e Demo 2 :oc2_12, 2026-12-29, 2026-12-30
+    Demo 2 — si ordina dal tavolo con il chatbot :milestone, m2, 2026-12-29, 0d
+    section Fase 3 Pagamenti dal tavolo (Demo 3)
+    OC3-01 Collegamento del conto di incasso del locale :oc3_01, 2026-12-07, 2026-12-10
+    OC3-02 Pagamento dal tavolo con Apple Pay, Google Pay e car… :oc3_02, 2026-12-15, 2026-12-17
+    OC3-05 Conferma dell'incasso, invio in cucina dopo il pagam… :oc3_05, 2026-12-17, 2026-12-19
+    OC3-04 Pagamento con Bancomat Pay :oc3_04, 2026-12-28, 2026-12-30
+    OC3-06 Conto del tavolo — paga tutto, paga la tua parte, di… :oc3_06, 2026-12-28, 2026-12-30
+    OC3-03 Pagamento con Satispay e Revolut Pay :oc3_03, 2026-12-30, 2026-12-31
+    OC3-07 Ricevuta al cliente e riepilogo incassi per il titol… :oc3_07, 2026-12-30, 2026-12-31
+    OC3-08 Prove in ambiente di test dei pagamenti e Demo 4 :oc3_08, 2027-01-05, 2027-01-06
+    Demo 3 — si paga dal tavolo :milestone, m3, 2027-01-05, 0d
+    section Fase 4 Stampanti per le comande (Demo 4)
+    OC4-01 Servizio di stampa — coda, formato della comanda, ri… :oc4_01, 2026-12-14, 2026-12-16
+    OC4-02 Collegamento delle stampanti termiche del locale :oc4_02, 2026-12-16, 2026-12-18
+    OC4-03 Zone di stampa (cucina, pizzeria, bar, cassa) e cate… :oc4_03, 2026-12-23, 2026-12-24
+    OC4-04 Controllo delle stampanti — carta finita, spenta, st… :oc4_04, 2027-01-04, 2027-01-05
+    OC4-05 Collaudo sul kit reale e Demo 3 :oc4_05, 2027-01-05, 2027-01-06
+    Demo 4 — le comande escono dalla stampante :milestone, m4, 2027-01-05, 0d
+    section Fase 5 Sito, domini, SaaS e rilascio della ver…
+    OC5-05 Privacy — informative, cookie, conservazione dei dat… :oc5_05, 2027-01-05, 2027-01-08
+    OC5-07 Sicurezza, copie di salvataggio, controllo del servi… :oc5_07, 2027-01-07, 2027-01-09
+    OC5-08 Manuale definitivo con le schermate e guida di avvio… :oc5_08, 2027-01-12, 2027-01-13
+    OC5-02 Indirizzi — sottodominio nostro e dominio proprio de… :oc5_02, 2027-01-13, 2027-01-15
+    OC5-09 Locale pilota — installazione e prova con clienti ve… :oc5_09, 2027-01-13, 2027-01-16
+    OC5-01 Sito del locale (facoltativo) — social, contatti, or… :oc5_01, 2027-01-15, 2027-01-19
+    OC5-03 Passaggio dal nostro dominio a quello del locale sen… :oc5_03, 2027-01-18, 2027-01-19
+    OC5-04 Piani e moduli SaaS (base, stampanti, pagamenti, cas… :oc5_04, 2027-01-19, 2027-01-20
+    OC5-06 Statistiche per il titolare (più ordinati, orari di… :oc5_06, 2027-01-19, 2027-01-20
+    OC5-10 Rilascio versione 1 :oc5_10, 2027-01-20, 2027-01-21
+    Versione 1 in vendita — chatbot, pagamenti, stamp… :milestone, m5, 2027-01-20, 0d
+    section Fase 6 Cassa e gestionale, dopo il rilascio (v…
+    OC6-01 Attivazione del modulo cassa per locale e postazioni… :oc6_01, 2026-11-27, 2026-11-28
+    OC6-02 Reparti, aliquote IVA, metodi di pagamento, coperto… :oc6_02, 2027-01-04, 2027-01-05
+    OC6-03 Schermata di cassa per monitor touch — vendita veloc… :oc6_03, 2027-01-08, 2027-01-12
+    OC6-04 Mappa dei tavoli — stati a colori, apri, sposta, uni… :oc6_04, 2027-01-11, 2027-01-13
+    OC6-05 Conto del tavolo in cassa — preconto, sconti, divisi… :oc6_05, 2027-01-15, 2027-01-19
+    OC6-07 Stampante fiscale RT — scontrino, annullo, reso, lot… :oc6_07, 2027-01-20, 2027-01-23
+    OC6-08 Apertura e chiusura giornaliera, fondo cassa, turni… :oc6_08, 2027-01-21, 2027-01-23
+    OC6-10 Resoconti — incassi per metodo, reparto, prodotto, f… :oc6_10, 2027-02-02, 2027-02-04
+    OC6-06 Ordini del chatbot in cassa in automatico pagato dal… :oc6_06, 2027-02-03, 2027-02-04
+    OC6-09 Storni e annulli con permessi per operatore e regist… :oc6_09, 2027-02-04, 2027-02-05
+    OC6-11 Cassa utilizzabile senza internet e ripresa automati… :oc6_11, 2027-02-04, 2027-02-06
+    OC6-12 Collaudo sul kit reale e Demo 5 :oc6_12, 2027-02-05, 2027-02-06
+    Cassa e gestionale — modulo in vendita :milestone, m6, 2027-02-05, 0d
+    section Fase 7 Altre funzioni dopo il rilascio
+    OC7-01 Registrazione autonoma dei locali e pagamento dell'a… :oc7_01, 2027-01-25, 2027-01-28
+    OC7-03 Asporto e consegna a domicilio :oc7_03, 2027-01-25, 2027-01-29
+    OC7-02 Prenotazione dei tavoli :oc7_02, 2027-01-28, 2027-02-02
+    OC7-04 Altre lingue, offerte a orario (es. aperitivo), racc… :oc7_04, 2027-01-29, 2027-02-03
 ```
 
 ## Date previste
@@ -129,59 +129,59 @@ gantt
 | OC1-03 | Area super amministratori — crea locale, lavora per conto del locale, sospendi | da fare |  | 26/11/2026 | 27/11/2026 |
 | OC1-10 | Caricamento e alleggerimento automatico delle foto | da fare |  | 26/11/2026 | 26/11/2026 |
 | OC1-14 | Menu pubblico consultabile senza chatbot, con la grafica del locale | da fare |  | 27/11/2026 | 30/11/2026 |
-| OC5-01 | Attivazione del modulo cassa per locale e postazioni di cassa | da fare |  | 27/11/2026 | 27/11/2026 |
+| OC6-01 | Attivazione del modulo cassa per locale e postazioni di cassa | da fare |  | 27/11/2026 | 27/11/2026 |
 | OC1-09 | Inserimento veloce — griglia modificabile, duplica, importa da Excel, prezzi in blocco, esaurito | da fare |  | 30/11/2026 | 01/12/2026 |
 | OC2-01 | Sessione del tavolo — apertura dal QR, partecipanti con nome, tempo reale | da fare |  | 01/12/2026 | 02/12/2026 |
 | OC1-15 | Locali dimostrativi (uno per tipologia) e Demo 1 | da fare |  | 02/12/2026 | 02/12/2026 |
-| OC5-02 | Reparti, aliquote IVA, metodi di pagamento, coperto e servizio | da fare |  | 02/12/2026 | 02/12/2026 |
+| OC2-03 | Motore del chatbot — capisce la richiesta e cerca nel menu | da fare |  | 02/12/2026 | 04/12/2026 |
 | OC2-02 | Schermata della chat — messaggi, schede prodotto con foto, pulsanti di scelta | da fare |  | 03/12/2026 | 04/12/2026 |
-| OC2-03 | Motore del chatbot — capisce la richiesta e cerca nel menu | da fare |  | 03/12/2026 | 07/12/2026 |
 | OC2-05 | Carrello condiviso del tavolo — voci per persona, varianti, note per la cucina | da fare |  | 07/12/2026 | 09/12/2026 |
-| OC5-03 | Schermata di cassa per monitor touch — vendita veloce al banco | da fare |  | 09/12/2026 | 10/12/2026 |
+| OC3-01 | Collegamento del conto di incasso del locale | da fare |  | 07/12/2026 | 09/12/2026 |
+| OC2-04 | Blocco allergeni e celiachia configurabile e pulsante «Chiama il cameriere» | da fare |  | 09/12/2026 | 09/12/2026 |
 | OC2-06 | Conferma unica per tutto il tavolo e ordini successivi | da fare |  | 10/12/2026 | 10/12/2026 |
+| OC2-13 | Domande senza risposta — il chatbot le mette da parte per il gestore | da fare |  | 10/12/2026 | 10/12/2026 |
 | OC2-07 | Stati dell'ordine e storico | da fare |  | 11/12/2026 | 11/12/2026 |
-| OC4-01 | Collegamento del conto di incasso del locale | da fare |  | 11/12/2026 | 14/12/2026 |
+| OC2-14 | Il gestore risponde con calma e il chatbot impara | da fare |  | 11/12/2026 | 14/12/2026 |
 | OC2-08 | Scelta del pagamento in cassa e regole del locale (subito o a fine pasto) | da fare |  | 14/12/2026 | 14/12/2026 |
-| OC5-04 | Mappa dei tavoli — stati a colori, apri, sposta, unisci | da fare |  | 14/12/2026 | 15/12/2026 |
-| OC2-04 | Blocco allergeni e celiachia configurabile e pulsante «Chiama il cameriere» | da fare |  | 15/12/2026 | 15/12/2026 |
-| OC2-13 | Domande senza risposta — il chatbot le mette da parte per il gestore | da fare |  | 16/12/2026 | 16/12/2026 |
-| OC5-05 | Conto del tavolo in cassa — preconto, sconti, divisione, pagamenti misti | da fare |  | 16/12/2026 | 17/12/2026 |
-| OC4-02 | Pagamento dal tavolo con Apple Pay, Google Pay e carta | da fare |  | 17/12/2026 | 18/12/2026 |
-| OC2-14 | Il gestore risponde con calma e il chatbot impara | da fare |  | 18/12/2026 | 21/12/2026 |
-| OC3-01 | Servizio di stampa — coda, formato della comanda, ristampa | da fare |  | 21/12/2026 | 22/12/2026 |
-| OC5-07 | Stampante fiscale RT — scontrino, annullo, reso, lotteria degli scontrini | da fare |  | 22/12/2026 | 28/12/2026 |
-| OC5-08 | Apertura e chiusura giornaliera, fondo cassa, turni degli operatori | da fare |  | 23/12/2026 | 28/12/2026 |
-| OC2-11 | Schermo ordini per il personale, in tempo reale con avviso sonoro | da fare |  | 29/12/2026 | 30/12/2026 |
-| OC4-05 | Conferma dell'incasso, invio in cucina dopo il pagamento, errori e rimborsi | da fare |  | 29/12/2026 | 30/12/2026 |
-| OC2-15 | Prove severe su allergeni e celiachia (obbligatorie prima di ogni rilascio) | da fare |  | 30/12/2026 | 04/01/2027 |
-| OC2-09 | Protezioni — ordini da fuori locale, limiti, tavolo chiuso | da fare |  | 04/01/2027 | 04/01/2027 |
-| OC2-10 | Lingue — italiano e inglese per menu e chatbot | da fare |  | 05/01/2027 | 05/01/2027 |
-| OC3-02 | Collegamento delle stampanti termiche del locale | da fare |  | 05/01/2027 | 07/01/2027 |
-| OC5-10 | Resoconti — incassi per metodo, reparto, prodotto, fascia oraria; esportazione | da fare |  | 07/01/2027 | 08/01/2027 |
-| OC4-04 | Pagamento con Bancomat Pay | da fare |  | 08/01/2027 | 11/01/2027 |
-| OC4-06 | Conto del tavolo — paga tutto, paga la tua parte, dividi in parti uguali, mancia | da fare |  | 11/01/2027 | 12/01/2027 |
-| OC5-06 | Ordini del chatbot in cassa in automatico; pagato dal tavolo = conto saldato | da fare |  | 12/01/2027 | 12/01/2027 |
-| OC2-12 | Prove complete del chatbot e Demo 2 | da fare |  | 13/01/2027 | 13/01/2027 |
-| OC5-09 | Storni e annulli con permessi per operatore e registro delle operazioni | da fare |  | 13/01/2027 | 13/01/2027 |
-| OC3-03 | Zone di stampa (cucina, pizzeria, bar, cassa) e categorie associate | da fare |  | 14/01/2027 | 14/01/2027 |
-| OC4-03 | Pagamento con Satispay e Revolut Pay | da fare |  | 14/01/2027 | 14/01/2027 |
-| OC4-07 | Ricevuta al cliente e riepilogo incassi per il titolare | da fare |  | 15/01/2027 | 15/01/2027 |
-| OC5-12 | Collaudo sul kit reale e Demo 5 | da fare |  | 15/01/2027 | 15/01/2027 |
-| OC3-04 | Controllo delle stampanti — carta finita, spenta, stampa di riserva, avvisi | da fare |  | 18/01/2027 | 18/01/2027 |
-| OC4-08 | Prove in ambiente di test dei pagamenti e Demo 4 | da fare |  | 18/01/2027 | 18/01/2027 |
-| OC6-05 | Privacy — informative, cookie, conservazione dei dati, contratto con i locali | da fare |  | 19/01/2027 | 20/01/2027 |
-| OC6-07 | Sicurezza, copie di salvataggio, controllo del servizio, prova di carico | da fare |  | 19/01/2027 | 20/01/2027 |
-| OC6-08 | Manuale definitivo con le schermate e guida di avvio per i locali | da fare |  | 20/01/2027 | 20/01/2027 |
-| OC3-05 | Collaudo sul kit reale e Demo 3 | da fare |  | 21/01/2027 | 21/01/2027 |
-| OC6-02 | Indirizzi — sottodominio nostro e dominio proprio del locale con certificato | da fare |  | 21/01/2027 | 22/01/2027 |
-| OC6-09 | Locale pilota — installazione e prova con clienti veri | da fare |  | 22/01/2027 | 26/01/2027 |
-| OC6-01 | Sito del locale (facoltativo) — social, contatti, orari, mappa, pulsante menu | da fare |  | 25/01/2027 | 26/01/2027 |
-| OC6-03 | Passaggio dal nostro dominio a quello del locale senza ristampare i QR | da fare |  | 25/01/2027 | 25/01/2027 |
-| OC6-04 | Piani e moduli SaaS (base, stampanti, pagamenti, cassa, sito) | da fare |  | 26/01/2027 | 26/01/2027 |
-| OC5-11 | Cassa utilizzabile senza internet e ripresa automatica | da fare |  | 27/01/2027 | 28/01/2027 |
-| OC6-06 | Statistiche per il titolare (più ordinati, orari di punta, spesa media) | da fare |  | 27/01/2027 | 27/01/2027 |
-| OC6-10 | Rilascio versione 1 | da fare |  | 28/01/2027 | 28/01/2027 |
-| OC7-01 | Registrazione autonoma dei locali e pagamento dell'abbonamento | da fare |  | 29/01/2027 | 02/02/2027 |
-| OC7-03 | Asporto e consegna a domicilio | da fare |  | 29/01/2027 | 03/02/2027 |
-| OC7-02 | Prenotazione dei tavoli | da fare |  | 03/02/2027 | 05/02/2027 |
-| OC7-04 | Altre lingue, offerte a orario (es. aperitivo), raccolta punti | da fare |  | 04/02/2027 | 08/02/2027 |
+| OC4-01 | Servizio di stampa — coda, formato della comanda, ristampa | da fare |  | 14/12/2026 | 15/12/2026 |
+| OC3-02 | Pagamento dal tavolo con Apple Pay, Google Pay e carta | da fare |  | 15/12/2026 | 16/12/2026 |
+| OC4-02 | Collegamento delle stampanti termiche del locale | da fare |  | 16/12/2026 | 17/12/2026 |
+| OC3-05 | Conferma dell'incasso, invio in cucina dopo il pagamento, errori e rimborsi | da fare |  | 17/12/2026 | 18/12/2026 |
+| OC2-11 | Schermo ordini per il personale, in tempo reale con avviso sonoro | da fare |  | 18/12/2026 | 21/12/2026 |
+| OC2-15 | Prove severe su allergeni e celiachia (obbligatorie prima di ogni rilascio) | da fare |  | 21/12/2026 | 22/12/2026 |
+| OC2-09 | Protezioni — ordini da fuori locale, limiti, tavolo chiuso | da fare |  | 22/12/2026 | 22/12/2026 |
+| OC2-10 | Lingue — italiano e inglese per menu e chatbot | da fare |  | 23/12/2026 | 23/12/2026 |
+| OC4-03 | Zone di stampa (cucina, pizzeria, bar, cassa) e categorie associate | da fare |  | 23/12/2026 | 23/12/2026 |
+| OC3-04 | Pagamento con Bancomat Pay | da fare |  | 28/12/2026 | 29/12/2026 |
+| OC3-06 | Conto del tavolo — paga tutto, paga la tua parte, dividi in parti uguali, mancia | da fare |  | 28/12/2026 | 29/12/2026 |
+| OC2-12 | Prove complete del chatbot e Demo 2 | da fare |  | 29/12/2026 | 29/12/2026 |
+| OC3-03 | Pagamento con Satispay e Revolut Pay | da fare |  | 30/12/2026 | 30/12/2026 |
+| OC3-07 | Ricevuta al cliente e riepilogo incassi per il titolare | da fare |  | 30/12/2026 | 30/12/2026 |
+| OC4-04 | Controllo delle stampanti — carta finita, spenta, stampa di riserva, avvisi | da fare |  | 04/01/2027 | 04/01/2027 |
+| OC6-02 | Reparti, aliquote IVA, metodi di pagamento, coperto e servizio | da fare |  | 04/01/2027 | 04/01/2027 |
+| OC3-08 | Prove in ambiente di test dei pagamenti e Demo 4 | da fare |  | 05/01/2027 | 05/01/2027 |
+| OC4-05 | Collaudo sul kit reale e Demo 3 | da fare |  | 05/01/2027 | 05/01/2027 |
+| OC5-05 | Privacy — informative, cookie, conservazione dei dati, contratto con i locali | da fare |  | 05/01/2027 | 07/01/2027 |
+| OC5-07 | Sicurezza, copie di salvataggio, controllo del servizio, prova di carico | da fare |  | 07/01/2027 | 08/01/2027 |
+| OC6-03 | Schermata di cassa per monitor touch — vendita veloce al banco | da fare |  | 08/01/2027 | 11/01/2027 |
+| OC6-04 | Mappa dei tavoli — stati a colori, apri, sposta, unisci | da fare |  | 11/01/2027 | 12/01/2027 |
+| OC5-08 | Manuale definitivo con le schermate e guida di avvio per i locali | da fare |  | 12/01/2027 | 12/01/2027 |
+| OC5-02 | Indirizzi — sottodominio nostro e dominio proprio del locale con certificato | da fare |  | 13/01/2027 | 14/01/2027 |
+| OC5-09 | Locale pilota — installazione e prova con clienti veri | da fare |  | 13/01/2027 | 15/01/2027 |
+| OC5-01 | Sito del locale (facoltativo) — social, contatti, orari, mappa, pulsante menu | da fare |  | 15/01/2027 | 18/01/2027 |
+| OC6-05 | Conto del tavolo in cassa — preconto, sconti, divisione, pagamenti misti | da fare |  | 15/01/2027 | 18/01/2027 |
+| OC5-03 | Passaggio dal nostro dominio a quello del locale senza ristampare i QR | da fare |  | 18/01/2027 | 18/01/2027 |
+| OC5-04 | Piani e moduli SaaS (base, stampanti, pagamenti, cassa, sito) | da fare |  | 19/01/2027 | 19/01/2027 |
+| OC5-06 | Statistiche per il titolare (più ordinati, orari di punta, spesa media) | da fare |  | 19/01/2027 | 19/01/2027 |
+| OC5-10 | Rilascio versione 1 | da fare |  | 20/01/2027 | 20/01/2027 |
+| OC6-07 | Stampante fiscale RT — scontrino, annullo, reso, lotteria degli scontrini | da fare |  | 20/01/2027 | 22/01/2027 |
+| OC6-08 | Apertura e chiusura giornaliera, fondo cassa, turni degli operatori | da fare |  | 21/01/2027 | 22/01/2027 |
+| OC7-01 | Registrazione autonoma dei locali e pagamento dell'abbonamento | da fare |  | 25/01/2027 | 27/01/2027 |
+| OC7-03 | Asporto e consegna a domicilio | da fare |  | 25/01/2027 | 28/01/2027 |
+| OC7-02 | Prenotazione dei tavoli | da fare |  | 28/01/2027 | 01/02/2027 |
+| OC7-04 | Altre lingue, offerte a orario (es. aperitivo), raccolta punti | da fare |  | 29/01/2027 | 02/02/2027 |
+| OC6-10 | Resoconti — incassi per metodo, reparto, prodotto, fascia oraria; esportazione | da fare |  | 02/02/2027 | 03/02/2027 |
+| OC6-06 | Ordini del chatbot in cassa in automatico; pagato dal tavolo = conto saldato | da fare |  | 03/02/2027 | 03/02/2027 |
+| OC6-09 | Storni e annulli con permessi per operatore e registro delle operazioni | da fare |  | 04/02/2027 | 04/02/2027 |
+| OC6-11 | Cassa utilizzabile senza internet e ripresa automatica | da fare |  | 04/02/2027 | 05/02/2027 |
+| OC6-12 | Collaudo sul kit reale e Demo 5 | da fare |  | 05/02/2027 | 05/02/2027 |

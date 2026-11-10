@@ -2,9 +2,9 @@
 
 _Aggiornato il 10/11/2026 da `scripts/piano.py`._
 
-**Avanzamento versione 1: 1%** (1.5 giorni di lavoro completati su 104.5). Fine prevista: **28/01/2027**.
+**Avanzamento versione 1: 2%** (1.5 giorni di lavoro completati su 86). Fine prevista: **20/01/2027**.
 
-Obiettivo: fine sviluppo entro il 24/11/2026 — **previsti 41 giorni lavorativi di ritardo**.
+Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 27 giorni lavorativi di ritardo**.
 
 ## Per fase
 
@@ -13,20 +13,20 @@ Obiettivo: fine sviluppo entro il 24/11/2026 — **previsti 41 giorni lavorativi
 | 0. Avvio e impostazione | 2 | 0 | 7 | 8% |
 | 1. Locale, menu, aspetto e QR code (Demo 1) | 0 | 0 | 15 | 0% |
 | 2. Chatbot e ordini dal tavolo (Demo 2) | 0 | 0 | 15 | 0% |
-| 3. Stampanti di cucina e di cassa (Demo 3) | 0 | 0 | 5 | 0% |
-| 4. Pagamenti dal tavolo (Demo 4) | 0 | 0 | 8 | 0% |
-| 5. Cassa e gestionale, modulo facoltativo (Demo 5) | 0 | 0 | 12 | 0% |
-| 6. Sito, domini, SaaS e rilascio | 0 | 0 | 10 | 0% |
-| 7. Dopo il rilascio | 0 | 0 | 4 | 0% |
+| 3. Pagamenti dal tavolo (Demo 3) | 0 | 0 | 8 | 0% |
+| 4. Stampanti per le comande (Demo 4) | 0 | 0 | 5 | 0% |
+| 5. Sito, domini, SaaS e rilascio della versione 1 | 0 | 0 | 10 | 0% |
+| 6. Cassa e gestionale, dopo il rilascio (vendibile a parte) | 0 | 0 | 12 | 0% |
+| 7. Altre funzioni dopo il rilascio | 0 | 0 | 4 | 0% |
 
 ## Demo e rilascio
 
 - Demo 1 — menu, grafica e QR code dei tavoli: prevista il 02/12/2026
-- Demo 2 — si ordina dal tavolo con il chatbot: prevista il 13/01/2027
-- Demo 3 — le comande escono dalle stampanti: prevista il 21/01/2027
-- Demo 4 — si paga dal tavolo: prevista il 18/01/2027
-- Demo 5 — cassa con tavoli e stampante fiscale: prevista il 15/01/2027
-- Rilascio versione 1: prevista il 28/01/2027
+- Demo 2 — si ordina dal tavolo con il chatbot: prevista il 29/12/2026
+- Demo 3 — si paga dal tavolo: prevista il 05/01/2027
+- Demo 4 — le comande escono dalla stampante: prevista il 05/01/2027
+- Versione 1 in vendita — chatbot, pagamenti, stampante comande: prevista il 20/01/2027
+- Cassa e gestionale — modulo in vendita: prevista il 05/02/2027
 
 ## In corso
 
@@ -46,9 +46,9 @@ Obiettivo: fine sviluppo entro il 24/11/2026 — **previsti 41 giorni lavorativi
 - OC0-05 — Ambiente di sviluppo (database, accessi, archivio foto, variabili d'ambiente), previsto dal 12/11/2026
 - OC0-06 — Scelta dell'hardware di riferimento e acquisto di un kit di prova, previsto dal 11/11/2026
 - OC0-07 — Verifica fiscale e privacy con un consulente, previsto dal 13/11/2026
-- OC4-01 — Collegamento del conto di incasso del locale, previsto dal 11/12/2026
-- OC4-04 — Pagamento con Bancomat Pay, previsto dal 08/01/2027
-- OC5-07 — Stampante fiscale RT — scontrino, annullo, reso, lotteria degli scontrini, previsto dal 22/12/2026
-- OC6-02 — Indirizzi — sottodominio nostro e dominio proprio del locale con certificato, previsto dal 21/01/2027
-- OC6-05 — Privacy — informative, cookie, conservazione dei dati, contratto con i locali, previsto dal 19/01/2027
-- OC6-09 — Locale pilota — installazione e prova con clienti veri, previsto dal 22/01/2027
+- OC3-01 — Collegamento del conto di incasso del locale, previsto dal 07/12/2026
+- OC3-04 — Pagamento con Bancomat Pay, previsto dal 28/12/2026
+- OC5-02 — Indirizzi — sottodominio nostro e dominio proprio del locale con certificato, previsto dal 13/01/2027
+- OC5-05 — Privacy — informative, cookie, conservazione dei dati, contratto con i locali, previsto dal 05/01/2027
+- OC5-09 — Locale pilota — installazione e prova con clienti veri, previsto dal 13/01/2027
+- OC6-07 — Stampante fiscale RT — scontrino, annullo, reso, lotteria degli scontrini, previsto dal 20/01/2027

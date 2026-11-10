@@ -1,7 +1,7 @@
 # Ordinachatbot — manuale di utilizzo
 
 Versione 0.4 (10/11/2026). Descrive il prodotto **come è stato progettato**: va
-aggiornato a ogni task chiuso e completato con le schermate nel task OC6-08.
+aggiornato a ogni task chiuso e completato con le schermate nel task OC5-08.
 I nomi di pulsanti e menu potranno cambiare leggermente.
 
 Il manuale ha quattro parti: il titolare del locale, il personale, il cliente al

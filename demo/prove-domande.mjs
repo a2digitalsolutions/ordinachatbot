@@ -139,6 +139,12 @@ const PROVE = [
   ["una margherita e una diavola ben cotta senza salame", "order", r => riga("diavola", 1, "Ben cotta")(r) && riga("diavola", 1, "Senza salame piccante")(r) && r.lines[0].opts.join() === "Classico"],
   ["si può avere la carne ben cotta?", "faq"],
   ["hamburger ben cotto", "search", r => r.ids.length === 3 && r.cott === "Ben cotta"],
+  ["avete cibi senza sugo", "search", r => r.ids.length > 5 && !r.ids.includes("margherita") && !r.ids.includes("bionda") && r.ids.includes("carbonara")],
+  ["piatti senza sugo", "search", r => !r.ids.includes("arrabbiata") && r.ids.includes("tagliata")],
+  ["cibo è tutto ciò che riguarda da mangiare", "overview", r => r.kind === "cibo"],
+  ["è tutto", "confirm"],
+  ["per noi è tutto grazie", "confirm"],
+  ["dimmi tutto quello che avete", "overview"],
   // --- restrizioni non capite: mai mostrare tutto, chiede e segnala ---
   ["pizze senza zorbino", "unclear"],
   ["pizze leggere", "unclear"],

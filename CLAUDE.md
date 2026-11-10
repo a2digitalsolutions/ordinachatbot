@@ -15,6 +15,9 @@ con parole semplici, e non chiedere di lanciare comandi sul proprio computer
 - **Il tavolo lo dice il QR.** Il cliente non scrive mai il numero del tavolo.
 - **Un solo carrello per tavolo, una sola conferma.** Chiunque al tavolo aggiunge
   voci; uno conferma per tutti; dopo l'invio si riapre un carrello nuovo.
+- **Un ordine non parte mai da una frase.** Il chatbot può proporre la
+  conferma, ma l'invio in cucina e il pagamento avvengono solo con un tocco
+  esplicito sul pulsante, dopo il riepilogo.
 - **Il chatbot non inventa.** Mostra solo prodotti, ingredienti e prezzi presi
   dal menu del locale. Totali, disponibilità e stati li calcola il server.
 - **Allergeni e celiachia.** Se il titolare ha bloccato l'argomento, il chatbot

@@ -19,14 +19,14 @@ dal telefono. Per bar, pub, ristoranti e pizzerie, in abbonamento (SaaS).
 
 ## Fasi e demo
 
-0. **Avvio** — decisioni, fornitori, hardware di prova, consulente
+0. **Avvio** — decisioni, fornitore dei pagamenti, stampante di prova, consulente
 1. **Locale, menu, aspetto, QR** → *Demo 1*
 2. **Chatbot e ordini dal tavolo** → *Demo 2*
-3. **Stampanti** → *Demo 3*
-4. **Pagamenti dal tavolo** → *Demo 4*
-5. **Cassa e gestionale** (facoltativo per il locale) → *Demo 5*
-6. **Sito, domini, SaaS, rilascio** → *Versione 1*
-7. **Dopo il rilascio** — iscrizione autonoma, prenotazioni, asporto
+3. **Pagamenti dal tavolo** → *Demo 3*
+4. **Stampanti per le comande** → *Demo 4*
+5. **Sito, domini, SaaS, rilascio** → ***Versione 1 in vendita*** (obiettivo: primi di dicembre 2026)
+6. **Cassa e gestionale** — dopo il rilascio, modulo vendibile a parte
+7. **Altre funzioni** — iscrizione autonoma, prenotazioni, asporto
 
 ## Come lavoriamo
 

@@ -1,6 +1,6 @@
 # Domande tipiche dei clienti — elenco di prova
 
-L'elenco vero sta in `demo/prove-domande.mjs`: 237 frasi con la risposta attesa.
+L'elenco vero sta in `demo/prove-domande.mjs`: 243 frasi con la risposta attesa.
 Oggi verifica la demo (`node demo/prove-domande.mjs`); **le stesse frasi sono la
 prova di accettazione del chatbot vero** (OC2-03, OC2-12): nessuna può dare
 «non ho capito» se la risposta è nel menu o tra le informazioni del locale.

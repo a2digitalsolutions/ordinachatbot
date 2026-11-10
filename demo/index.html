@@ -501,7 +501,7 @@ function interpret(raw){
   if(/^(togli|rimuovi|elimina|leva|cancella|niente piu)\b/.test(t)){ const n = namedItems(t); if(n.length) return {type:"remove", ids:n.map(x => x.it.id)}; return {type:"cart"}; }
   if(/carrello|riepilogo|cosa abbiamo (preso|ordinato|messo)|cosa ho (preso|ordinato|messo)/.test(t)) return {type:"cart"};
   if(/a che punto|quanto manca|quando arriva|dov e (l |il mio |il nostro )?ordin|stato (dell |del mio )?ordin|e pronto|sono pronte|in ritardo|non e (ancora )?arrivat/.test(t)) return {type:"status"};
-  if(/conferm|invia (l )?ordin|manda (l )?ordin|ordina tutto|ordiniamo tutto|va bene cosi|basta cosi|e tutto|abbiamo finito di scegliere/.test(t)) return {type:"confirm"};
+  if(/conferm|invia (l )?ordin|manda (l )?ordin|ordina tutto|ordiniamo tutto|va bene cosi|basta cosi|abbiamo finito di scegliere/.test(t) || /^(ok )?(e |per noi e |per me e )?tutto( qui| qua)?( grazie)?$/.test(t)) return {type:"confirm"};
   if(/\bconto\b|pagare|pago\b|paghiamo|pagamento|scontrino/.test(t)) return {type:"pay"};
   if(/^(grazie|ok grazie|perfetto|ottimo|va bene|ok|a posto|arrivederci|buona serata)( mille| grazie)?$/.test(t)) return {type:"thanks"};
   if(/menu complet|tutto il menu|menu inter|^(il )?menu$|vedere il menu|mostra(mi)? il menu|fammi vedere il menu|la carta|listino/.test(t)) return {type:"fullmenu"};
@@ -511,7 +511,7 @@ function interpret(raw){
   if(/primi piatti/.test(t) && !f.cats.includes("primi")) f.cats.push("primi");
   if(/secondi piatti/.test(t) && !f.cats.includes("secondi")) f.cats.push("secondi");
   if(f.cats.includes("xxl")) f.cats = ["xxl"];
-  const daBere = /da bere|\bbere\b|qualcosa di fresco|dissetante/.test(t), daMangiare = /da mangiare|\bmangiare\b|\bcibo\b|si mangia|\bfame\b/.test(t);
+  const daBere = /da bere|\bbere\b|qualcosa di fresco|dissetante/.test(t), daMangiare = /da mangiare|\bmangiare\b|\bcib[oi]\b|\bpiatti\b|\bpietanze\b|si mangia|\bfame\b/.test(t);
   const m = t.match(/(?:sotto|meno di|massimo|max|entro|non piu di|al massimo)\s+(?:i|gli|le|a)?\s*(\d+)(?:[.,](\d+))?/);
   if(m) f.max = parseFloat(m[1] + "." + (m[2] || "0"));
   if(/vegetarian|senza carne|non mangio carne/.test(t)) f.flags.push("vegetariano");
@@ -587,7 +587,7 @@ function interpret(raw){
   }
   if(!f.cats.length && daBere) f.kind = "bere"; if(!f.cats.length && daMangiare) f.kind = "cibo";
   /* parole che restringono la ricerca ma che non ho capito: meglio chiedere che mostrare tutto */
-  const capita = w => w.length < 4 || w === "~" || COMUNI.has(w) || FILLER.has(w) || conosciuto(w) || w in FAM || w in ING_SYN || w in QTY || /\d/.test(w) || CIBI.some(c => c.split(" ").includes(w)) || /^(vegetarian|vegan|piccant|analcolic|alcol|alcool|economic|consigli|bianc|ross|mangi|carne|cibo|fame|caro|care|cari)/.test(w);
+  const capita = w => w.length < 4 || w === "~" || COMUNI.has(w) || FILLER.has(w) || conosciuto(w) || w in FAM || w in ING_SYN || w in QTY || /\d/.test(w) || CIBI.some(c => c.split(" ").includes(w)) || /^(vegetarian|vegan|piccant|analcolic|alcol|alcool|economic|consigli|bianc|ross|mangi|carne|cibo|cibi|pietanz|fame|caro|care|cari)/.test(w);
   scan.replace(/[,.]/g, " ").split(" ").filter(Boolean).forEach(w => { if(!capita(w) && !f.nonCapiti.some(x => x.endsWith(w))) f.nonCapiti.push(w); });
   if(f.nonCapiti.length) return {type:"unclear", f, words:f.nonCapiti};
   const cand = [];

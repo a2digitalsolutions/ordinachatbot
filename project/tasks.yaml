@@ -179,6 +179,10 @@ tasks:
     fase: 1
     giorni: 1
     dipende_da: [OC0-04]
+    note: >
+      Comprende le funzioni comuni per date, ore e prezzi in formato italiano
+      (martedì 10 novembre 2026, 10/11/2026, 22:30, € 8,50), ora italiana, da
+      usare ovunque: pannello, chat, comande, scontrini, resoconti.
 
   - id: OC1-05
     titolo: Configurazione guidata del locale (dati, tipologie, orari, moduli attivi)
@@ -203,7 +207,11 @@ tasks:
     dipende_da: [OC1-06]
     note: >
       Ingredienti come elenco riutilizzabile (servono al chatbot per "pizze con…"
-      e "senza…"). Varianti (es. piccola/media/grande) e aggiunte a pagamento.
+      e "senza…"). Per cibi e drink il gestore indica: varianti con il loro
+      prezzo (piccola/media/grande, impasto integrale, doppio, analcolico…),
+      aggiunte con il loro prezzo (mozzarella extra +1,50), ingredienti che si
+      possono togliere. Gruppi riutilizzabili: si creano una volta (es. "Aggiunte
+      pizza") e si applicano a un'intera categoria o a singoli prodotti.
 
   - id: OC1-08
     titolo: Allergeni (14 di legge), senza glutine e altre etichette del prodotto
@@ -282,6 +290,9 @@ tasks:
       Richieste per categoria, ingrediente presente o assente, prezzo, menu intero.
       Il chatbot mostra solo prodotti e prezzi presi dal menu del locale: non
       inventa nulla. Prezzi e totali li calcola sempre il server.
+      Per ogni prodotto dice tutte le varianti e le aggiunte possibili con i
+      prezzi, e risponde a domande come "quanto costa con doppia mozzarella?".
+      Parla in italiano; giorni, date, ore e prezzi sempre in formato italiano.
 
   - id: OC2-04
     titolo: Blocco allergeni e celiachia configurabile e pulsante «Chiama il cameriere»
@@ -347,8 +358,30 @@ tasks:
     titolo: Prove complete del chatbot e Demo 2
     fase: 2
     giorni: 1
-    dipende_da: [OC2-04, OC2-08, OC2-09, OC2-10, OC2-11]
+    dipende_da: [OC2-04, OC2-08, OC2-09, OC2-10, OC2-11, OC2-14]
     note: Elenco di frasi vere (errori di battitura, dialetto, richieste strane) in docs/test.
+
+  - id: OC2-13
+    titolo: Domande senza risposta — il chatbot le mette da parte per il gestore
+    fase: 2
+    giorni: 1
+    dipende_da: [OC2-03]
+    note: >
+      Quando il chatbot non sa rispondere lo dice, propone il cameriere e salva
+      la domanda (con le battute intorno, data e tavolo, senza dati personali)
+      nell'elenco "Domande da rivedere". Domande uguali vengono raggruppate.
+
+  - id: OC2-14
+    titolo: Il gestore risponde con calma e il chatbot impara
+    fase: 2
+    giorni: 1.5
+    dipende_da: [OC2-13, OC2-04]
+    note: >
+      Dal pannello il gestore scrive la risposta giusta, oppure segna "da
+      ignorare". Le risposte diventano "domande e risposte del locale" che il
+      chatbot usa da subito; si possono correggere e cancellare. Le risposte
+      del gestore non scavalcano il blocco allergeni/celiachia e non cambiano
+      prezzi o menu. Lo possono fare anche i super amministratori.
 
   # ---------------- FASE 3 — STAMPANTI ----------------
   - id: OC3-01

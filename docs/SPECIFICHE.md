@@ -1,6 +1,6 @@
 # Ordinachatbot — specifiche
 
-Versione 0.1 del 10/11/2026. Scritte a partire dalla richiesta di Paolo; le parti
+Versione 0.2 del 10/11/2026. Scritte a partire dalla richiesta di Paolo; le parti
 segnate **[proposta]** sono scelte fatte da Claude e si possono cambiare.
 
 ## 1. In una frase
@@ -45,8 +45,16 @@ fa da riserva.
   foto facoltativa, ordine a piacere, orari di disponibilità (es. Colazioni fino
   alle 11).
 - **Prodotti**: nome, prezzo, descrizione, foto facoltativa, ingredienti,
-  varianti (piccola/media/grande), aggiunte a pagamento, ingredienti che si
-  possono togliere, reparto di cassa, zona di stampa.
+  reparto di cassa, zona di stampa.
+- **Varianti e aggiunte** (cibi e drink), tutte con il loro prezzo:
+  - *varianti*: se ne sceglie una (piccola/media/grande, impasto integrale
+    +1,00, hamburger doppio +3,00, spritz Aperol/Campari/analcolico);
+  - *aggiunte*: se ne scelgono quante si vuole (mozzarella extra +1,50, bacon
+    +2,00, ghiaccio, fetta di limone), anche gratuite;
+  - *ingredienti che si possono togliere* (senza cipolla).
+  Il gestore crea dei **gruppi** una volta sola (es. «Aggiunte pizza») e li
+  applica a una categoria intera o a singoli prodotti. Il chatbot elenca al
+  cliente tutte le possibilità con i prezzi e calcola il totale giusto.
 - **Ingredienti**: elenco del locale, riutilizzabile; è ciò che permette al
   chatbot di rispondere a «pizze con i funghi» o «senza cipolla».
 - **Allergeni e celiachia**: i 14 allergeni di legge con una spunta ciascuno,
@@ -93,6 +101,28 @@ fa da riserva.
 
 Il chatbot mostra soltanto prodotti e prezzi presi dal menu del locale. Totali,
 disponibilità e stato dell'ordine li decide il server, non il modello linguistico.
+
+### Il chatbot che impara
+
+- Quando non sa rispondere, il chatbot **lo dice**, propone di chiamare il
+  cameriere e **mette da parte la domanda** (con le battute intorno, giorno, ora
+  e tavolo; nessun dato personale del cliente).
+- Il gestore trova l'elenco in **Chatbot → Domande da rivedere**, con le domande
+  uguali raggruppate e contate. Con calma, anche nei giorni successivi, scrive
+  la risposta giusta oppure segna «da ignorare».
+- Le risposte diventano le **domande e risposte del locale**: il chatbot le usa
+  da subito con tutti i clienti. Si possono correggere o cancellare in ogni momento.
+- Limiti: una risposta del gestore non scavalca il blocco su allergeni e
+  celiachia e non modifica prezzi o prodotti (quelli si cambiano nel menu).
+- **[proposta]** Le conversazioni messe da parte si cancellano dopo 90 giorni.
+
+### Lingua, date e prezzi
+
+Il chatbot e tutto il programma parlano italiano. Giorni e date sempre in
+formato italiano (martedì 10 novembre 2026, 10/11/2026), ore su 24 (22:30),
+prezzi con la virgola (€ 8,50), ora italiana. Vale per chat, pannello, comande,
+scontrini e resoconti. L'inglese (OC2-10) è una lingua in più per i clienti
+stranieri, non sostituisce l'italiano.
 
 ### Stati del tavolo
 
@@ -222,8 +252,7 @@ supportati in `docs/hardware.md`).
 
 ## 12. Cose aggiunte rispetto alla richiesta
 
-Chiamata del cameriere; prodotto esaurito; varianti, aggiunte e note per la
-cucina; orari delle categorie; coperto; divisione del conto e mancia; protezione
+Chiamata del cameriere; prodotto esaurito; note per la cucina; orari delle categorie; coperto; divisione del conto e mancia; protezione
 dagli ordini da fuori locale; schermo ordini come riserva delle stampanti;
 controllo carta/stampante spenta; ruoli del personale; italiano e inglese;
 statistiche; cassa senza internet; privacy e contratto; locale pilota.

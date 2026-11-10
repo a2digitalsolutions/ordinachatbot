@@ -1,6 +1,6 @@
 # Ordinachatbot — manuale di utilizzo
 
-Versione 0.1 (10/11/2026). Descrive il prodotto **come è stato progettato**: va
+Versione 0.2 (10/11/2026). Descrive il prodotto **come è stato progettato**: va
 aggiornato a ogni task chiuso e completato con le schermate nel task OC6-08.
 I nomi di pulsanti e menu potranno cambiare leggermente.
 
@@ -39,8 +39,21 @@ per decidere l'ordine. Puoi indicare gli orari in cui è disponibile.
 | **Importa da Excel** | hai già il menu in un file |
 
 Per ogni prodotto: nome, prezzo, categoria, descrizione, **foto** (facoltativa),
-**ingredienti**, **varianti** (es. piccola/media/grande con prezzi diversi),
-**aggiunte** a pagamento, ingredienti che il cliente può togliere.
+**ingredienti**, varianti e aggiunte.
+
+**Varianti e aggiunte** (per cibi e drink) — *Menu → Varianti e aggiunte*:
+
+| Cosa | Esempio | Il cliente |
+|---|---|---|
+| **Variante** | Birra: piccola € 3,50 / media € 5,00 — Impasto integrale +€ 1,00 | ne sceglie una |
+| **Aggiunta** | Mozzarella extra +€ 1,50 — Bacon +€ 2,00 — Ghiaccio (gratis) | quante ne vuole |
+| **Si può togliere** | Senza cipolla, senza ghiaccio | toglie ciò che non vuole |
+
+Crea un **gruppo** una volta sola (es. «Aggiunte pizza» con tutti i prezzi) e
+applicalo a un'intera categoria o a singoli prodotti: se cambi un prezzo nel
+gruppo, cambia ovunque. Il chatbot dice al cliente tutte le possibilità con i
+prezzi («La Margherita costa € 6,00; puoi aggiungere bufala +€ 2,00…») e
+calcola il totale.
 
 **Ingredienti** — scrivendo un ingrediente lo scegli dall'elenco o lo crei al
 volo. Inserirli bene conviene: è grazie agli ingredienti che il chatbot sa
@@ -65,13 +78,33 @@ rispondere a «pizze con i funghi» o «un panino senza cipolla».
 L'informazione sugli allergeni resta una responsabilità del locale: tieni
 aggiornate le spunte e istruisci il personale.
 
-### 1.5 Aspetto
+### 1.5 Insegnare al chatbot
+
+Quando il chatbot non sa rispondere a un cliente, glielo dice, gli propone di
+chiamare il cameriere e **mette da parte la domanda**.
+
+1. Apri *Chatbot → Domande da rivedere*: trovi le domande rimaste senza
+   risposta, con giorno e ora, e quante volte sono state fatte.
+2. Con calma, anche nei giorni dopo, scrivi la **risposta giusta** (es. «Avete
+   il seggiolone?» → «Sì, chiedilo al personale»), oppure premi *Ignora*.
+3. Da quel momento il chatbot risponde così a tutti i clienti.
+4. In *Chatbot → Domande e risposte* rivedi, correggi o cancelli ciò che gli hai
+   insegnato; puoi anche aggiungere domande di tua iniziativa (parcheggio,
+   Wi-Fi, animali ammessi, orari della cucina).
+
+Due limiti: su allergeni e celiachia, se li hai bloccati, il chatbot continua a
+rimandare al cameriere; prezzi e piatti si cambiano dal menu, non da qui.
+
+Il chatbot parla italiano e scrive date e orari all'italiana (martedì 10
+novembre 2026, ore 22:30) e i prezzi con la virgola (€ 8,50).
+
+### 1.6 Aspetto
 
 *Aspetto*: carica il **logo**, scegli una delle **10 combinazioni di colori** e
 uno dei **10 temi**. L'anteprima a destra mostra subito menu e chat come li
 vedrà il cliente. Premi *Pubblica* quando ti piace.
 
-### 1.6 Tavoli e QR code
+### 1.7 Tavoli e QR code
 
 1. *Tavoli → Nuova sala* (Interno, Dehors…), poi aggiungi i tavoli: puoi crearne
    tanti in una volta («da 1 a 20»).
@@ -82,7 +115,7 @@ vedrà il cliente. Premi *Pubblica* quando ti piace.
 
 Il cliente non deve mai scrivere il numero del tavolo: lo dice il QR.
 
-### 1.7 Regole degli ordini
+### 1.8 Regole degli ordini
 
 In *Ordini → Regole* scegli:
 - **Si paga alla fine** (l'ordine va subito in cucina) oppure **si paga prima**
@@ -91,7 +124,7 @@ In *Ordini → Regole* scegli:
 - Dopo quanto tempo un tavolo pagato torna *libero* da solo.
 - Coperto e servizio, se li applichi.
 
-### 1.8 Stampanti
+### 1.9 Stampanti
 
 *Stampanti → Aggiungi stampante*, segui il collegamento guidato, poi:
 - crea le **zone** (Cucina, Pizzeria, Bar, Cassa);
@@ -104,7 +137,7 @@ ordini** mostra comunque tutto.
 
 Senza il modulo cassa serve almeno la stampante accanto alla cassa.
 
-### 1.9 Pagamenti dal tavolo (modulo facoltativo)
+### 1.10 Pagamenti dal tavolo (modulo facoltativo)
 
 1. *Pagamenti → Collega il conto*: una procedura guidata del fornitore di
    pagamenti ti chiede i dati dell'attività e l'IBAN. **Gli incassi arrivano
@@ -118,7 +151,7 @@ lo fai con un tocco dal conto già saldato; senza, dal tuo registratore. Chiedi
 al tuo commercialista come registrare questi incassi e il collegamento del
 pagamento elettronico al registratore telematico.
 
-### 1.10 Cassa e gestionale (modulo facoltativo)
+### 1.11 Cassa e gestionale (modulo facoltativo)
 
 Ti servono un **monitor touch** e una **stampante fiscale RT** tra i modelli supportati.
 
@@ -144,13 +177,13 @@ possono esportare.
 
 Se manca internet la cassa continua a funzionare e si riallinea da sola.
 
-### 1.11 Sito e menu pubblico (facoltativi)
+### 1.12 Sito e menu pubblico (facoltativi)
 
 - Il **menu pubblico** ha un indirizzo fisso: mettilo su Google, Instagram, Facebook.
 - Il **sito** si compila in *Sito*: descrizione, orari, mappa, contatti, social,
   foto. Il pulsante **Menu** c'è già.
 
-### 1.12 Il tuo indirizzo internet
+### 1.13 Il tuo indirizzo internet
 
 All'inizio usi un indirizzo sul nostro dominio. Se hai o compri un dominio tuo:
 *Impostazioni → Dominio → Usa il mio dominio* e segui i due passaggi indicati (o

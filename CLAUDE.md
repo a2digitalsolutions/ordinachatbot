@@ -20,6 +20,13 @@ con parole semplici, e non chiedere di lanciare comandi sul proprio computer
 - **Allergeni e celiachia.** Se il titolare ha bloccato l'argomento, il chatbot
   risponde subito col messaggio fisso e propone di chiamare il cameriere. Il
   blocco è una regola scritta nel codice, non un'istruzione al modello.
+- **Varianti e aggiunte.** Il chatbot elenca sempre varianti e aggiunte
+  possibili con i prezzi inseriti dal gestore.
+- **Il chatbot impara dal gestore.** Le domande senza risposta finiscono in
+  «Domande da rivedere»; le risposte del gestore diventano conoscenza del
+  locale, ma non scavalcano il blocco allergeni e non cambiano menu o prezzi.
+- **Italiano.** Chat e programma in italiano; date, giorni, ore e prezzi in
+  formato italiano ovunque (martedì 10 novembre 2026, 10/11/2026, 22:30, € 8,50).
 - **Stati** di tavolo, ordine e pagamento: quelli di `docs/SPECIFICHE.md` §5,
   controllati lato server. Un pagamento è «Pagato» solo con la conferma del
   fornitore al nostro server.

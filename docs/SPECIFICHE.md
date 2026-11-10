@@ -106,6 +106,21 @@ fa da riserva.
 Il chatbot mostra soltanto prodotti e prezzi presi dal menu del locale. Totali,
 disponibilità e stato dell'ordine li decide il server, non il modello linguistico.
 
+### Ricerca per ingrediente
+
+Qualsiasi cibo nominato dal cliente va trattato come un possibile ingrediente e
+cercato tra gli ingredienti del menu, anche se il gestore non lo ha mai
+inserito («dolci con nutella», «pizza con ananas»). Tre esiti possibili:
+
+1. **c'è** → mostra i prodotti che lo contengono;
+2. **c'è solo come aggiunta** → lo dice, con il prezzo dell'aggiunta;
+3. **non c'è** → lo dice chiaramente («nel menu non c'è nulla con la
+   nutella»), propone i prodotti più vicini della stessa categoria e segnala
+   la richiesta al gestore, che così scopre cosa chiedono i clienti.
+
+Mai rispondere «non ho capito» a una domanda su un ingrediente. Vale anche per
+sinonimi, marche e nomi comuni (nutella = crema di nocciole, wurstel, speck…).
+
 ### Il chatbot che impara
 
 - Quando non sa rispondere, il chatbot **lo dice**, propone di chiamare il

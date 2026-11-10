@@ -359,9 +359,21 @@ function interpret(raw){
     else if(rest.includes(" "+n) ) f.con.push(ing);
   }
   if(/vegetarian/.test(t)) f.veg = true;
+  /* ingrediente chiesto ma non presente nel menu (es. "dolci con nutella") */
+  f.ignoti = [];
+  const NON_ING = ["spina","piastra","griglia","brace","forno","cassa","carta","tavolo","noi","voi","calma","contanti","telefono","satispay","bancomat","menu","meno","massimo"];
+  const conPart = rest.split(/\bsenza\b/)[0];
+  const reCon = /\b(?:con|alla|al|allo|ai|alle|agli)\s+((?:(?:il|la|lo|l|i|le|gli|un|una|uno|della|del|dello|dei|delle|tanta|tanto|molta|molto|doppia|doppio|extra|po|di)\s+)*)([a-z]+)/g;
+  let mm;
+  while((mm = reCon.exec(conPart))){
+    const w = mm[2];
+    if(w.length < 3 || NON_ING.includes(w) || /^\d/.test(w)) continue;
+    const noto = INGREDIENTI.some(x => norm(x).split(" ").includes(w)) || CATS.some(c => c.syn.includes(w)) || ITEMS.some(i => norm(i.name).split(" ").includes(w));
+    if(!noto && !f.ignoti.includes(w)) f.ignoti.push(w);
+  }
   const named = ITEMS.filter(i => { const n = norm(i.name).split(" ")[0]; return n.length > 3 && new RegExp("\\b"+norm(i.name)+"\\b").test(t) || (norm(i.name).split(" ").length === 1 && new RegExp("\\b"+n+"\\b").test(t)); });
   if(named.length === 1 && !f.con.length && !f.senza.length && f.max === null) return {type:"item", id:named[0].id};
-  if(!f.cats.length && !f.con.length && !f.senza.length && f.max === null && !f.veg){
+  if(!f.cats.length && !f.con.length && !f.senza.length && f.max === null && !f.veg && !f.ignoti.length){
     if(/^(ciao|salve|buonasera|buongiorno|hey|ehi)\b/.test(t)) return {type:"hello"};
     return {type:"unknown"};
   }
@@ -372,6 +384,7 @@ function interpret(raw){
     (f.max === null || i.price <= f.max) &&
     (!f.veg || (!i.ing.some(x => CARNE.includes(x)) && !["birre","drink"].includes(i.cat))) &&
     f.senza.every(x => !i.ing.includes(x) || removable(i, x)));
+  if(f.ignoti.length) return {type:"noingr", f, ids:(f.cats.length ? res : []).map(i => i.id)};
   return {type:"search", f, ids:res.map(i => i.id)};
 }
 function removable(it, ing){ return it.groups.some(g => GROUPS[g].opts.some(o => norm(o[0]) === "senza " + norm(ing))); }
@@ -478,6 +491,12 @@ function handle(text){
     case "fullmenu": return showItems(ITEMS.map(i => i.id), "Ecco il menu completo.");
     case "item": { const it = byId(r.id);
       bot(`<p>${pcard(it)}</p>` + (it.groups.length ? optionsText(it) : "")); return; }
+    case "noingr": {
+      const cosa = r.f.ignoti.join(" e ");
+      saveQuestion(text);
+      const cat = r.f.cats.length ? r.f.cats.map(c => CATS.find(x => x.id === c).name.toLowerCase()).join(" e ") : "";
+      if(r.ids.length) return showItems(r.ids, `Ho cercato tra gli ingredienti: nel menu non c'è nulla con <b>${esc(cosa)}</b>. Questi sono i nostri ${esc(cat)}:`);
+      bot(`<p>Ho cercato tra gli ingredienti: nel menu non c'è nulla con <b>${esc(cosa)}</b>. L'ho segnalato al gestore.</p>` + MAINQ()); return; }
     case "search": {
       if(!r.ids.length){ bot(`<p>Non ho trovato nulla ${esc(describe(r.f))} nel menu.</p>` + MAINQ()); return; }
       const notes = {};
@@ -619,7 +638,7 @@ window.addEventListener("hashchange", route);
   const now = new Date();
   const s = fmtData(now); document.getElementById("oggi").textContent = s.charAt(0).toUpperCase() + s.slice(1);
   document.getElementById("aperto").textContent = "Ore " + fmtOra(now) + " · cucina aperta fino a mezz'ora prima della chiusura";
-  document.getElementById("try").innerHTML = ["solo le pizze","pizze con salsiccia","hamburger senza cipolla","qualcosa sotto i 5 euro","quanto costa la margherita?","è senza glutine?","avete il seggiolone?","avete il wifi?"]
+  document.getElementById("try").innerHTML = ["solo le pizze","pizze con salsiccia","hamburger senza cipolla","qualcosa sotto i 5 euro","quanto costa la margherita?","è senza glutine?","dolci con nutella","avete il seggiolone?","avete il wifi?"]
     .map(t => `<button type="button" data-act="say" data-v="${esc(t)}">${esc(t)}</button>`).join("");
   renderMenu(); renderGestore(); welcome(); route();
 })();

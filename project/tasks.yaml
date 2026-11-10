@@ -319,6 +319,9 @@ tasks:
       Richieste per categoria, ingrediente presente o assente, prezzo, menu intero.
       Il chatbot mostra solo prodotti e prezzi presi dal menu del locale: non
       inventa nulla. Prezzi e totali li calcola sempre il server.
+      Ogni cibo nominato è cercato tra gli ingredienti, anche se non è nel
+      menu: se manca lo dice, propone il più vicino e lo segnala al gestore
+      (SPECIFICHE §5 "Ricerca per ingrediente"). Mai "non ho capito" su un cibo.
       Per ogni prodotto dice tutte le varianti e le aggiunte possibili con i
       prezzi, e risponde a domande come "quanto costa con doppia mozzarella?".
       Parla in italiano; giorni, date, ore e prezzi sempre in formato italiano.

@@ -1,0 +1,238 @@
+# Ordinachatbot — specifiche
+
+Versione 0.1 del 10/11/2026. Scritte a partire dalla richiesta di Paolo; le parti
+segnate **[proposta]** sono scelte fatte da Claude e si possono cambiare.
+
+## 1. In una frase
+
+Il cliente inquadra il QR code sul tavolo, chatta con un assistente che gli mostra
+il menu (tutto o in parte), ordina per sé o per tutto il tavolo, sceglie come
+pagare, e l'ordine arriva in cucina e alla cassa senza che nessuno scriva il
+numero del tavolo. Prodotto venduto in abbonamento (SaaS) a bar, pub, ristoranti
+e pizzerie.
+
+## 2. Chi usa il sistema
+
+| Chi | Cosa fa |
+|---|---|
+| **Cliente al tavolo** | Inquadra il QR, guarda il menu, ordina, paga. Non si registra. |
+| **Titolare del locale** | Configura locale, menu, aspetto, tavoli, QR, stampanti, pagamenti, personale. |
+| **Personale** (cassa, sala, cucina) | Vede gli ordini, li fa avanzare, incassa. Ogni ruolo vede solo ciò che gli serve. |
+| **Super amministratori** (noi) | Creano i locali, li configurano per conto del titolare, assegnano piani e moduli. |
+
+## 3. Moduli
+
+Il modulo base è sempre attivo; gli altri si accendono locale per locale.
+
+| Modulo | Contenuto | Obbligatorio |
+|---|---|---|
+| **Base** | Menu, aspetto, tavoli e QR, chatbot, ordini, schermo ordini per il personale | sì |
+| **Stampanti** | Comande su stampanti termiche in cucina, al bar, alla cassa | sì se non c'è la cassa* |
+| **Pagamenti dal tavolo** | Apple Pay, Google Pay, Satispay, Revolut Pay, Bancomat Pay, carta | no |
+| **Cassa e gestionale** | Cassa touch, mappa tavoli, reparti, stampante fiscale RT, resoconti | no |
+| **Sito** | Pagina del locale con social, contatti, orari e pulsante del menu | no |
+
+\* Senza cassa serve almeno una stampante termica (accanto alla cassa) e,
+consigliata, una per ogni zona di preparazione. Con la cassa le stampanti di
+cucina restano facoltative ma consigliate. Lo schermo ordini funziona sempre e
+fa da riserva.
+
+## 4. Configurazione del locale
+
+- **Tipologia**: bar, pub, ristorante, pizzeria — se ne possono spuntare più d'una.
+  Serve a proporre categorie di partenza e il tono del chatbot; non blocca nulla.
+- **Categorie**: libere e senza limite (Primi, Hamburger, Hamburger XXL…), con
+  foto facoltativa, ordine a piacere, orari di disponibilità (es. Colazioni fino
+  alle 11).
+- **Prodotti**: nome, prezzo, descrizione, foto facoltativa, ingredienti,
+  varianti (piccola/media/grande), aggiunte a pagamento, ingredienti che si
+  possono togliere, reparto di cassa, zona di stampa.
+- **Ingredienti**: elenco del locale, riutilizzabile; è ciò che permette al
+  chatbot di rispondere a «pizze con i funghi» o «senza cipolla».
+- **Allergeni e celiachia**: i 14 allergeni di legge con una spunta ciascuno,
+  sul prodotto o sull'ingrediente (dall'ingrediente passano al piatto);
+  etichetta «senza glutine» separata. Altre etichette: vegetariano, vegano,
+  piccante, surgelato.
+- **Inserimento facile**: griglia tipo foglio di calcolo, duplica prodotto,
+  importa da Excel/CSV, cambia prezzi in blocco, trascina per riordinare,
+  interruttore «esaurito» che toglie subito il prodotto dal menu.
+- **Aspetto**: logo, 10 combinazioni di colori, 10 temi (forma delle schede,
+  caratteri, sfondi); si combinano liberamente e si vedono in anteprima. Menu,
+  chat e sito usano lo stesso aspetto.
+- **Tavoli e QR**: sale, tavoli numerati, QR generati e stampabili in fogli PDF
+  (con logo e numero del tavolo). Un QR si può rigenerare se viene copiato.
+- **Comportamento del chatbot su allergeni e celiachia**: il titolare sceglie
+  *allergeni*, *celiachia*, *tutti e due* o *nessuno*. Sugli argomenti scelti il
+  chatbot risponde subito con il messaggio fisso «Su questo non posso
+  rispondere: chiama il cameriere» e offre il pulsante di chiamata.
+
+> **Nota sugli allergeni.** Bloccare le risposte del chatbot è prudente, ma non
+> sostituisce l'informazione scritta sugli allergeni che il locale deve comunque
+> dare ai clienti (Reg. UE 1169/2011). **[proposta]** Le icone degli allergeni
+> inserite dal titolare restano visibili nella scheda di ogni piatto anche quando
+> il chatbot è bloccato sull'argomento, con la frase «per qualsiasi dubbio chiedi
+> al personale». Da confermare col consulente (OC0-07).
+
+## 5. Ordinare dal tavolo
+
+1. Il QR apre la chat già legata al tavolo. Il cliente scrive solo il proprio nome
+   (facoltativo) per distinguere le voci.
+2. Il chatbot saluta e propone pulsanti: **Menu completo**, le **categorie**,
+   **Chiama il cameriere**. Si può anche scrivere liberamente («solo i secondi»,
+   «pizze con la salsiccia», «qualcosa sotto i 10 euro»).
+3. I prodotti compaiono come schede con foto, prezzo e pulsante **Aggiungi**;
+   le varianti e le aggiunte si scelgono con pulsanti.
+4. Tutti quelli che hanno inquadrato lo stesso tavolo vedono **un carrello
+   comune**, con accanto a ogni voce chi l'ha messa. Ognuno può ordinare per sé
+   o per altri.
+5. **Uno solo** preme **Conferma per tutto il tavolo**. Gli altri vedono chi ha
+   confermato; una seconda conferma dello stesso carrello non è possibile.
+6. Scelta del pagamento: **in cassa** oppure **subito dal telefono**.
+7. Dopo l'invio si apre un carrello nuovo: chiunque può aggiungere altro, e ogni
+   aggiunta è un nuovo ordine dello stesso tavolo.
+
+Il chatbot mostra soltanto prodotti e prezzi presi dal menu del locale. Totali,
+disponibilità e stato dell'ordine li decide il server, non il modello linguistico.
+
+### Stati del tavolo
+
+```
+Libero → Occupato → Conto da pagare → Pagato → Libero
+```
+
+- **Libero → Occupato**: alla prima scansione del QR (o quando lo apre il personale).
+- **Occupato → Conto da pagare**: c'è almeno un ordine inviato non ancora pagato.
+- **Conto da pagare → Pagato**: tutto pagato (dal tavolo o in cassa). Se arriva un
+  altro ordine torna a *Conto da pagare*.
+- **Pagato → Libero**: lo libera il personale, oppure da solo dopo un tempo
+  impostato dal titolare. Alla liberazione la chat del tavolo si azzera.
+
+### Stati dell'ordine
+
+```
+Nel carrello → Confermato → (In attesa di pagamento) → In cucina → Pronto → Servito
+                                                  ↘ Annullato (con motivo, prima di Servito)
+```
+
+| Stato | Quando | Chi lo cambia |
+|---|---|---|
+| Nel carrello | i clienti stanno scegliendo | clienti |
+| Confermato | qualcuno ha confermato per il tavolo | cliente |
+| In attesa di pagamento | solo se il locale vuole l'incasso prima di preparare | sistema |
+| In cucina | comanda stampata e visibile sullo schermo ordini | sistema |
+| Pronto | la cucina segnala che può uscire (facoltativo) | personale |
+| Servito | portato al tavolo | personale |
+| Annullato | con motivazione; se già pagato parte il rimborso | personale |
+
+Regola del locale **[proposta]**, scelta dal titolare:
+- **Si paga alla fine** (tipico ristorante/pizzeria): scegliendo «in cassa»
+  l'ordine va subito in cucina; chi paga dal telefono salda il conto quando vuole.
+- **Si paga prima** (tipico pub/bar): l'ordine va in cucina solo dopo il pagamento
+  dal telefono o dopo che la cassa lo ha incassato.
+
+### Stati del pagamento
+
+```
+Da pagare → In corso → Pagato        Pagato → Rimborsato (tutto o in parte)
+                    ↘ Non riuscito → Da pagare
+```
+
+Un pagamento è *Pagato* solo quando lo conferma il fornitore al nostro server.
+
+### Protezioni
+
+Una foto del QR permetterebbe di ordinare da casa. Opzioni del titolare:
+il personale accetta il primo ordine di un tavolo *libero*; un codice breve
+esposto al tavolo; un limite di importo oltre il quale serve il pagamento
+anticipato. Limite di messaggi per evitare abusi del chatbot.
+
+## 6. Dove arrivano gli ordini
+
+- **Schermo ordini** (tablet/telefono/monitor): tutti gli ordini per tavolo,
+  avviso sonoro, pulsanti per farli avanzare.
+- **Stampanti termiche**: ogni categoria è associata a una **zona** (cucina,
+  pizzeria, bar…) e ogni zona a una stampante. Una comanda con pizze e birre
+  esce divisa nelle due zone, con tavolo, ora, voci, note, chi ha ordinato.
+  Copia riepilogativa alla stampante di cassa.
+- Se una stampante è spenta o senza carta: avviso al personale e stampa di
+  riserva sulla stampante di cassa.
+
+## 7. Pagamenti dal tavolo
+
+- Metodi: Apple Pay, Google Pay, Satispay, Revolut Pay, Bancomat Pay, carta.
+- **I soldi vanno direttamente sul conto del locale**: ogni locale collega il
+  proprio conto presso il fornitore di pagamenti. Ordinachatbot è solo la
+  piattaforma tecnica e non trattiene denaro dei clienti.
+- Il titolare sceglie quali metodi mostrare.
+- Conto: paga tutto, paga la tua parte (le tue voci), dividi in parti uguali.
+  Mancia facoltativa.
+- Ricevuta di cortesia sul telefono. Il documento fiscale lo emette il locale
+  (dalla cassa di Ordinachatbot se attiva, altrimenti dal proprio registratore).
+
+## 8. Cassa e gestionale (facoltativo)
+
+Il locale compra a parte monitor touch e stampante fiscale RT (modelli
+supportati in `docs/hardware.md`).
+
+- **Reparti** con aliquota IVA (es. Cucina 10%, Bar 10%, Asporto 22%: valori di
+  esempio, da impostare col commercialista), collegati alle categorie.
+- **Pagamenti**: contanti, carta/POS, Satispay, buoni pasto, pagato dal tavolo,
+  non riscosso; pagamenti misti sullo stesso conto.
+- **Vendita al banco** veloce a pulsanti grandi (categorie → prodotti).
+- **Mappa dei tavoli** per sala, a colori secondo lo stato; apri, sposta, unisci.
+- **Ordini del chatbot** compaiono da soli sul tavolo giusto; se il tavolo ha
+  pagato dal telefono il conto risulta già saldato e resta solo da emettere lo
+  scontrino.
+- **Conto**: preconto, coperto e servizio, sconti, divisione, scontrino
+  fiscale su RT, annullo e reso, lotteria degli scontrini.
+- **Giornata**: apertura con fondo cassa, chiusura giornaliera, turni e
+  operatori con PIN, permessi (chi può stornare o scontare), registro delle
+  operazioni.
+- **Resoconti**: incassi per metodo, reparto, prodotto, fascia oraria,
+  operatore; esportazione.
+- **Senza internet** la cassa continua a vendere e stampare; si riallinea al
+  ritorno della connessione.
+
+## 9. Sito e menu pubblico
+
+- **Menu pubblico**: lo stesso menu, solo da consultare, a un indirizzo fisso.
+- **Sito** (facoltativo): logo, descrizione, orari, mappa, contatti, social,
+  galleria, pulsante **Menu**.
+
+## 10. SaaS, domini, amministrazione
+
+- Ogni locale ha un indirizzo sul nostro dominio (es. `nomelocale.<nostrodominio>`).
+  Può passare in qualsiasi momento a un dominio suo; i QR già stampati
+  continuano a funzionare.
+- I super amministratori possono fare tutto ciò che fa il titolare, entrando
+  «per conto del locale»; ogni operazione resta registrata.
+- Piani a moduli (§3). Per la versione 1 i piani li assegniamo noi; iscrizione
+  autonoma e pagamento dell'abbonamento arrivano dopo (OC7-01).
+
+## 11. Regole tecniche
+
+- Ogni dato appartiene a un locale; isolamento nel database **e** lato server.
+- Nessun segreto nel repository o nel codice che gira sul telefono del cliente.
+- Gli ordini non si cancellano: si annullano, con storico.
+- Le integrazioni esterne non configurate non vanno mai simulate come funzionanti.
+- Dati dimostrativi separati ed etichettati.
+- Test per i flussi principali; migrazioni del database versionate.
+- Pensato per il telefono: la chat deve aprirsi in un paio di secondi anche con
+  rete scarsa, senza installare app.
+
+## 12. Cose aggiunte rispetto alla richiesta
+
+Chiamata del cameriere; prodotto esaurito; varianti, aggiunte e note per la
+cucina; orari delle categorie; coperto; divisione del conto e mancia; protezione
+dagli ordini da fuori locale; schermo ordini come riserva delle stampanti;
+controllo carta/stampante spenta; ruoli del personale; italiano e inglese;
+statistiche; cassa senza internet; privacy e contratto; locale pilota.
+
+## 13. Decisioni aperte
+
+1. Stack e hosting (OC0-02).
+2. Motore del chatbot: a consumo oppure open source sul nostro server (OC0-02).
+3. Fornitore dei pagamenti e copertura di Bancomat Pay (OC0-03).
+4. Modelli di stampanti e RT supportati (OC0-06).
+5. Aspetti fiscali e allergeni (OC0-07).
+6. Nome commerciale, dominio, prezzi dei piani.

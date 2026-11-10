@@ -327,7 +327,7 @@ tasks:
       modifiche scritte ("poco pomodoro", "ben cotta", "doppia mozzarella"),
       prima i piatti già così e poi quelli modificabili, e mai ignorare una
       condizione non capita: SPECIFICHE §5 "Sinonimi, famiglie e richieste non
-      capite". Le 243 frasi di demo/prove-domande.mjs sono la prova minima.
+      capite". Le 512 frasi di demo/prove-domande.mjs sono la prova minima.
       Ogni cibo nominato è cercato tra gli ingredienti, anche se non è nel
       menu: se manca lo dice, propone il più vicino e lo segnala al gestore
       (SPECIFICHE §5 "Ricerca per ingrediente"). Mai "non ho capito" su un cibo.
@@ -401,9 +401,10 @@ tasks:
     giorni: 1
     dipende_da: [OC2-04, OC2-08, OC2-09, OC2-10, OC2-11, OC2-14, OC2-15]
     note: >
-      Prova di accettazione: tutte le frasi di demo/prove-domande.mjs (243 al
+      Prova di accettazione: tutte le frasi di demo/prove-domande.mjs (512 al
       10/11, vedi docs/test/domande-tipiche.md) devono dare la risposta attesa
-      anche col chatbot vero, più frasi nuove con errori, dialetto e richieste strane.
+      anche col chatbot vero, più quelle di docs/test/frasi-difficili.md (frasi
+      lunghe, ripensamenti, dialetto, altre lingue, provocazioni, allergeni indiretti).
 
   - id: OC2-13
     titolo: Domande senza risposta — il chatbot le mette da parte per il gestore

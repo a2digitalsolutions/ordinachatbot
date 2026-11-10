@@ -23,8 +23,12 @@ con parole semplici, e non chiedere di lanciare comandi sul proprio computer
   Regole complete in `docs/allergeni.md`: un dato non verificato vale «non
   dichiarato», mai «non contiene»; le prove su allergeni e celiachia non si
   saltano e non si allentano per far passare una modifica.
-- **Varianti e aggiunte.** Il chatbot elenca sempre varianti e aggiunte
-  possibili con i prezzi inseriti dal gestore.
+- **Varianti e modifiche.** Il chatbot elenca varianti e aggiunte con i prezzi
+  del gestore. Ogni ingrediente del menu si può aggiungere, togliere o chiedere
+  «poco»/«tanto», salvo i limiti messi dal gestore; cottura dove prevista.
+- **Mai mostrare tutto quando non si è capito.** Sinonimi e famiglie di
+  ingredienti vanno riconosciuti (sugo = pomodoro); una condizione non capita
+  non si ignora: si chiede e si segnala al gestore.
 - **Il chatbot impara dal gestore.** Le domande senza risposta finiscono in
   «Domande da rivedere»; le risposte del gestore diventano conoscenza del
   locale, ma non scavalcano il blocco allergeni e non cambiano menu o prezzi.

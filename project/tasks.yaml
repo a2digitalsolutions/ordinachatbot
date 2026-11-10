@@ -237,6 +237,10 @@ tasks:
       aggiunte con il loro prezzo (mozzarella extra +1,50), ingredienti che si
       possono togliere. Gruppi riutilizzabili: si creano una volta (es. "Aggiunte
       pizza") e si applicano a un'intera categoria o a singoli prodotti.
+      Modifiche libere (SPECIFICHE §4): ogni ingrediente del menu si può
+      aggiungere, togliere o chiedere "poco"/"tanto"; il gestore imposta per
+      ingrediente prezzo o gratis, "non aggiungibile", "ingrediente base", e i
+      piatti non modificabili; cottura per le categorie che sceglie.
 
   - id: OC1-08
     titolo: Scheda ingrediente guidata — allergeni, glutine, verifica dell'etichetta
@@ -319,6 +323,11 @@ tasks:
       Richieste per categoria, ingrediente presente o assente, prezzo, menu intero.
       Il chatbot mostra solo prodotti e prezzi presi dal menu del locale: non
       inventa nulla. Prezzi e totali li calcola sempre il server.
+      Sinonimi e famiglie di ingredienti (sugo = pomodoro, "senza formaggio"),
+      modifiche scritte ("poco pomodoro", "ben cotta", "doppia mozzarella"),
+      prima i piatti già così e poi quelli modificabili, e mai ignorare una
+      condizione non capita: SPECIFICHE §5 "Sinonimi, famiglie e richieste non
+      capite". Le 237 frasi di demo/prove-domande.mjs sono la prova minima.
       Ogni cibo nominato è cercato tra gli ingredienti, anche se non è nel
       menu: se manca lo dice, propone il più vicino e lo segnala al gestore
       (SPECIFICHE §5 "Ricerca per ingrediente"). Mai "non ho capito" su un cibo.
@@ -392,7 +401,7 @@ tasks:
     giorni: 1
     dipende_da: [OC2-04, OC2-08, OC2-09, OC2-10, OC2-11, OC2-14, OC2-15]
     note: >
-      Prova di accettazione: tutte le frasi di demo/prove-domande.mjs (184 al
+      Prova di accettazione: tutte le frasi di demo/prove-domande.mjs (237 al
       10/11, vedi docs/test/domande-tipiche.md) devono dare la risposta attesa
       anche col chatbot vero, più frasi nuove con errori, dialetto e richieste strane.
 

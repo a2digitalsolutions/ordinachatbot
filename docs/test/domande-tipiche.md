@@ -1,6 +1,6 @@
 # Domande tipiche dei clienti — elenco di prova
 
-L'elenco vero sta in `demo/prove-domande.mjs`: 184 frasi con la risposta attesa.
+L'elenco vero sta in `demo/prove-domande.mjs`: 237 frasi con la risposta attesa.
 Oggi verifica la demo (`node demo/prove-domande.mjs`); **le stesse frasi sono la
 prova di accettazione del chatbot vero** (OC2-03, OC2-12): nessuna può dare
 «non ho capito» se la risposta è nel menu o tra le informazioni del locale.
@@ -13,6 +13,9 @@ Ogni frase sfuggita, in prova o dal vivo, si aggiunge all'elenco.
 | Errori di battitura | «hamburgher», «pizzze», «margerita», «antipsti» | capire lo stesso |
 | Panoramica | «cosa avete?», «ho fame», «qualcosa da bere» | proporre le categorie |
 | Ingredienti | «pizze con salsiccia», «primi senza uovo», «hamburger con uovo» | cercare tra ingredienti e aggiunte |
+| Sinonimi e famiglie | «pizze senza sugo», «pizze bianche», «senza formaggio», «con verdure» | capire il sinonimo; mostrare prima ciò che è già così |
+| Modifiche | «poco pomodoro», «doppia mozzarella», «con rucola», «ben cotta», «cottura bassa» | applicarle con il prezzo giusto; avvisare se non si può |
+| Condizioni non capite | «pizze leggere», «senza zorbino» | non mostrare tutto: chiedere e segnalare al gestore |
 | Cose che non ci sono | «dolci con nutella», «avete il sushi?», «un mojito» | dirlo chiaramente, proporre il più vicino, segnalarlo al gestore |
 | Prezzo | «sotto i 5 euro», «la pizza più economica», «quanto costa la margherita?» | filtrare o dire il prezzo |
 | Un piatto preciso | «cosa c'è nella diavola?», «vino rosso» | mostrare la scheda con varianti e aggiunte |

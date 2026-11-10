@@ -265,8 +265,8 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">"
 const CATS = [
   {id:"antipasti", name:"Antipasti", zone:"Cucina", kind:"cibo", syn:["antipasti","antipasto","stuzzichini","stuzzichino","taglieri","sfizi"]},
   {id:"primi", name:"Primi", zone:"Cucina", kind:"cibo", syn:["primi","primo","pasta","paste","pastasciutta"]},
-  {id:"secondi", name:"Secondi", zone:"Cucina", kind:"cibo", syn:["secondi","secondo","carne"]},
-  {id:"contorni", name:"Contorni", zone:"Cucina", kind:"cibo", syn:["contorni","contorno","insalate","verdure"]},
+  {id:"secondi", name:"Secondi", zone:"Cucina", kind:"cibo", syn:["secondi","secondo"]},
+  {id:"contorni", name:"Contorni", zone:"Cucina", kind:"cibo", syn:["contorni","contorno","insalate"]},
   {id:"pizze", name:"Pizze", zone:"Forno", kind:"cibo", syn:["pizze","pizza"]},
   {id:"hamburger", name:"Hamburger", zone:"Cucina", kind:"cibo", syn:["hamburger","hamburgher","amburger","burger","panini","panino"]},
   {id:"xxl", name:"Hamburger XXL", zone:"Cucina", kind:"cibo", syn:["xxl"]},
@@ -277,49 +277,44 @@ const CATS = [
   {id:"drink", name:"Drink e bibite", zone:"Bar", kind:"bere", syn:["drink","cocktail","aperitivo","aperitivi","bibite","bibita","bevande","bevanda","analcolici"]},
   {id:"caffe", name:"Caffè e amari", zone:"Bar", kind:"bere", syn:["caffetteria","amari","digestivo","digestivi","liquori","liquore"]}
 ];
-const ALLERGENI = {mozzarella:"latte", bufala:"latte", cheddar:"latte", mascarpone:"latte", "formaggio cremoso":"latte", pecorino:"latte", grana:"latte", besciamella:"latte", formaggi:"latte", burro:"latte", latte:"latte",
+const ALLERGENI = {mozzarella:"latte", bufala:"latte", cheddar:"latte", mascarpone:"latte", "formaggio cremoso":"latte", pecorino:"latte", grana:"latte", besciamella:"latte", "formaggi misti":"latte", burro:"latte", latte:"latte",
   impasto:"glutine", pane:"glutine", pastella:"glutine", savoiardi:"glutine", biscotto:"glutine", birra:"glutine", spaghetti:"glutine", penne:"glutine", "pasta all'uovo":"glutine", gnocchi:"glutine", pangrattato:"glutine", farina:"glutine",
   uovo:"uova", maionese:"uova", "salsa bbq":"senape", vino:"solfiti", prosecco:"solfiti"};
 const GROUPS = {
   impasto:{label:"Impasto", type:"one", opts:[["Classico",0],["Integrale",1],["Ai cereali",1.5]]},
-  aggPizza:{label:"Aggiunte", type:"many", opts:[["Mozzarella extra",1.5],["Bufala",2],["Funghi",1],["Salame piccante",1.5],["Salsiccia",2]]},
   carne:{label:"Carne", type:"one", opts:[["Singolo",0],["Doppio",3]]},
-  aggBurger:{label:"Aggiunte", type:"many", opts:[["Bacon",2],["Cheddar",1],["Uovo",1],["Cipolla caramellata",1]]},
-  via:{label:"Si può togliere", type:"many", opts:[["Senza cipolla",0],["Senza pomodoro",0]]},
-  cottura:{label:"Cottura", type:"one", opts:[["Media",0],["Al sangue",0],["Ben cotta",0]]},
   porzione:{label:"Porzione", type:"one", opts:[["Piccola",0],["Grande",1.5]]},
   spina:{label:"Formato", type:"one", opts:[["Piccola 0,2 l",0],["Media 0,4 l",1.5]]},
   vino:{label:"Formato", type:"one", opts:[["Calice",0],["Mezzo litro",5],["Bottiglia",12]]},
   spritz:{label:"Tipo", type:"one", opts:[["Aperol",0],["Campari",0],["Analcolico",0]]},
   gin:{label:"Aggiunte", type:"many", opts:[["Gin premium",2],["Doppia dose",3]]},
-  ghiaccio:{label:"Si può togliere", type:"many", opts:[["Senza ghiaccio",0],["Senza limone",0]]},
   acqua:{label:"Tipo", type:"one", opts:[["Naturale",0],["Frizzante",0]]},
   caffe:{label:"Tipo", type:"one", opts:[["Normale",0],["Macchiato",0],["Decaffeinato",0.2],["Corretto",0.8]]}
 };
 /* I(id, categoria, nome, prezzo, immagine, ingredienti, gruppi, parole con cui lo chiamano, etichette) */
 const I = (id,cat,name,price,em,ing,groups,k,tags) => ({id,cat,name,price,em,ing,groups:groups||[],k:k||[],tags:tags||[]});
 const ITEMS = [
-  I("tagliere","antipasti","Tagliere di salumi e formaggi",12,"🧀",["salumi","formaggi","pane"],[],["tagliere"]),
+  I("tagliere","antipasti","Tagliere di salumi e formaggi",12,"🧀",["salumi misti","formaggi misti","pane"],[],["tagliere"]),
   I("bruschette","antipasti","Bruschette miste",6,"🥖",["pane","pomodoro","aglio","olio"],[],["bruschette","bruschetta"],["vegano"]),
   I("carbonara","primi","Spaghetti alla carbonara",10,"🍝",["spaghetti","guanciale","uovo","pecorino"],[],["carbonara"]),
   I("arrabbiata","primi","Penne all'arrabbiata",8,"🍝",["penne","pomodoro","aglio","peperoncino"],[],["arrabbiata"],["vegano","piccante"]),
   I("lasagna","primi","Lasagna al ragù",10,"🍝",["pasta all'uovo","ragù","besciamella","grana"],[],["lasagna","lasagne"]),
   I("gnocchi","primi","Gnocchi al pomodoro",8.5,"🍝",["gnocchi","pomodoro","basilico","mozzarella"],[],["gnocchi"],["bimbi"]),
-  I("tagliata","secondi","Tagliata di manzo",16,"🥩",["manzo","rucola","grana"],["cottura"],["tagliata"]),
+  I("tagliata","secondi","Tagliata di manzo",16,"🥩",["manzo","rucola","grana"],[],["tagliata"]),
   I("cotoletta","secondi","Cotoletta con patatine",11,"🍗",["pollo","pangrattato","uovo","patate"],[],["cotoletta","cotolette"],["bimbi"]),
   I("grigliata","secondi","Grigliata di verdure",9,"🥗",["zucchine","melanzane","peperoni"],[],["grigliata"],["vegano"]),
   I("insalata","contorni","Insalata mista",4,"🥗",["lattuga","pomodoro","carote"],[],["insalata"],["vegano"]),
   I("patateforno","contorni","Patate al forno",4,"🥔",["patate","rosmarino"],[],["patate al forno"],["vegano"]),
-  I("margherita","pizze","Margherita",6,"🍕",["impasto","pomodoro","mozzarella","basilico"],["impasto","aggPizza"],["margherita","margherite"],["bimbi"]),
-  I("diavola","pizze","Diavola",7.5,"🍕",["impasto","pomodoro","mozzarella","salame piccante"],["impasto","aggPizza"],["diavola","diavole"],["piccante"]),
-  I("salsfriar","pizze","Salsiccia e friarielli",8.5,"🍕",["impasto","mozzarella","salsiccia","friarielli"],["impasto","aggPizza"],["salsiccia e friarielli"]),
-  I("boscaiola","pizze","Boscaiola",8.5,"🍕",["impasto","pomodoro","mozzarella","funghi","salsiccia"],["impasto","aggPizza"],["boscaiola","boscaiole"]),
-  I("ortolana","pizze","Ortolana",8,"🍕",["impasto","pomodoro","mozzarella","zucchine","melanzane","peperoni"],["impasto","aggPizza"],["ortolana","ortolane"]),
-  I("bufalina","pizze","Bufalina",9,"🍕",["impasto","pomodoro","bufala","basilico"],["impasto","aggPizza"],["bufalina","bufaline"]),
-  I("classico","hamburger","Hamburger classico",9,"🍔",["pane","manzo","lattuga","pomodoro","cipolla"],["carne","aggBurger","via"],["hamburger classico","classico"]),
-  I("cheese","hamburger","Cheeseburger",10,"🍔",["pane","manzo","cheddar","lattuga","pomodoro","cipolla"],["carne","aggBurger","via"],["cheeseburger","cheese burger"]),
-  I("baconbbq","hamburger","Bacon BBQ",11.5,"🍔",["pane","manzo","bacon","cheddar","cipolla","salsa bbq"],["carne","aggBurger","via"],["bacon bbq","bbq"]),
-  I("gigante","xxl","Il Gigante",15,"🍔",["pane","manzo","bacon","cheddar","uovo","cipolla","salsa bbq"],["aggBurger","via"],["gigante"]),
+  I("margherita","pizze","Margherita",6,"🍕",["impasto","pomodoro","mozzarella","basilico"],["impasto"],["margherita","margherite"],["bimbi"]),
+  I("diavola","pizze","Diavola",7.5,"🍕",["impasto","pomodoro","mozzarella","salame piccante"],["impasto"],["diavola","diavole"],["piccante"]),
+  I("salsfriar","pizze","Salsiccia e friarielli",8.5,"🍕",["impasto","mozzarella","salsiccia","friarielli"],["impasto"],["salsiccia e friarielli"]),
+  I("boscaiola","pizze","Boscaiola",8.5,"🍕",["impasto","pomodoro","mozzarella","funghi","salsiccia"],["impasto"],["boscaiola","boscaiole"]),
+  I("ortolana","pizze","Ortolana",8,"🍕",["impasto","pomodoro","mozzarella","zucchine","melanzane","peperoni"],["impasto"],["ortolana","ortolane"]),
+  I("bufalina","pizze","Bufalina",9,"🍕",["impasto","pomodoro","bufala","basilico"],["impasto"],["bufalina","bufaline"]),
+  I("classico","hamburger","Hamburger classico",9,"🍔",["pane","manzo","lattuga","pomodoro","cipolla","ketchup"],["carne"],["hamburger classico","classico"]),
+  I("cheese","hamburger","Cheeseburger",10,"🍔",["pane","manzo","cheddar","lattuga","pomodoro","cipolla","ketchup"],["carne"],["cheeseburger","cheese burger"]),
+  I("baconbbq","hamburger","Bacon BBQ",11.5,"🍔",["pane","manzo","bacon","cheddar","cipolla","salsa bbq"],["carne"],["bacon bbq","bbq"]),
+  I("gigante","xxl","Il Gigante",15,"🍔",["pane","manzo","bacon","cheddar","uovo","cipolla","salsa bbq"],[],["gigante"]),
   I("patatine","fritti","Patatine fritte",4,"🍟",["patate"],["porzione"],["patatine","patatina"],["vegano","bimbi"]),
   I("crocchette","fritti","Crocchette di patate",5,"🧆",["patate","mozzarella","pastella"],[],["crocchette","crocche"]),
   I("anelli","fritti","Anelli di cipolla",4.5,"🧅",["cipolla","pastella"],[],["anelli"]),
@@ -329,12 +324,12 @@ const ITEMS = [
   I("bionda","birre","Bionda alla spina",3.5,"🍺",["birra"],["spina"],["bionda","bionde","birra chiara"]),
   I("rossa","birre","Rossa alla spina",4,"🍺",["birra"],["spina"],["rossa","rosse"]),
   I("ipa","birre","IPA artigianale 0,33 l",6,"🍺",["birra"],[],["ipa","artigianale"]),
-  I("vrosso","vini","Rosso della casa",4,"🍷",["vino"],["vino"],["vino rosso","rosso"]),
-  I("vbianco","vini","Bianco della casa",4,"🥂",["vino"],["vino"],["vino bianco","bianco"]),
+  I("vrosso","vini","Rosso della casa",4,"🍷",["vino"],["vino"],["vino rosso","vini rossi","rosso","rossi"]),
+  I("vbianco","vini","Bianco della casa",4,"🥂",["vino"],["vino"],["vino bianco","vini bianchi","bianco","bianchi"]),
   I("prosecco","vini","Prosecco (calice)",5,"🥂",["prosecco"],[],["prosecco","bollicine"]),
-  I("spritz","drink","Spritz",6,"🍹",["prosecco","soda","arancia"],["spritz","ghiaccio"],["spritz"]),
-  I("gintonic","drink","Gin tonic",7,"🍸",["gin","acqua tonica","limone"],["gin","ghiaccio"],["gin tonic","gintonic","gin lemon"]),
-  I("fruttato","drink","Cocktail analcolico alla frutta",5,"🍹",["succo d'arancia","pesca","granatina"],["ghiaccio"],["cocktail analcolico","analcolico alla frutta"],["analcolico"]),
+  I("spritz","drink","Spritz",6,"🍹",["prosecco","soda","arancia","ghiaccio"],["spritz"],["spritz"]),
+  I("gintonic","drink","Gin tonic",7,"🍸",["gin","acqua tonica","limone","ghiaccio"],["gin"],["gin tonic","gintonic","gin lemon"]),
+  I("fruttato","drink","Cocktail analcolico alla frutta",5,"🍹",["succo d'arancia","pesca","granatina","ghiaccio"],[],["cocktail analcolico","analcolico alla frutta"],["analcolico"]),
   I("cola","drink","Cola 0,33 l",3,"🥤",[],[],["cola","coca","coca cola","cocacola"],["analcolico"]),
   I("acqua","drink","Acqua 0,75 l",2,"💧",[],["acqua"],["acqua"],["analcolico"]),
   I("caffe","caffe","Caffè",1.2,"☕",["caffè"],["caffe"],["caffe","espresso"],["analcolico"]),
@@ -345,10 +340,46 @@ const byId = id => ITEMS.find(i => i.id === id);
 const catOf = it => CATS.find(c => c.id === it.cat);
 const hasVariantPrice = it => it.groups.some(g => GROUPS[g].opts.some(o => o[1] > 0) && GROUPS[g].type === "one");
 const allergeniDi = it => [...new Set(it.ing.map(x => ALLERGENI[x]).filter(Boolean))];
-const CARNE = ["manzo","salsiccia","bacon","salame piccante","guanciale","ragù","pollo","salumi"];
+const CARNE = ["manzo","salsiccia","bacon","salame piccante","guanciale","ragù","pollo","salumi misti"];
 const isVeg = it => catOf(it).kind === "cibo" && !it.ing.some(x => CARNE.includes(x));
 const INGREDIENTI = [...new Set(ITEMS.flatMap(i => i.ing))].filter(x => !["impasto","pane"].includes(x)).sort((a,b) => b.length - a.length);
-const ING_SYN = {fungo:"funghi", funghetti:"funghi", salame:"salame piccante", cipolle:"cipolla", patata:"patate", uova:"uovo", formaggio:"formaggi", salsicce:"salsiccia", pancetta:"bacon", zucchina:"zucchine", melanzana:"melanzane", peperone:"peperoni", pomodori:"pomodoro", pomodorini:"pomodoro", parmigiano:"grana", cioccolata:"cioccolato", wurstel:"wurstel"};
+const ING_SYN = {fungo:"funghi", funghetti:"funghi", salame:"salame piccante", cipolle:"cipolla", patata:"patate", uova:"uovo", salsicce:"salsiccia", pancetta:"bacon", zucchina:"zucchine", melanzana:"melanzane", peperone:"peperoni", pomodori:"pomodoro", pomodorini:"pomodoro", parmigiano:"grana", cioccolata:"cioccolato", wurstel:"wurstel"};
+/* Sinonimi e famiglie: una parola del cliente → uno o più ingredienti del menu.
+   "senza X" esclude i piatti che ne hanno anche uno solo; "con X" vuole almeno uno. */
+const FAM = {
+  sugo:["pomodoro"], passata:["pomodoro"], pelati:["pomodoro"], pummarola:["pomodoro"], pomodorino:["pomodoro"], salsa:["pomodoro","salsa bbq"], salse:["pomodoro","salsa bbq"],
+  formaggio:["mozzarella","bufala","cheddar","pecorino","grana","formaggi misti","mascarpone","formaggio cremoso","besciamella"],
+  formaggi:["mozzarella","bufala","cheddar","pecorino","grana","formaggi misti","mascarpone","formaggio cremoso","besciamella"],
+  latticini:["mozzarella","bufala","cheddar","pecorino","grana","formaggi misti","mascarpone","formaggio cremoso","besciamella","burro"],
+  carne:["manzo","salsiccia","bacon","salame piccante","guanciale","ragù","pollo","salumi misti"],
+  maiale:["salsiccia","bacon","salame piccante","guanciale","salumi misti"],
+  salumi:["salumi misti","salame piccante","guanciale","bacon"], affettati:["salumi misti","salame piccante"],
+  verdure:["zucchine","melanzane","peperoni","lattuga","carote","rucola","friarielli","funghi"], verdura:["zucchine","melanzane","peperoni","lattuga","carote","rucola","friarielli","funghi"], ortaggi:["zucchine","melanzane","peperoni","carote"],
+  uovo:["uovo","pasta all'uovo"], uova:["uovo","pasta all'uovo"], insalata:["lattuga","rucola"],
+  peperoncino:["peperoncino","salame piccante"], cioccolata:["cioccolato","cacao"], cioccolato:["cioccolato","cacao"], cacao:["cioccolato","cacao"],
+  manzo:["manzo","ragù"], hamburger:["manzo"], pane:["pane"], frutta:["frutti di bosco","arancia","limone"], agrumi:["arancia","limone"], erbe:["basilico","rosmarino","rucola"]
+};
+/* Modifiche ai piatti: nel prodotto vero queste regole e questi prezzi li imposta il gestore */
+["lasagna","crocchette","anelli","tiramisu","cheesecake","tortino","ipa","cola","amaro","limoncello","prosecco","vrosso","vbianco","bionda","rossa","acqua","caffe"].forEach(id => byId(id).tags.push("fisso"));
+const BASE = ["impasto","pane","spaghetti","penne","pasta all'uovo","gnocchi","manzo","pollo","patate","pangrattato","birra","vino","prosecco","gin","acqua tonica","soda","caffè","succo d'arancia"];
+const PREZZO_AGG = {mozzarella:1.5, bufala:2, funghi:1, "salame piccante":1.5, salsiccia:2, bacon:2, cheddar:1, uovo:1, guanciale:2, grana:1, pecorino:1, rucola:0.5, zucchine:1, melanzane:1, peperoni:1, friarielli:1.5, "salumi misti":3, "formaggi misti":3};
+const GRATIS = ["basilico","peperoncino","aglio","rosmarino","olio","cipolla","ghiaccio","limone","arancia","ketchup","lattuga","pomodoro","carote"];
+const NON_AGG = ["mascarpone","savoiardi","cacao","biscotto","formaggio cremoso","besciamella","ragù","pastella","farina","burro","cioccolato","frutti di bosco","granatina","pesca"];
+const CAT_AGG = {pizze:["mozzarella","bufala","funghi","salame piccante","salsiccia","rucola"], hamburger:["bacon","cheddar","uovo"], xxl:["bacon","cheddar"], primi:["grana","peperoncino"], secondi:["rucola","grana"], drink:["limone"]};
+const prezzoAgg = x => GRATIS.includes(x) ? 0 : (PREZZO_AGG[x] !== undefined ? PREZZO_AGG[x] : 1);
+const costo = x => prezzoAgg(x) ? " (+" + euro(prezzoAgg(x)) + ")" : " (gratis)";
+const ingKind = x => new Set(ITEMS.filter(i => i.ing.includes(x)).map(i => catOf(i).kind));
+const modificabile = it => !it.tags.includes("fisso");
+const haCottura = it => ["pizze","hamburger","xxl"].includes(it.cat) || it.id === "tagliata";
+const RE_COTTURA = /(non troppo|poco|ben|molto|tanto|bella|appena) (cott[aoie]|scottat[ao])|cott[aoie] (bene|normale|poco|molto)|cottura (al )?\w+|(poca|media|alta|bassa|lunga) cottura|al sangue|al punto|rosa dentro|stracott[aoie]|croccante|bruciacchiat[aoie]|ben fatt[ao]/g;
+function cotturaDi(s, carne){
+  if(/poco cott|cott[aoie] poco|non troppo cott|cottura (bassa|poca|leggera|breve|minima)|(poca|bassa) cottura|al sangue|rosa dentro|appena scottat/.test(s)) return carne ? "Al sangue" : "Poco cotta";
+  if(/ben cott|molto cott|tanto cott|bella cott|cott[aoie] (bene|molto)|cottura (alta|lunga|forte|molta|piena)|(alta|lunga) cottura|stracott|croccante|bruciacchiat|ben fatt/.test(s)) return "Ben cotta";
+  if(/cottura (media|normale|giusta|al punto)|media cottura|cott[aoie] normale|al punto/.test(s)) return "Cottura media";
+  return null;
+}
+const conosciuto = w => ITEMS.some(i => i.ing.some(x => norm(x).split(" ").includes(w))) || CATS.some(c => c.syn.includes(w)) || ITEMS.some(i => i.k.some(k => norm(k).split(" ").includes(w)) || norm(i.name).split(" ").includes(w)) || Object.values(GROUPS).some(G => G.opts.some(o => norm(o[0]).split(" ").includes(w)));
+const FILLER = new Set("abbiamo avrei gradirei piacerebbe volentieri qualche alcune alcuni vostre vostri nostri avreste sarebbe potrei magari proprio davvero tipo tipi genere fatte fatta fatti fanno bella bello belle gusti gusto disponibili disponibile presenti lista elenco mostra mostrami vedere scelta scegliere prendere serve servono esiste esistono ecco bene nulla altre altri particolare particolari insieme veloce sempre forse certo circa quasi vengono viene contenente contenenti contiene contengono dentro fuori roba cose qualcuno nessuno ogni parte sera domani dissetante bevo mangio abbia siano siete piace piacciono mica pure cioe ossia quindi dunque insomma buonasera buongiorno salve gentilmente potresti potreste dirmi dirci farmi farci sapere conoscere chiedere chiedo chiediamo volevamo cercavo cerco cerchiamo guardare scusate scusami alla allo alle agli della dello delle degli dalla nella sulla sugli sulle negli nelle quei quelle quegli questi queste tutte tante tanti molti molte poche pochi troppo troppa abbastanza piuttosto esempio possibile possibili offrite proponete servite preparate".split(" "));
 /* Cibi e bevande comuni: servono a capire che una parola è un cibo anche se nel menu non c'è */
 const CIBI = ["nutella","ananas","tartufo","risotto","sushi","kebab","pesce","salmone","tonno","gamberi","gamberetti","cozze","vongole","frutti di mare","wurstel","speck","prosciutto","crudo","cotto","gorgonzola","pistacchio","burrata","nduja","porchetta","polpette","parmigiana","gelato","panna cotta","cannoli","crepes","pancake","cornetto","toast","piadina","piadine","zuppa","minestrone","ravioli","tortellini","amatriciana","cacio e pepe","pesto","bistecca","fiorentina","costata","arrosticini","hot dog","nuggets","alette","falafel","hummus","poke","ramen","tacos","nachos","mojito","negroni","americano","vodka","rum","whisky","tequila","sangria","cappuccino","tisana","succo","aranciata","sprite","fanta","champagne","lambrusco","calzone","focaccia","tofu","seitan","acciughe","alici","olive","capperi","carciofi","spinaci","noci","mandorle","miele","panna","yogurt","frutta","macedonia","sorbetto","torta","quattro formaggi","capricciosa","napoli","marinara","wurstel e patatine","kinder","pollo fritto","salame dolce","carpaccio","baccala","polpo","calamari","frittura di pesce","lenticchie","fagioli","ceci","riso","orzo","farro","tagliatelle","fettuccine","pappardelle","orecchiette","trofie","paccheri","rigatoni","bucatini","linguine","tortelli","cannelloni","polenta","coniglio","agnello","maiale","vitello","tacchino","anatra","cinghiale","trippa","fegato","te","the","latte macchiato","cioccolata calda","grappa","sambuca","baileys","martini","bellini","hugo","aperol","campari","moscow mule","long island","pina colada","daiquiri","margarita"];
 
@@ -379,7 +410,7 @@ const FAQ = [
 /* ---------- Comprensione della richiesta (regole semplici, solo per la demo) ---------- */
 function lev(a,b){ if(Math.abs(a.length-b.length) > 2) return 9; const d = Array.from({length:a.length+1},(_,i)=>[i]); for(let j=1;j<=b.length;j++) d[0][j]=j;
   for(let i=1;i<=a.length;i++) for(let j=1;j<=b.length;j++) d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+(a[i-1]===b[j-1]?0:1)); return d[a.length][b.length]; }
-const COMUNI = new Set("avete vorrei posso possiamo potete cosa come quanto quanta quanti costa costano sono siamo senza anche altro altra tutto tutti tutta quali quale fate dove quando conto pagare pagato grazie ciao salve menu carrello ordine ordini tavolo cameriere prendo prendiamo aggiungi togli bere mangiare qualcosa niente molto poco meno sotto sopra euro prezzo prezzi vedere dammi dimmi fammi portami ancora adesso subito prima dopo oggi stasera buono buona buoni buone forte piatto piatti della delle degli nella nelle questo questa quello quella basta essere avere fatto fare volevo voglio vogliamo ordino ordiniamo conferma confermo invia quanto porta portaci mettimi metti solo soltanto invece oppure perche allora scusa scusi piacere favore cortesia mezzo mezza grande piccolo piccola media medio doppio doppia normale classica classico caldo calda freddo fredda fresco fresca leggero leggera pronto pronta manca arriva punto stato primo secondo dolce vostro vostra nostro nostra casa posto persone persona amici locale serata sera cena pranzo acqua".split(" "));
+const COMUNI = new Set("avete vorrei posso possiamo potete cosa come quanto quanta quanti costa costano sono siamo senza anche altro altra tutto tutti tutta quali quale fate dove quando conto pagare pagato grazie ciao salve menu carrello ordine ordini tavolo cameriere prendo prendiamo aggiungi togli bere mangiare qualcosa niente molto poco meno sotto sopra euro prezzo prezzi vedere dammi dimmi fammi portami ancora adesso subito prima dopo oggi stasera buono buona buoni buone forte piatto piatti della delle degli nella nelle questo questa quello quella basta essere avere fatto fare volevo voglio vogliamo ordino ordiniamo conferma confermo invia quanto porta portaci mettimi metti solo soltanto invece oppure perche allora scusa scusi piacere favore cortesia mezzo mezza grande piccolo piccola media medio doppio doppia normale classica classico caldo calda freddo fredda fresco fresca pronto pronta manca arriva punto stato primo secondo dolce vostro vostra nostro nostra casa cottura cotta cotto cotte cotti sangue scottata posto persone persona amici locale serata sera cena pranzo acqua".split(" "));
 const QTY = {un:1,uno:1,una:1,due:2,tre:3,quattro:4,cinque:5,sei:6,sette:7,otto:8,nove:9,dieci:10};
 const VOCAB = [...new Set([...CATS.flatMap(c => c.syn), ...INGREDIENTI.flatMap(x => norm(x).split(" ")), ...ITEMS.flatMap(i => i.k.flatMap(k => norm(k).split(" "))), ...CIBI.flatMap(x => x.split(" ")),
   "allergia","allergie","allergico","allergica","allergeni","celiaco","celiaca","celiachia","glutine","lattosio","intollerante","intolleranza","vegetariano","vegetariana","vegetariani","vegano","vegana","vegani","piccante","piccanti","analcolico","analcolica","cameriere","carrello","conferma","consigli","consiglio","economico","prenotare","parcheggio"].filter(w => w.length >= 5))];
@@ -392,8 +423,8 @@ function correggi(t){
   }).join(" ");
 }
 const has = (t, phrase) => (" " + t + " ").includes(" " + phrase + " ");
-function removable(it, ing){ return it.groups.some(g => GROUPS[g].opts.some(o => norm(o[0]) === "senza " + norm(ing))); }
-function addable(it, ing){ for(const g of it.groups){ const G = GROUPS[g]; if(G.type !== "many") continue; const o = G.opts.find(o => norm(o[0]) === norm(ing) || norm(o[0]).split(" ")[0] === norm(ing).split(" ")[0]); if(o && !/^senza/.test(norm(o[0]))) return o; } return null; }
+function removable(it, ing){ return modificabile(it) && it.ing.includes(ing) && !BASE.includes(ing); }
+function addable(it, ing){ if(!modificabile(it) || it.ing.includes(ing) || BASE.includes(ing) || NON_AGG.includes(ing) || !INGREDIENTI.includes(ing) || !ingKind(ing).has(catOf(it).kind)) return null; return [ing, prezzoAgg(ing)]; }
 function namedItems(t){
   const out = [];
   for(const it of ITEMS){
@@ -409,9 +440,51 @@ function pickOptions(it, t){
     if(G.type === "one"){ let idx = 0;
       G.opts.forEach((o,i) => { const key = norm(o[0]); const w = key.split(" ")[0]; if(i > 0 && (has(t,key) || (w.length >= 5 && (has(t,w) || t.split(" ").some(x => x.length >= 5 && x.slice(0,-1) === w.slice(0,-1)))))) idx = i; });
       opts.push(G.opts[idx][0]); price += G.opts[idx][1];
-    } else G.opts.forEach(o => { const key = norm(o[0]); if(has(t,key) || (!/^senza/.test(key) && has(t,"con " + key.split(" ")[0])) || (!/^senza/.test(key) && has(t,"e " + key.split(" ")[0]))){ opts.push(o[0]); price += o[1]; } });
+    } else G.opts.forEach(o => { if(has(t, norm(o[0]))){ opts.push(o[0]); price += o[1]; } });
   }
   return {opts, price};
+}
+/* Parole del cliente → ingredienti: nomi degli ingredienti e famiglie (formaggio, sugo, verdure…) */
+const TERMS = [...new Set(ITEMS.flatMap(i => i.ing))].map(x => [norm(x), [x]]).concat(Object.entries(FAM).filter(([k]) => !ITEMS.some(i => i.ing.includes(k)))).sort((a,b) => b[0].length - a[0].length);
+const RE_DOPPIO = new RegExp("\\b(doppi[oa]|extra|tant[oa]|molt[oa]|poc[oa]|poch[ie]) (?:di )?(?=(?:" + TERMS.map(t => t[0]).join("|") + ")\\b)", "g");
+/* Modifiche scritte dal cliente: senza X, poco X, tanto/doppio X, con X (aggiunta), cottura */
+function parseMods(it, seg){
+  const opts = [], avvisi = []; let extra = 0;
+  const push = x => { if(!opts.includes(x)) opts.push(x); };
+  let s = " " + seg.replace(/[~,.]/g, " ") + " ";
+  for(const [k,v] of Object.entries(ING_SYN)) s = s.replace(new RegExp("\\b"+k+"\\b","g"), v);
+  const c = cotturaDi(s, it.cat !== "pizze");
+  if(c){ if(haCottura(it)) push(c); else avvisi.push("per " + it.name + " non si può scegliere la cottura"); }
+  s = s.replace(RE_COTTURA, " ");
+  const w = s.trim().split(/\s+/).filter(Boolean); let mode = null;
+  const ART = new Set("il lo la l i gli le un uno una di del dello della dei delle degli e ed anche po d ma pero".split(" "));
+  for(let i = 0; i < w.length; i++){
+    const x = w[i];
+    if(/^(senza|no|togli|niente|leva)$/.test(x)){ mode = "senza"; continue; }
+    if(/^(poco|poca|pochi|poche|pochissimo|pochissima|meno|appena|leggero|leggera)$/.test(x)){ mode = "poco"; continue; }
+    if(/^(tanto|tanta|tanti|tante|molto|molta|molti|molte|doppio|doppia|extra|abbondante|piu|parecchio|parecchia)$/.test(x)){ mode = "tanto"; continue; }
+    if(/^(con|aggiungi|aggiunta|metti|mettici)$/.test(x)){ mode = "con"; continue; }
+    if(ART.has(x)) continue;
+    const rest = w.slice(i).join(" ");
+    const term = TERMS.find(([k]) => rest === k || rest.startsWith(k + " "));
+    if(!term){ if(mode && x.length >= 4 && !COMUNI.has(x) && !FILLER.has(x) && !conosciuto(x)) avvisi.push("«" + x + "» non è tra gli ingredienti del menu"); if(!(mode && conosciuto(x))) mode = null; continue; }
+    i += term[0].split(" ").length - 1;
+    if(!mode) continue;
+    const presenti = term[1].filter(y => it.ing.includes(y));
+    if(mode === "senza"){
+      if(!presenti.length){ if(term[1].length === 1) avvisi.push(it.name + " è già senza " + term[1][0]); }
+      else presenti.forEach(y => removable(it,y) ? push("Senza " + y) : avvisi.push(y + " non si può togliere da " + it.name));
+    } else if(mode === "poco"){
+      if(presenti.length) presenti.forEach(y => push("Poco " + y)); else avvisi.push(it.name + " non ha " + term[0]);
+    } else if(mode === "tanto" && presenti.length){
+      presenti.forEach(y => { if(!opts.includes("Extra " + y)){ push("Extra " + y); extra += prezzoAgg(y); } });
+    } else {
+      if(term[1].length > 1){ if(!presenti.length) avvisi.push("quale " + term[0] + "? Scrivi l'ingrediente preciso"); continue; }
+      const y = term[1][0]; if(it.ing.includes(y)) continue;
+      if(addable(it,y)){ if(!opts.includes("Aggiunta " + y)){ push("Aggiunta " + y); extra += prezzoAgg(y); } } else avvisi.push(y + " non si può aggiungere a " + it.name);
+    }
+  }
+  return {opts, extra, avvisi};
 }
 function interpret(raw){
   let t = norm(raw);
@@ -450,16 +523,35 @@ function interpret(raw){
   for(const [k,v] of Object.entries(ING_SYN)) rest = rest.replace(new RegExp("\\b"+k+"\\b","g"), v);
   const named = namedItems(t);
   let scan = rest; named.forEach(n => { scan = scan.replace(" " + n.k + " ", " ~ "); });
-  const senzaPart = scan.split(/\bsenza\b/).slice(1).join(" , ");
-  const conPart = scan.split(/\bsenza\b/)[0];
+  const cott = cotturaDi(scan, true); scan = scan.replace(RE_COTTURA, " ").replace(/\s+/g, " ");
+  /* "senza" vale fino al prossimo "con": "pizze senza sugo con funghi" */
+  let senzaPart = " ", conPart = " ";
+  scan.split(/\b(?=senza\b|con\b)/).forEach(seg => { if(/^senza\b/.test(seg)) senzaPart += seg.replace(/^senza/, "") + " , "; else conPart += seg + " "; });
+  senzaPart = senzaPart.replace(/\s+/g, " "); conPart = conPart.replace(/\s+/g, " ");
   for(const ing of INGREDIENTI){ const n = norm(ing);
-    if(senzaPart.includes(" " + n) || senzaPart.startsWith(n)) f.senza.push(ing);
+    if(senzaPart.includes(" " + n + " ")) f.senza.push(ing);
     else if(conPart.includes(" " + n + " ")) f.con.push(ing); }
-  const conosciuto = w => ITEMS.some(i => i.ing.some(x => norm(x).split(" ").includes(w))) || CATS.some(c => c.syn.includes(w)) || ITEMS.some(i => i.k.some(k => norm(k).split(" ").includes(w)) || norm(i.name).split(" ").includes(w)) || Object.values(GROUPS).some(G => G.opts.some(o => norm(o[0]).split(" ").includes(w)));
+  f.conFam = []; f.senzaFam = []; f.senzaAssenti = []; f.nonCapiti = [];
+  for(const [k,list] of Object.entries(FAM)){
+    const inS = senzaPart.includes(" " + k + " "), inC = conPart.includes(" " + k + " ");
+    if(!inS && !inC) continue;
+    if(inC && !inS && (INGREDIENTI.includes(k) || CATS.some(c => c.syn.includes(k)) || k === "insalata")) continue;
+    const dove = inS ? "senza" : "con";
+    if(list.length === 1){ if(!f[dove].includes(list[0])) f[dove].push(list[0]); }
+    else if(!f[dove + "Fam"].some(x => x.list === list)) f[dove + "Fam"].push({k, list});
+  }
+  if(f.cats.includes("pizze") && /\bbianc/.test(t) && !f.senza.includes("pomodoro")) f.senza.push("pomodoro");
+  if(f.cats.includes("pizze") && /\bross/.test(t) && !f.con.includes("pomodoro")) f.con.push("pomodoro");
+  if(f.flags.includes("vegetariano") || f.flags.includes("vegano")) f.conFam = f.conFam.filter(x => x.k !== "carne");
   const NON_ING = ["spina","piastra","griglia","brace","forno","cassa","carta","tavolo","noi","voi","calma","contanti","telefono","satispay","bancomat","menu","meno","massimo","ghiaccio","cortesia","favore","piacere","amici","bambini","cane","calice","bottiglia","tanto","tanta","poco","poca","dentro","sopra","parte","volo","momento"];
   const reCon = /\b(?:con|alla|al|allo|ai|alle|agli)\s+((?:(?:il|la|lo|l|i|le|gli|un|una|uno|della|del|dello|dei|delle|tanta|tanto|molta|molto|doppia|doppio|extra|po|di)\s+)*)([a-z]+)/g;
   let mm; while((mm = reCon.exec(conPart))){ const w = mm[2]; if(w.length < 3 || w === "~" || NON_ING.includes(w) || COMUNI.has(w) || conosciuto(w)) continue; if(!f.ignoti.includes(w)) f.ignoti.push(w); }
-  for(const c of CIBI){ if(has(scan.trim(), c) && !c.split(" ").every(conosciuto) && !f.ignoti.some(x => c.includes(x))) f.ignoti.push(c); }
+  /* parole dopo "senza": ingrediente noto, cibo che nel menu non c'è, oppure parola non capita (mai ignorarla) */
+  const reSenza = /\bsenza\s+((?:(?:il|la|lo|l|i|le|gli|un|una|del|della|dei|delle|di|troppo|troppa|tanto|tanta)\s+)*)([a-z~]+)/g;
+  while((mm = reSenza.exec(scan))){ const w = mm[2]; if(w.length < 3 || w === "~") continue;
+    if(conosciuto(w) || w in FAM || ["carne","alcol","alcool","piccante","problemi","fretta","impegno"].includes(w)) continue;
+    if(CIBI.some(c => c.split(" ").includes(w))) f.senzaAssenti.push(w); else f.nonCapiti.push("senza " + w); }
+  for(const c of CIBI){ if(has(conPart.trim(), c) && !c.split(" ").every(conosciuto) && !f.ignoti.some(x => c.includes(x))) f.ignoti.push(c); }
   f.ignoti = f.ignoti.filter(x => !f.ignoti.some(y => y !== x && y.includes(x)));
 
   /* ordinare direttamente: "due margherite e una birra media" */
@@ -470,20 +562,22 @@ function interpret(raw){
   const inOrdine = verbo || primaParola in QTY || /^\d+$/.test(primaParola);
   if(inOrdine) for(const [w,id] of Object.entries(GENERICI)){ const it = byId(id);
     if(has(t,w) && !named.some(n => n.it.cat === it.cat)){ named.push({it, k:w, pos:(" " + t + " ").indexOf(" " + w + " ")}); named.sort((a,b) => a.pos - b.pos); } }
-  if(named.length && !f.ignoti.length && inOrdine && !(f.con.length && named.length === 1 && named[0].k in GENERICI)){
+  if(named.length && inOrdine && !(f.con.length && named.length === 1 && named[0].k in GENERICI)){
     const tSenzaNomi = named.reduce((s,n) => (" " + s + " ").replace(" " + n.k + " ", " ~ ").trim(), t);
     const lines = named.map((n,i) => { const before = t.slice(0, n.pos).trim().split(" ").slice(-2); let q = 1;
       for(const b of before){ if(b in QTY) q = QTY[b]; else if(/^\d+$/.test(b)) q = Math.min(20, parseInt(b,10)); }
       const seg = named.length === 1 ? tSenzaNomi : t.slice(n.pos + n.k.length, i + 1 < named.length ? named[i+1].pos : t.length).replace(/\b(un|uno|una|due|tre|quattro|cinque|sei|\d+)\s*$/, "");
-      const o = pickOptions(n.it, seg); return {id:n.it.id, qty:Math.max(1,q), opts:o.opts, price:o.price}; });
+      const o = pickOptions(n.it, seg.replace(RE_COTTURA, " ").replace(RE_DOPPIO, " ")), m = parseMods(n.it, seg);
+      return {id:n.it.id, qty:Math.max(1,q), opts:o.opts.concat(m.opts), price:o.price + m.extra, avvisi:m.avvisi}; });
     return {type:"order", lines};
   }
-  const filtri = f.con.length || f.senza.length || f.max !== null || f.flags.length || economico;
+  const filtri = f.con.length || f.senza.length || f.conFam.length || f.senzaFam.length || f.senzaAssenti.length || f.nonCapiti.length || f.max !== null || f.flags.length || economico;
   if(named.length === 1 && !filtri && !f.ignoti.length && (!f.cats.length || f.cats.includes(named[0].it.cat) || named[0].k.split(" ").length > 1)) return {type:"item", id:named[0].it.id};
   if(named.length > 1 && !filtri && !f.ignoti.length && !f.cats.length) return {type:"search", f, ids:named.map(n => n.it.id), label:"quello che hai chiesto"};
   if(/consigli|specialit|piatto forte|piu vendut|piu buon|cosa prendere|suggeri|cosa prendo|non so cosa|indecis|tipic/.test(t)){
     const pool = ITEMS.filter(i => !f.cats.length || f.cats.includes(i.cat)); const top = ["salsfriar","carbonara","baconbbq","tagliata","tiramisu","spritz","bionda","tagliere","vrosso","patatine","caffe","insalata"];
     const ids = top.filter(id => pool.some(i => i.id === id)).slice(0, f.cats.length ? 2 : 4); return {type:"recommend", ids: ids.length ? ids : pool.slice(0,2).map(i => i.id)}; }
+  if(cott && !f.cats.length && !named.length && !f.ignoti.length && (!filtri || /\b(si puo|posso|possiamo|potete|e possibile|fate|sceglier|decider)\b/.test(t))) return {type:"faq", a:"Sì. Per pizze, hamburger e tagliata puoi indicare la cottura quando ordini: poco cotta (al sangue per la carne), media o ben cotta. Per esempio: «una tagliata ben cotta» oppure «una margherita poco cotta»."};
   if(!f.cats.length && !filtri && !f.ignoti.length){
     if(daBere) return {type:"overview", kind:"bere"};
     if(daMangiare) return {type:"overview", kind:"cibo"};
@@ -492,29 +586,48 @@ function interpret(raw){
     return {type:"unknown"};
   }
   if(!f.cats.length && daBere) f.kind = "bere"; if(!f.cats.length && daMangiare) f.kind = "cibo";
-  const notes = {};
-  let res = ITEMS.filter(i =>
-    (!f.cats.length || f.cats.includes(i.cat)) && (!f.kind || catOf(i).kind === f.kind) &&
-    f.con.every(x => { if(i.ing.includes(x)) return true; const o = addable(i, x); if(o){ notes[i.id] = "Si può aggiungere " + o[0].toLowerCase() + (o[1] ? " (+" + euro(o[1]) + ")" : ""); return true; } return false; }) &&
-    (f.max === null || i.price <= f.max) &&
-    (!f.flags.includes("vegetariano") || isVeg(i)) && (!f.flags.includes("vegano") || i.tags.includes("vegano")) &&
-    (!f.flags.includes("piccante") || i.tags.includes("piccante")) &&
-    (!f.flags.includes("analcolico") || i.tags.includes("analcolico") || i.id === "spritz") &&
-    f.senza.every(x => { if(!i.ing.includes(x)) return true; if(removable(i, x)){ notes[i.id] = "Si può chiedere senza " + x; return true; } return false; }));
-  /* se l'ingrediente c'è davvero in qualche piatto, non proporre quelli dove è solo un'aggiunta */
-  if(f.con.length && res.some(i => !notes[i.id])) res = res.filter(i => !notes[i.id] || f.senza.length);
+  /* parole che restringono la ricerca ma che non ho capito: meglio chiedere che mostrare tutto */
+  const capita = w => w.length < 4 || w === "~" || COMUNI.has(w) || FILLER.has(w) || conosciuto(w) || w in FAM || w in ING_SYN || w in QTY || /\d/.test(w) || CIBI.some(c => c.split(" ").includes(w)) || /^(vegetarian|vegan|piccant|analcolic|alcol|alcool|economic|consigli|bianc|ross|mangi|carne|cibo|fame|caro|care|cari)/.test(w);
+  scan.replace(/[,.]/g, " ").split(" ").filter(Boolean).forEach(w => { if(!capita(w) && !f.nonCapiti.some(x => x.endsWith(w))) f.nonCapiti.push(w); });
+  if(f.nonCapiti.length) return {type:"unclear", f, words:f.nonCapiti};
+  const cand = [];
+  for(const i of ITEMS){
+    if(f.cats.length && !f.cats.includes(i.cat)) continue;
+    if(f.kind && catOf(i).kind !== f.kind) continue;
+    if(f.max !== null && i.price > f.max) continue;
+    if(f.flags.includes("vegetariano") && !isVeg(i)) continue;
+    if(f.flags.includes("vegano") && !i.tags.includes("vegano")) continue;
+    if(f.flags.includes("piccante") && !i.tags.includes("piccante")) continue;
+    if(f.flags.includes("analcolico") && !(i.tags.includes("analcolico") || i.id === "spritz")) continue;
+    let sNat = true, cNat = true, ok = true; const nt = [];
+    for(const x of f.senza){ if(!i.ing.includes(x)) continue; sNat = false; if(removable(i,x)) nt.push("Si può chiedere senza " + x); else ok = false; }
+    for(const fam of f.senzaFam){ const pres = i.ing.filter(y => fam.list.includes(y)); if(!pres.length) continue; sNat = false; if(pres.every(y => removable(i,y))) nt.push("Si può chiedere senza " + pres.join(" e ")); else ok = false; }
+    for(const x of f.con){ if(i.ing.includes(x)) continue; cNat = false; const o = addable(i,x); if(o) nt.push("Si può aggiungere " + o[0] + costo(o[0])); else ok = false; }
+    for(const fam of f.conFam){ if(!i.ing.some(y => fam.list.includes(y))){ cNat = false; ok = false; } }
+    if(ok) cand.push({i, sNat, cNat, nt});
+  }
+  /* prima i piatti che sono già così; solo se non ce ne sono, quelli che lo diventano togliendo o aggiungendo */
+  let scelti = cand.filter(c => c.sNat && c.cNat), modo = "";
+  if(!scelti.length){ scelti = cand.filter(c => c.sNat); modo = "aggiunta"; }
+  if(!scelti.length){ scelti = cand.filter(c => c.cNat); modo = "togliendo"; }
+  if(!scelti.length){ scelti = cand; modo = "modificando"; }
+  if(!scelti.length) modo = "";
+  const altri = cand.length - scelti.length;
+  let res = scelti.map(c => c.i); const notes = {};
+  scelti.forEach(c => { if(c.nt.length) notes[c.i.id] = c.nt.join(" · "); });
   if(f.flags.includes("analcolico")) res.forEach(i => { if(i.id === "spritz") notes[i.id] = "Disponibile anche analcolico"; });
   if(economico) res = res.slice().sort((a,b) => a.price - b.price).slice(0,4);
   if(f.ignoti.length) return {type:"noingr", f, ids:(f.cats.length ? res : []).map(i => i.id)};
-  return {type:"search", f, ids:res.map(i => i.id), notes, economico};
+  return {type:"search", f, ids:res.map(i => i.id), notes, economico, modo, altri, cott};
 }
 function describe(f){
   const p = [];
   if(f.cats.length) p.push(f.cats.map(c => CATS.find(x => x.id === c).name.toLowerCase()).join(" e "));
   else if(f.kind) p.push(f.kind === "bere" ? "da bere" : "da mangiare");
   f.flags.forEach(x => p.push(x === "analcolico" ? "analcolici" : x === "piccante" ? "piccanti" : x === "vegano" ? "vegani" : "vegetariani"));
-  if(f.con.length) p.push("con " + f.con.join(" e "));
-  if(f.senza.length) p.push("senza " + f.senza.join(" e "));
+  const con = f.con.concat((f.conFam || []).map(x => x.k)), senza = f.senza.concat((f.senzaFam || []).map(x => x.k), f.senzaAssenti || []);
+  if(con.length) p.push("con " + con.join(" e "));
+  if(senza.length) p.push("senza " + senza.join(" e "));
   if(f.max !== null) p.push("fino a " + euro(f.max));
   return p.join(", ");
 }
@@ -530,12 +643,20 @@ function pcard(it, note){
   return `<div class="pcard"><div class="thumb" aria-hidden="true">${it.em}</div><div>
     <div class="row"><span>${esc(it.name)}</span><span>${hasVariantPrice(it) ? "da " : ""}${euro(it.price)}</span></div>
     <small>${esc(it.ing.join(", "))}</small>${note ? `<small>${esc(note)}</small>` : ""}${al}
-    <div class="quick" style="margin-top:6px"><button type="button" data-act="pick" data-v="${it.id}">Aggiungi</button>${it.groups.length ? `<button type="button" data-act="info" data-v="${it.id}">Varianti e prezzi</button>` : ""}</div></div></div>`;
+    <div class="quick" style="margin-top:6px"><button type="button" data-act="pick" data-v="${it.id}">Aggiungi</button>${it.groups.length || modificabile(it) ? `<button type="button" data-act="info" data-v="${it.id}">Varianti e modifiche</button>` : ""}</div></div></div>`;
 }
 function optionsText(it){
-  return it.groups.map(g => { const G = GROUPS[g]; return `<p><b>${esc(G.label)}:</b> ${G.opts.map(o => esc(o[0]) + (o[1] ? " (+" + euro(o[1]) + ")" : "")).join(", ")}</p>`; }).join("");
+  let h = it.groups.map(g => { const G = GROUPS[g]; return `<p><b>${esc(G.label)}:</b> ${G.opts.map(o => esc(o[0]) + (o[1] ? " (+" + euro(o[1]) + ")" : "")).join(", ")}</p>`; }).join("");
+  if(haCottura(it)) h += `<p><b>Cottura:</b> ${it.cat === "pizze" ? "poco cotta" : "al sangue"}, media, ben cotta</p>`;
+  if(modificabile(it)){
+    const ag = (CAT_AGG[it.cat] || []).filter(x => addable(it,x));
+    if(ag.length) h += `<p><b>Aggiunte più richieste:</b> ${ag.map(x => esc(x) + costo(x)).join(", ")}</p>`;
+    const tog = it.ing.find(x => removable(it,x));
+    h += `<p class="muted" style="font-size:13px">Di ogni ingrediente puoi chiedere «poco» o «senza», e puoi aggiungere gli altri ingredienti del menu. Scrivilo quando ordini${tog ? `, per esempio «${esc(it.k[0] || it.name.toLowerCase())} con poco ${esc(tog)}»` : ""}.</p>`;
+  }
+  return h;
 }
-function showItems(ids, intro, notes){
+function showItems(ids, intro, notes, footer){
   const list = ids.map(byId);
   let html = `<p>${intro}</p>`;
   let last = null;
@@ -543,6 +664,7 @@ function showItems(ids, intro, notes){
     if(ids.length > 4 && it.cat !== last){ html += `<p style="margin-top:8px"><b>${esc(catOf(it).name)}</b></p>`; last = it.cat; }
     html += pcard(it, notes && notes[it.id]);
   }
+  if(footer) html += `<p class="muted" style="font-size:13px;margin-top:8px">${footer}</p>`;
   bot(html);
 }
 function welcome(){
@@ -562,24 +684,31 @@ function showCart(){
       quick([["Conferma per tutto il tavolo","confirm"],["Aggiungi altro","say","menu completo"]]));
 }
 function startConfig(it){
-  state.config = {id:it.id, one:{}, many:{}};
+  state.config = {id:it.id, one:{}, many:{}, cot:1, ing:{}, agg:{}};
   it.groups.forEach(g => { if(GROUPS[g].type === "one") state.config.one[g] = 0; });
   renderConfig();
 }
 function configPrice(){
-  const it = byId(state.config.id); let p = it.price;
-  for(const [g,i] of Object.entries(state.config.one)) p += GROUPS[g].opts[i][1];
-  for(const k of Object.keys(state.config.many)){ const [g,i] = k.split(":"); p += GROUPS[g].opts[+i][1]; }
+  const c = state.config, it = byId(c.id); let p = it.price;
+  for(const [g,i] of Object.entries(c.one)) p += GROUPS[g].opts[i][1];
+  for(const k of Object.keys(c.many)){ const [g,i] = k.split(":"); p += GROUPS[g].opts[+i][1]; }
+  for(const x of Object.keys(c.agg)) p += prezzoAgg(x);
   return p;
 }
 function renderConfig(){
   const c = state.config, it = byId(c.id);
+  const chip = (on, act, v, label) => `<button type="button" class="${on ? "sel" : ""}" aria-pressed="${!!on}" data-act="${act}" data-v="${esc(v)}">${esc(label)}</button>`;
   let html = `<p><b>${esc(it.name)}</b>: come la vuoi?</p>`;
-  for(const g of it.groups){
-    const G = GROUPS[g];
+  for(const g of it.groups){ const G = GROUPS[g];
     html += `<p style="margin-top:8px"><b>${esc(G.label)}</b>${G.type === "one" ? " (una scelta)" : ""}</p><div class="quick">` +
-      G.opts.map((o,i) => { const on = G.type === "one" ? c.one[g] === i : !!c.many[g+":"+i];
-        return `<button type="button" class="${on ? "sel" : ""}" aria-pressed="${on}" data-act="opt" data-v="${g}:${i}">${esc(o[0])}${delta(o[1])}</button>`; }).join("") + "</div>";
+      G.opts.map((o,i) => chip(G.type === "one" ? c.one[g] === i : c.many[g+":"+i], "opt", g+":"+i, o[0] + delta(o[1]))).join("") + "</div>"; }
+  if(haCottura(it)) html += `<p style="margin-top:8px"><b>Cottura</b></p><div class="quick">` + [it.cat === "pizze" ? "Poco cotta" : "Al sangue", "Media", "Ben cotta"].map((l,i) => chip(c.cot === i, "cot", i, l)).join("") + "</div>";
+  if(modificabile(it)){
+    const ings = it.ing.filter(x => removable(it,x));
+    if(ings.length) html += `<p style="margin-top:8px"><b>Ingredienti</b> <span class="muted" style="font-size:13px">tocca: poco → senza → normale</span></p><div class="quick">` +
+      ings.map(x => chip(c.ing[x], "ing", x, c.ing[x] === 1 ? "poco " + x : c.ing[x] === 2 ? "senza " + x : x)).join("") + "</div>";
+    const ag = (CAT_AGG[it.cat] || []).filter(x => addable(it,x));
+    if(ag.length) html += `<p style="margin-top:8px"><b>Aggiunte</b> <span class="muted" style="font-size:13px">altre? scrivile in chat</span></p><div class="quick">` + ag.map(x => chip(c.agg[x], "agg", x, x + (prezzoAgg(x) ? delta(prezzoAgg(x)) : " gratis"))).join("") + "</div>";
   }
   html += `<div class="quick" style="margin-top:12px"><button type="button" class="sel" data-act="addcfg">Aggiungi al carrello · ${euro(configPrice())}</button></div>`;
   if(c.el && c.el.isConnected) c.el.innerHTML = html; else c.el = bot(html);
@@ -627,18 +756,27 @@ function handle(text){
       r.lines.forEach(l => { const it = byId(l.id); for(let i = 0; i < l.qty; i++){ state.cart.push({id:it.id, name:it.name, opts:l.opts, price:l.price, who:"Tu"}); tot += l.price; }
         righe.push(`${l.qty} × <b>${esc(it.name)}</b>${l.opts.length ? " (" + esc(l.opts.join(", ")) + ")" : ""}`); });
       document.getElementById("cart-n").textContent = state.cart.length;
-      bot(`<p>Aggiunto al carrello del tavolo: ${righe.join(", ")}. Subtotale ${euro(tot)}.</p>` + quick([["Vedi il carrello","cart"],["Conferma per tutto il tavolo","confirm"],["Aggiungi altro","say","cosa avete"]])); return; }
+      const avv = [...new Set(r.lines.flatMap(l => l.avvisi || []))];
+      bot(`<p>Aggiunto al carrello del tavolo: ${righe.join(", ")}. Subtotale ${euro(tot)}.</p>` + (avv.length ? `<p class="muted" style="font-size:13px">Attenzione: ${esc(avv.join("; "))}.</p>` : "") + quick([["Vedi il carrello","cart"],["Conferma per tutto il tavolo","confirm"],["Aggiungi altro","say","cosa avete"]])); return; }
     case "item": { const it = byId(r.id);
-      bot(pcard(it) + (it.groups.length ? optionsText(it) : "")); return; }
+      bot(pcard(it) + optionsText(it)); return; }
     case "noingr": {
       const cosa = r.f.ignoti.join(" e ");
       saveQuestion(text);
       const cat = r.f.cats.length ? r.f.cats.map(c => CATS.find(x => x.id === c).name.toLowerCase()).join(" e ") : "";
       if(r.ids.length) return showItems(r.ids, `Ho cercato nel menu e tra gli ingredienti: non abbiamo nulla con <b>${esc(cosa)}</b>. Questi sono i nostri ${esc(cat)}:`);
       bot(`<p>Ho cercato nel menu e tra gli ingredienti: non abbiamo <b>${esc(cosa)}</b>. L'ho segnalato al gestore.</p>` + MAINQ()); return; }
+    case "unclear": {
+      saveQuestion(text);
+      const cs = r.f.cats.map(c => CATS.find(x => x.id === c));
+      bot(`<p>Non sono sicuro di aver capito «${esc(r.words.join("», «"))}», e non voglio mostrarti piatti sbagliati. Puoi dirlo in un altro modo? Intanto l'ho segnalato al gestore.</p>` +
+        quick(cs.map(c => ["Vedi tutti: " + c.name.toLowerCase(),"say",c.name]).concat([["Chiama il cameriere","waiter"]]))); return; }
     case "search": {
       if(!r.ids.length){ bot(`<p>Non ho trovato nulla ${esc(describe(r.f))} nel menu.</p>` + MAINQ()); return; }
-      return showItems(r.ids, r.label ? "Ecco " + r.label + ":" : `${r.economico ? "I meno cari" : "Ecco cosa abbiamo"}: <b>${esc(describe(r.f))}</b>.`, r.notes); }
+      const d = esc(describe(r.f));
+      const intro = r.label ? "Ecco " + r.label + ":" : r.modo === "aggiunta" ? `Di base non c'è, ma si può aggiungere (<b>${d}</b>):` : r.modo === "togliendo" || r.modo === "modificando" ? `Così com'è non c'è, ma si può preparare su richiesta (<b>${d}</b>):` : `${r.economico ? "I meno cari" : "Ecco cosa abbiamo"}: <b>${d}</b>.`;
+      const piede = [r.altri ? `Altri ${r.altri} si possono preparare così su richiesta, togliendo o aggiungendo ingredienti: scrivilo quando ordini.` : "", r.cott ? "La cottura la indichi quando ordini: poco cotta, media o ben cotta." : ""].filter(Boolean).join(" ");
+      return showItems(r.ids, intro, r.notes, piede); }
     default:
       saveQuestion(text);
       bot(`<p>A questa domanda non so rispondere. L'ho messa da parte per il gestore, così la prossima volta saprò cosa dire.</p>` + quick([["Chiama il cameriere","waiter"],["Menu completo","say","menu completo"]]));
@@ -708,7 +846,7 @@ function renderMenu(){
   document.getElementById("menu-chips").innerHTML = [["tutto","Tutto"], ...CATS.map(c => [c.id,c.name])].map(([id,n]) =>
     `<button type="button" class="chip" aria-pressed="${menuCat === id}" data-act="mcat" data-v="${id}">${esc(n)}</button>`).join("");
   document.getElementById("menu-body").innerHTML = CATS.filter(c => menuCat === "tutto" || c.id === menuCat).map(c =>
-    `<h2 class="cat-title">${esc(c.name)}</h2><div class="items">` + ITEMS.filter(i => i.cat === c.id).map(it => {
+    `<h2 class="cat-title">${esc(c.name)}</h2>${(CAT_AGG[c.id] || []).length ? `<p class="opts" style="margin:-6px 0 10px"><b>Aggiunte:</b> ${CAT_AGG[c.id].map(x => esc(x) + costo(x)).join(" · ")}. Di ogni ingrediente puoi chiedere poco o senza.</p>` : ""}<div class="items">` + ITEMS.filter(i => i.cat === c.id).map(it => {
       const al = allergeniDi(it);
       return `<div class="item"><div class="thumb" aria-hidden="true">${it.em}</div><div><h3>${esc(it.name)}</h3>
         ${it.ing.length ? `<p class="muted">${esc(it.ing.join(", "))}</p>` : ""}
@@ -724,12 +862,18 @@ document.addEventListener("click", e => {
   if(a === "say"){ add("me", esc(v)); handle(v); }
   else if(a === "waiter") waiter(v);
   else if(a === "cart") { if(location.hash !== "#chat") location.hash = "#chat"; showCart(); }
-  else if(a === "pick"){ const it = byId(v); it.groups.length ? startConfig(it) : addToCart(it, [], it.price); }
+  else if(a === "pick"){ const it = byId(v); (it.groups.length || modificabile(it)) ? startConfig(it) : addToCart(it, [], it.price); }
+  else if(a === "cot"){ const c = state.config; if(!c) return; c.cot = +v; renderConfig(); }
+  else if(a === "ing"){ const c = state.config; if(!c) return; c.ing[v] = ((c.ing[v] || 0) + 1) % 3; if(!c.ing[v]) delete c.ing[v]; renderConfig(); }
+  else if(a === "agg"){ const c = state.config; if(!c) return; if(c.agg[v]) delete c.agg[v]; else c.agg[v] = true; renderConfig(); }
   else if(a === "info"){ const it = byId(v); bot(`<p><b>${esc(it.name)}</b> costa ${hasVariantPrice(it) ? "da " : ""}${euro(it.price)}.</p>` + optionsText(it) + quick([["Aggiungi","pick",it.id]])); }
   else if(a === "opt"){ const [g,i] = v.split(":"), c = state.config; if(!c) return;
     if(GROUPS[g].type === "one") c.one[g] = +i; else if(c.many[v]) delete c.many[v]; else c.many[v] = true; renderConfig(); }
   else if(a === "addcfg"){ const c = state.config; if(!c) return; const it = byId(c.id);
     const opts = [...Object.entries(c.one).map(([g,i]) => GROUPS[g].opts[i][0]), ...Object.keys(c.many).map(k => { const [g,i] = k.split(":"); return GROUPS[g].opts[+i][0]; })];
+    if(haCottura(it) && c.cot !== 1) opts.push(c.cot === 0 ? (it.cat === "pizze" ? "Poco cotta" : "Al sangue") : "Ben cotta");
+    Object.entries(c.ing).forEach(([x,st]) => opts.push((st === 1 ? "Poco " : "Senza ") + x));
+    Object.keys(c.agg).forEach(x => opts.push("Aggiunta " + x));
     const p = configPrice(); c.el.innerHTML = `<p class="muted">Scelte fatte per ${esc(it.name)}.</p>`; state.config = null; addToCart(it, opts, p); }
   else if(a === "rm"){ state.cart.splice(+v,1); showCart(); }
   else if(a === "confirm") confirmOrder();

@@ -1,6 +1,6 @@
 # Ordinachatbot — manuale di utilizzo
 
-Versione 0.3 (10/11/2026). Descrive il prodotto **come è stato progettato**: va
+Versione 0.4 (10/11/2026). Descrive il prodotto **come è stato progettato**: va
 aggiornato a ogni task chiuso e completato con le schermate nel task OC6-08.
 I nomi di pulsanti e menu potranno cambiare leggermente.
 
@@ -41,19 +41,26 @@ per decidere l'ordine. Puoi indicare gli orari in cui è disponibile.
 Per ogni prodotto: nome, prezzo, categoria, descrizione, **foto** (facoltativa),
 **ingredienti**, varianti e aggiunte.
 
-**Varianti e aggiunte** (per cibi e drink) — *Menu → Varianti e aggiunte*:
+**Varianti** (per cibi e drink) — *Menu → Varianti*: scelte in cui il cliente
+ne prende una, con il prezzo (Birra: piccola € 3,50 / media € 5,00; Impasto
+integrale +€ 1,00; Hamburger doppio +€ 3,00). Crea il gruppo una volta e
+applicalo a una categoria o a singoli prodotti.
 
-| Cosa | Esempio | Il cliente |
-|---|---|---|
-| **Variante** | Birra: piccola € 3,50 / media € 5,00 — Impasto integrale +€ 1,00 | ne sceglie una |
-| **Aggiunta** | Mozzarella extra +€ 1,50 — Bacon +€ 2,00 — Ghiaccio (gratis) | quante ne vuole |
-| **Si può togliere** | Senza cipolla, senza ghiaccio | toglie ciò che non vuole |
+**Aggiunte e modifiche** — *Menu → Ingredienti*, una riga per ingrediente:
 
-Crea un **gruppo** una volta sola (es. «Aggiunte pizza» con tutti i prezzi) e
-applicalo a un'intera categoria o a singoli prodotti: se cambi un prezzo nel
-gruppo, cambia ovunque. Il chatbot dice al cliente tutte le possibilità con i
-prezzi («La Margherita costa € 6,00; puoi aggiungere bufala +€ 2,00…») e
-calcola il totale.
+| Colonna | Cosa scegli |
+|---|---|
+| **Come aggiunta** | *a pagamento* (scrivi il prezzo), *gratis*, oppure *non si aggiunge* |
+| **Si può togliere / chiedere poco** | sì per tutti, salvo dove indichi *ingrediente base* del piatto |
+
+Poi, per categoria: le **aggiunte più richieste** da mostrare come pulsanti, se
+il cliente può scegliere la **cottura** (poco cotta o al sangue, media, ben
+cotta), e quali piatti sono **non modificabili** (lasagna, dolci).
+
+Così il cliente può scrivere «una margherita poco cotta con poco pomodoro e
+doppia mozzarella» oppure toccare i pulsanti: il prezzo si aggiorna da solo e la
+comanda riporta ogni modifica. Il chatbot capisce anche i sinonimi (sugo =
+pomodoro, pancetta = bacon) e ne puoi aggiungere di tuoi in *Chatbot → Sinonimi*.
 
 **Ingredienti** — scrivendo un ingrediente lo scegli dall'elenco o lo crei al
 volo. Inserirli bene conviene: è grazie agli ingredienti che il chatbot sa

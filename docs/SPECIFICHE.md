@@ -46,15 +46,25 @@ fa da riserva.
   alle 11).
 - **Prodotti**: nome, prezzo, descrizione, foto facoltativa, ingredienti,
   reparto di cassa, zona di stampa.
-- **Varianti e aggiunte** (cibi e drink), tutte con il loro prezzo:
-  - *varianti*: se ne sceglie una (piccola/media/grande, impasto integrale
-    +1,00, hamburger doppio +3,00, spritz Aperol/Campari/analcolico);
-  - *aggiunte*: se ne scelgono quante si vuole (mozzarella extra +1,50, bacon
-    +2,00, ghiaccio, fetta di limone), anche gratuite;
-  - *ingredienti che si possono togliere* (senza cipolla).
-  Il gestore crea dei **gruppi** una volta sola (es. «Aggiunte pizza») e li
-  applica a una categoria intera o a singoli prodotti. Il chatbot elenca al
-  cliente tutte le possibilità con i prezzi e calcola il totale giusto.
+- **Varianti** (cibi e drink), con il loro prezzo: se ne sceglie una (birra
+  piccola/media, impasto integrale +1,00, hamburger doppio +3,00, spritz
+  Aperol/Campari/analcolico). Il gestore crea il gruppo una volta e lo applica
+  a una categoria o a singoli prodotti.
+- **Modifiche agli ingredienti**: il cliente può, su ogni piatto,
+  - **togliere** un ingrediente («senza cipolla»),
+  - chiederne **poco** («poco pomodoro», «poco ketchup»),
+  - chiederne **tanto/doppio** («doppia mozzarella»), al prezzo dell'aggiunta,
+  - **aggiungere qualsiasi ingrediente presente nel menu** («con rucola»).
+  Il gestore decide, ingrediente per ingrediente: **prezzo come aggiunta**
+  oppure **gratis**; se *non si può aggiungere*; se in un piatto è
+  *ingrediente base* e non si può togliere (l'impasto della pizza); e quali
+  piatti sono *non modificabili* (lasagna, dolci). Per ogni categoria sceglie le
+  «aggiunte più richieste» da mostrare come pulsanti. Valori di partenza: tutto
+  si può togliere e chiedere «poco»; ogni ingrediente si può aggiungere a € 1,00.
+- **Cottura**: per le categorie scelte dal gestore (pizze, hamburger, carne) il
+  cliente indica *poco cotta / al sangue*, *media*, *ben cotta*.
+- Tutte le modifiche compaiono sulla comanda, riga per riga, e il prezzo si
+  aggiorna da solo.
 - **Ingredienti**: elenco del locale, riutilizzabile; è ciò che permette al
   chatbot di rispondere a «pizze con i funghi» o «senza cipolla».
 - **Allergeni e celiachia**: si inseriscono **sugli ingredienti**, con una
@@ -118,8 +128,24 @@ inserito («dolci con nutella», «pizza con ananas»). Tre esiti possibili:
    nutella»), propone i prodotti più vicini della stessa categoria e segnala
    la richiesta al gestore, che così scopre cosa chiedono i clienti.
 
-Mai rispondere «non ho capito» a una domanda su un ingrediente. Vale anche per
-sinonimi, marche e nomi comuni (nutella = crema di nocciole, wurstel, speck…).
+Mai rispondere «non ho capito» a una domanda su un ingrediente.
+
+### Sinonimi, famiglie e richieste non capite
+
+- **Sinonimi**: sugo, salsa, passata = pomodoro; pancetta = bacon; parmigiano =
+  grana; nomi di marca e modi di dire comuni. Vale per ingredienti, categorie
+  (pasta = primi, panini = hamburger), cotture (cottura alta = ben cotta) e
+  quantità (un filo di, appena = poco). Il gestore può aggiungerne di suoi.
+- **Famiglie**: «senza formaggio» esclude mozzarella, bufala, cheddar, grana…;
+  «senza carne», «senza maiale», «con verdure» funzionano allo stesso modo.
+- **Prima ciò che è già così**: a «pizze senza sugo» si mostrano le pizze che non
+  hanno il pomodoro; solo dopo, in una riga, si dice che le altre si possono
+  preparare senza. Se nessun piatto è già così, si mostrano quelli che lo
+  diventano togliendo o aggiungendo, con la nota e il prezzo.
+- **Mai ignorare una parola che restringe la richiesta.** Se il chatbot non
+  capisce una condizione («pizze leggere», «senza zorbino») non mostra tutta la
+  categoria: dice cosa non ha capito, chiede di ripeterlo in altro modo e passa
+  la frase al gestore. Vale per qualsiasi richiesta.
 
 ### Il chatbot che impara
 

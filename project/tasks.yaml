@@ -391,7 +391,10 @@ tasks:
     fase: 2
     giorni: 1
     dipende_da: [OC2-04, OC2-08, OC2-09, OC2-10, OC2-11, OC2-14, OC2-15]
-    note: Elenco di frasi vere (errori di battitura, dialetto, richieste strane) in docs/test.
+    note: >
+      Prova di accettazione: tutte le frasi di demo/prove-domande.mjs (184 al
+      10/11, vedi docs/test/domande-tipiche.md) devono dare la risposta attesa
+      anche col chatbot vero, più frasi nuove con errori, dialetto e richieste strane.
 
   - id: OC2-13
     titolo: Domande senza risposta — il chatbot le mette da parte per il gestore

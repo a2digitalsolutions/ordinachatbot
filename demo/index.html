@@ -148,8 +148,8 @@ table.hours td{padding:3px 0}table.hours td:last-child{text-align:right}
 <section class="view" id="v-sito">
   <div class="hero">
     <div class="card">
-      <span class="tag">Pizzeria · Pub</span>
-      <h1 style="margin-top:10px">Forno a legna, birre alla spina, tavoli lunghi.</h1>
+      <span class="tag">Ristorante · Pizzeria · Pub</span>
+      <h1 style="margin-top:10px">Cucina di casa, forno a legna, birre alla spina.</h1>
       <p class="lead muted">Dal martedì alla domenica, in via dei Mulini 12. Si ordina dal tavolo inquadrando il QR code, oppure chiamando noi.</p>
       <div class="cta">
         <a class="btn" href="#menu">Guarda il menu</a>
@@ -157,7 +157,7 @@ table.hours td{padding:3px 0}table.hours td:last-child{text-align:right}
       </div>
     </div>
     <div class="plate">
-      <div class="big" aria-hidden="true">🍕🍺</div>
+      <div class="big" aria-hidden="true">🍝🍕🍺</div>
       <div><b id="oggi"></b><br><span id="aperto"></span></div>
     </div>
   </div>
@@ -166,7 +166,7 @@ table.hours td{padding:3px 0}table.hours td:last-child{text-align:right}
     <div><div class="year">1987</div><div class="muted">la nostra storia</div></div>
     <div>
       <p>La Lanterna Storta nasce nel 1987 come forno di quartiere. La lanterna sopra la porta era già storta allora: nonno Aldo non l'ha mai voluta raddrizzare, e il nome è rimasto.</p>
-      <p>Nel 2009 i nipoti hanno aggiunto il bancone con sei spine e i tavoli lunghi da condividere. L'impasto è ancora quello di Aldo, 48 ore di lievitazione; gli hamburger sono arrivati dopo, e non se ne sono più andati.</p>
+      <p>Nel 2009 i nipoti hanno aggiunto il bancone con sei spine e i tavoli lunghi da condividere. L'impasto è ancora quello di Aldo, 48 ore di lievitazione; in cucina si fanno ancora i primi e i secondi della nonna, e gli hamburger sono arrivati dopo, per restare.</p>
     </div>
   </div>
 
@@ -263,135 +263,256 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">"
 
 /* ---------- Dati dimostrativi del locale ---------- */
 const CATS = [
-  {id:"pizze", name:"Pizze", zone:"Forno", syn:["pizze","pizza"]},
-  {id:"hamburger", name:"Hamburger", zone:"Cucina", syn:["hamburger","hamburgher","burger","panini","panino"]},
-  {id:"xxl", name:"Hamburger XXL", zone:"Cucina", syn:["xxl"]},
-  {id:"fritti", name:"Fritti", zone:"Cucina", syn:["fritti","fritto","sfizi","antipasti","antipasto"]},
-  {id:"birre", name:"Birre", zone:"Bar", syn:["birre","birra"]},
-  {id:"drink", name:"Drink e bibite", zone:"Bar", syn:["drink","cocktail","bibite","bibita","da bere","bere","bevande"]},
-  {id:"dolci", name:"Dolci", zone:"Cucina", syn:["dolci","dolce","dessert"]}
+  {id:"antipasti", name:"Antipasti", zone:"Cucina", kind:"cibo", syn:["antipasti","antipasto","stuzzichini","stuzzichino","taglieri","sfizi"]},
+  {id:"primi", name:"Primi", zone:"Cucina", kind:"cibo", syn:["primi","primo","pasta","paste","pastasciutta"]},
+  {id:"secondi", name:"Secondi", zone:"Cucina", kind:"cibo", syn:["secondi","secondo","carne"]},
+  {id:"contorni", name:"Contorni", zone:"Cucina", kind:"cibo", syn:["contorni","contorno","insalate","verdure"]},
+  {id:"pizze", name:"Pizze", zone:"Forno", kind:"cibo", syn:["pizze","pizza"]},
+  {id:"hamburger", name:"Hamburger", zone:"Cucina", kind:"cibo", syn:["hamburger","hamburgher","amburger","burger","panini","panino"]},
+  {id:"xxl", name:"Hamburger XXL", zone:"Cucina", kind:"cibo", syn:["xxl"]},
+  {id:"fritti", name:"Fritti", zone:"Cucina", kind:"cibo", syn:["fritti","fritto","fritture","frittura"]},
+  {id:"dolci", name:"Dolci", zone:"Cucina", kind:"cibo", syn:["dolci","dolce","dessert","dolcetto"]},
+  {id:"birre", name:"Birre", zone:"Bar", kind:"bere", syn:["birre","birra"]},
+  {id:"vini", name:"Vini", zone:"Bar", kind:"bere", syn:["vini","vino","calice","calici"]},
+  {id:"drink", name:"Drink e bibite", zone:"Bar", kind:"bere", syn:["drink","cocktail","aperitivo","aperitivi","bibite","bibita","bevande","bevanda","analcolici"]},
+  {id:"caffe", name:"Caffè e amari", zone:"Bar", kind:"bere", syn:["caffetteria","amari","digestivo","digestivi","liquori","liquore"]}
 ];
-const ALLERGENI = {mozzarella:"latte", bufala:"latte", cheddar:"latte", mascarpone:"latte", "formaggio cremoso":"latte",
-  impasto:"glutine", pane:"glutine", pastella:"glutine", savoiardi:"glutine", biscotto:"glutine", birra:"glutine",
-  uovo:"uova", maionese:"uova", "salsa bbq":"senape"};
+const ALLERGENI = {mozzarella:"latte", bufala:"latte", cheddar:"latte", mascarpone:"latte", "formaggio cremoso":"latte", pecorino:"latte", grana:"latte", besciamella:"latte", formaggi:"latte", burro:"latte", latte:"latte",
+  impasto:"glutine", pane:"glutine", pastella:"glutine", savoiardi:"glutine", biscotto:"glutine", birra:"glutine", spaghetti:"glutine", penne:"glutine", "pasta all'uovo":"glutine", gnocchi:"glutine", pangrattato:"glutine", farina:"glutine",
+  uovo:"uova", maionese:"uova", "salsa bbq":"senape", vino:"solfiti", prosecco:"solfiti"};
 const GROUPS = {
   impasto:{label:"Impasto", type:"one", opts:[["Classico",0],["Integrale",1],["Ai cereali",1.5]]},
   aggPizza:{label:"Aggiunte", type:"many", opts:[["Mozzarella extra",1.5],["Bufala",2],["Funghi",1],["Salame piccante",1.5],["Salsiccia",2]]},
   carne:{label:"Carne", type:"one", opts:[["Singolo",0],["Doppio",3]]},
   aggBurger:{label:"Aggiunte", type:"many", opts:[["Bacon",2],["Cheddar",1],["Uovo",1],["Cipolla caramellata",1]]},
   via:{label:"Si può togliere", type:"many", opts:[["Senza cipolla",0],["Senza pomodoro",0]]},
+  cottura:{label:"Cottura", type:"one", opts:[["Media",0],["Al sangue",0],["Ben cotta",0]]},
   porzione:{label:"Porzione", type:"one", opts:[["Piccola",0],["Grande",1.5]]},
   spina:{label:"Formato", type:"one", opts:[["Piccola 0,2 l",0],["Media 0,4 l",1.5]]},
+  vino:{label:"Formato", type:"one", opts:[["Calice",0],["Mezzo litro",5],["Bottiglia",12]]},
   spritz:{label:"Tipo", type:"one", opts:[["Aperol",0],["Campari",0],["Analcolico",0]]},
   gin:{label:"Aggiunte", type:"many", opts:[["Gin premium",2],["Doppia dose",3]]},
-  ghiaccio:{label:"Si può togliere", type:"many", opts:[["Senza ghiaccio",0],["Senza limone",0]]}
+  ghiaccio:{label:"Si può togliere", type:"many", opts:[["Senza ghiaccio",0],["Senza limone",0]]},
+  acqua:{label:"Tipo", type:"one", opts:[["Naturale",0],["Frizzante",0]]},
+  caffe:{label:"Tipo", type:"one", opts:[["Normale",0],["Macchiato",0],["Decaffeinato",0.2],["Corretto",0.8]]}
 };
-const I = (id,cat,name,price,em,ing,groups) => ({id,cat,name,price,em,ing,groups:groups||[]});
+/* I(id, categoria, nome, prezzo, immagine, ingredienti, gruppi, parole con cui lo chiamano, etichette) */
+const I = (id,cat,name,price,em,ing,groups,k,tags) => ({id,cat,name,price,em,ing,groups:groups||[],k:k||[],tags:tags||[]});
 const ITEMS = [
-  I("margherita","pizze","Margherita",6,"🍕",["impasto","pomodoro","mozzarella","basilico"],["impasto","aggPizza"]),
-  I("diavola","pizze","Diavola",7.5,"🍕",["impasto","pomodoro","mozzarella","salame piccante"],["impasto","aggPizza"]),
-  I("salsfriar","pizze","Salsiccia e friarielli",8.5,"🍕",["impasto","mozzarella","salsiccia","friarielli"],["impasto","aggPizza"]),
-  I("boscaiola","pizze","Boscaiola",8.5,"🍕",["impasto","pomodoro","mozzarella","funghi","salsiccia"],["impasto","aggPizza"]),
-  I("ortolana","pizze","Ortolana",8,"🍕",["impasto","pomodoro","mozzarella","zucchine","melanzane","peperoni"],["impasto","aggPizza"]),
-  I("bufalina","pizze","Bufalina",9,"🍕",["impasto","pomodoro","bufala","basilico"],["impasto","aggPizza"]),
-  I("classico","hamburger","Classico",9,"🍔",["pane","manzo","lattuga","pomodoro","cipolla"],["carne","aggBurger","via"]),
-  I("cheese","hamburger","Cheeseburger",10,"🍔",["pane","manzo","cheddar","lattuga","pomodoro","cipolla"],["carne","aggBurger","via"]),
-  I("baconbbq","hamburger","Bacon BBQ",11.5,"🍔",["pane","manzo","bacon","cheddar","cipolla","salsa bbq"],["carne","aggBurger","via"]),
-  I("gigante","xxl","Il Gigante",15,"🍔",["pane","manzo","bacon","cheddar","uovo","cipolla","salsa bbq"],["aggBurger","via"]),
-  I("patatine","fritti","Patatine fritte",4,"🍟",["patate"],["porzione"]),
-  I("crocchette","fritti","Crocchette di patate",5,"🧆",["patate","mozzarella","pastella"]),
-  I("anelli","fritti","Anelli di cipolla",4.5,"🧅",["cipolla","pastella"]),
-  I("bionda","birre","Bionda alla spina",3.5,"🍺",["birra"],["spina"]),
-  I("rossa","birre","Rossa alla spina",4,"🍺",["birra"],["spina"]),
-  I("ipa","birre","IPA artigianale 0,33 l",6,"🍺",["birra"]),
-  I("spritz","drink","Spritz",6,"🍹",["prosecco","soda","arancia"],["spritz","ghiaccio"]),
-  I("gintonic","drink","Gin tonic",7,"🍸",["gin","acqua tonica","limone"],["gin","ghiaccio"]),
-  I("cola","drink","Cola 0,33 l",3,"🥤",[]),
-  I("acqua","drink","Acqua 0,75 l",2,"💧",[]),
-  I("tiramisu","dolci","Tiramisù",5,"🍰",["mascarpone","savoiardi","uovo","caffè","cacao"]),
-  I("cheesecake","dolci","Cheesecake ai frutti di bosco",5.5,"🍰",["formaggio cremoso","biscotto","frutti di bosco"])
+  I("tagliere","antipasti","Tagliere di salumi e formaggi",12,"🧀",["salumi","formaggi","pane"],[],["tagliere"]),
+  I("bruschette","antipasti","Bruschette miste",6,"🥖",["pane","pomodoro","aglio","olio"],[],["bruschette","bruschetta"],["vegano"]),
+  I("carbonara","primi","Spaghetti alla carbonara",10,"🍝",["spaghetti","guanciale","uovo","pecorino"],[],["carbonara"]),
+  I("arrabbiata","primi","Penne all'arrabbiata",8,"🍝",["penne","pomodoro","aglio","peperoncino"],[],["arrabbiata"],["vegano","piccante"]),
+  I("lasagna","primi","Lasagna al ragù",10,"🍝",["pasta all'uovo","ragù","besciamella","grana"],[],["lasagna","lasagne"]),
+  I("gnocchi","primi","Gnocchi al pomodoro",8.5,"🍝",["gnocchi","pomodoro","basilico","mozzarella"],[],["gnocchi"],["bimbi"]),
+  I("tagliata","secondi","Tagliata di manzo",16,"🥩",["manzo","rucola","grana"],["cottura"],["tagliata"]),
+  I("cotoletta","secondi","Cotoletta con patatine",11,"🍗",["pollo","pangrattato","uovo","patate"],[],["cotoletta","cotolette"],["bimbi"]),
+  I("grigliata","secondi","Grigliata di verdure",9,"🥗",["zucchine","melanzane","peperoni"],[],["grigliata"],["vegano"]),
+  I("insalata","contorni","Insalata mista",4,"🥗",["lattuga","pomodoro","carote"],[],["insalata"],["vegano"]),
+  I("patateforno","contorni","Patate al forno",4,"🥔",["patate","rosmarino"],[],["patate al forno"],["vegano"]),
+  I("margherita","pizze","Margherita",6,"🍕",["impasto","pomodoro","mozzarella","basilico"],["impasto","aggPizza"],["margherita","margherite"],["bimbi"]),
+  I("diavola","pizze","Diavola",7.5,"🍕",["impasto","pomodoro","mozzarella","salame piccante"],["impasto","aggPizza"],["diavola","diavole"],["piccante"]),
+  I("salsfriar","pizze","Salsiccia e friarielli",8.5,"🍕",["impasto","mozzarella","salsiccia","friarielli"],["impasto","aggPizza"],["salsiccia e friarielli"]),
+  I("boscaiola","pizze","Boscaiola",8.5,"🍕",["impasto","pomodoro","mozzarella","funghi","salsiccia"],["impasto","aggPizza"],["boscaiola","boscaiole"]),
+  I("ortolana","pizze","Ortolana",8,"🍕",["impasto","pomodoro","mozzarella","zucchine","melanzane","peperoni"],["impasto","aggPizza"],["ortolana","ortolane"]),
+  I("bufalina","pizze","Bufalina",9,"🍕",["impasto","pomodoro","bufala","basilico"],["impasto","aggPizza"],["bufalina","bufaline"]),
+  I("classico","hamburger","Hamburger classico",9,"🍔",["pane","manzo","lattuga","pomodoro","cipolla"],["carne","aggBurger","via"],["hamburger classico","classico"]),
+  I("cheese","hamburger","Cheeseburger",10,"🍔",["pane","manzo","cheddar","lattuga","pomodoro","cipolla"],["carne","aggBurger","via"],["cheeseburger","cheese burger"]),
+  I("baconbbq","hamburger","Bacon BBQ",11.5,"🍔",["pane","manzo","bacon","cheddar","cipolla","salsa bbq"],["carne","aggBurger","via"],["bacon bbq","bbq"]),
+  I("gigante","xxl","Il Gigante",15,"🍔",["pane","manzo","bacon","cheddar","uovo","cipolla","salsa bbq"],["aggBurger","via"],["gigante"]),
+  I("patatine","fritti","Patatine fritte",4,"🍟",["patate"],["porzione"],["patatine","patatina"],["vegano","bimbi"]),
+  I("crocchette","fritti","Crocchette di patate",5,"🧆",["patate","mozzarella","pastella"],[],["crocchette","crocche"]),
+  I("anelli","fritti","Anelli di cipolla",4.5,"🧅",["cipolla","pastella"],[],["anelli"]),
+  I("tiramisu","dolci","Tiramisù",5,"🍰",["mascarpone","savoiardi","uovo","caffè","cacao"],[],["tiramisu"]),
+  I("cheesecake","dolci","Cheesecake ai frutti di bosco",5.5,"🍰",["formaggio cremoso","biscotto","frutti di bosco"],[],["cheesecake"]),
+  I("tortino","dolci","Tortino al cioccolato",6,"🍫",["cioccolato","burro","uovo","farina"],[],["tortino"]),
+  I("bionda","birre","Bionda alla spina",3.5,"🍺",["birra"],["spina"],["bionda","bionde","birra chiara"]),
+  I("rossa","birre","Rossa alla spina",4,"🍺",["birra"],["spina"],["rossa","rosse"]),
+  I("ipa","birre","IPA artigianale 0,33 l",6,"🍺",["birra"],[],["ipa","artigianale"]),
+  I("vrosso","vini","Rosso della casa",4,"🍷",["vino"],["vino"],["vino rosso","rosso"]),
+  I("vbianco","vini","Bianco della casa",4,"🥂",["vino"],["vino"],["vino bianco","bianco"]),
+  I("prosecco","vini","Prosecco (calice)",5,"🥂",["prosecco"],[],["prosecco","bollicine"]),
+  I("spritz","drink","Spritz",6,"🍹",["prosecco","soda","arancia"],["spritz","ghiaccio"],["spritz"]),
+  I("gintonic","drink","Gin tonic",7,"🍸",["gin","acqua tonica","limone"],["gin","ghiaccio"],["gin tonic","gintonic","gin lemon"]),
+  I("fruttato","drink","Cocktail analcolico alla frutta",5,"🍹",["succo d'arancia","pesca","granatina"],["ghiaccio"],["cocktail analcolico","analcolico alla frutta"],["analcolico"]),
+  I("cola","drink","Cola 0,33 l",3,"🥤",[],[],["cola","coca","coca cola","cocacola"],["analcolico"]),
+  I("acqua","drink","Acqua 0,75 l",2,"💧",[],["acqua"],["acqua"],["analcolico"]),
+  I("caffe","caffe","Caffè",1.2,"☕",["caffè"],["caffe"],["caffe","espresso"],["analcolico"]),
+  I("amaro","caffe","Amaro",3.5,"🥃",[],[],["amaro"]),
+  I("limoncello","caffe","Limoncello",3,"🥃",["limone"],[],["limoncello"])
 ];
 const byId = id => ITEMS.find(i => i.id === id);
 const catOf = it => CATS.find(c => c.id === it.cat);
 const hasVariantPrice = it => it.groups.some(g => GROUPS[g].opts.some(o => o[1] > 0) && GROUPS[g].type === "one");
 const allergeniDi = it => [...new Set(it.ing.map(x => ALLERGENI[x]).filter(Boolean))];
+const CARNE = ["manzo","salsiccia","bacon","salame piccante","guanciale","ragù","pollo","salumi"];
+const isVeg = it => catOf(it).kind === "cibo" && !it.ing.some(x => CARNE.includes(x));
 const INGREDIENTI = [...new Set(ITEMS.flatMap(i => i.ing))].filter(x => !["impasto","pane"].includes(x)).sort((a,b) => b.length - a.length);
-const ING_SYN = {fungo:"funghi", funghetti:"funghi", salame:"salame piccante", piccante:"salame piccante", cipolle:"cipolla", patata:"patate", uova:"uovo", formaggio:"cheddar", salsicce:"salsiccia", verdure:"zucchine"};
+const ING_SYN = {fungo:"funghi", funghetti:"funghi", salame:"salame piccante", cipolle:"cipolla", patata:"patate", uova:"uovo", formaggio:"formaggi", salsicce:"salsiccia", pancetta:"bacon", zucchina:"zucchine", melanzana:"melanzane", peperone:"peperoni", pomodori:"pomodoro", pomodorini:"pomodoro", parmigiano:"grana", cioccolata:"cioccolato", wurstel:"wurstel"};
+/* Cibi e bevande comuni: servono a capire che una parola è un cibo anche se nel menu non c'è */
+const CIBI = ["nutella","ananas","tartufo","risotto","sushi","kebab","pesce","salmone","tonno","gamberi","gamberetti","cozze","vongole","frutti di mare","wurstel","speck","prosciutto","crudo","cotto","gorgonzola","pistacchio","burrata","nduja","porchetta","polpette","parmigiana","gelato","panna cotta","cannoli","crepes","pancake","cornetto","toast","piadina","piadine","zuppa","minestrone","ravioli","tortellini","amatriciana","cacio e pepe","pesto","bistecca","fiorentina","costata","arrosticini","hot dog","nuggets","alette","falafel","hummus","poke","ramen","tacos","nachos","mojito","negroni","americano","vodka","rum","whisky","tequila","sangria","cappuccino","tisana","succo","aranciata","sprite","fanta","champagne","lambrusco","calzone","focaccia","tofu","seitan","acciughe","alici","olive","capperi","carciofi","spinaci","noci","mandorle","miele","panna","yogurt","frutta","macedonia","sorbetto","torta","quattro formaggi","capricciosa","napoli","marinara","wurstel e patatine","kinder","pollo fritto","salame dolce","carpaccio","baccala","polpo","calamari","frittura di pesce","lenticchie","fagioli","ceci","riso","orzo","farro","tagliatelle","fettuccine","pappardelle","orecchiette","trofie","paccheri","rigatoni","bucatini","linguine","tortelli","cannelloni","polenta","coniglio","agnello","maiale","vitello","tacchino","anatra","cinghiale","trippa","fegato","te","the","latte macchiato","cioccolata calda","grappa","sambuca","baileys","martini","bellini","hugo","aperol","campari","moscow mule","long island","pina colada","daiquiri","margarita"];
 
 /* ---------- Stato della demo (solo in memoria) ---------- */
 const state = {
   cart:[{id:"bionda", name:"Bionda alla spina", opts:["Media 0,4 l"], price:5, who:"Giulia"}],
-  orders:[], questions:[], learned:[
-    {q:"Avete il Wi-Fi?", a:"Sì: rete «Lanterna Ospiti», la password è sul retro del segnaposto."},
-    {q:"Posso portare il cane?", a:"Certo, i cani sono i benvenuti in sala e nel dehors."}],
-  config:null, blocked:"entrambi"
+  orders:[], questions:[], learned:[], config:null, blocked:"entrambi"
 };
+/* Domande frequenti già insegnate dal gestore (testi inventati per la demo) */
+const FAQ = [
+  {q:"Avete il Wi-Fi?", k:/wi ?fi|internet|password/, a:"Sì: rete «Lanterna Ospiti», la password è sul retro del segnaposto."},
+  {q:"Posso portare il cane?", k:/\bcan[ei]\b|animali|cagnolin/, a:"Certo, i cani sono i benvenuti in sala e nel dehors."},
+  {q:"Che orari fate?", k:/orari|a che ora|fino a che ora|siete aperti|chiudete|aprite|chiude la cucina|aperti (oggi|domani|lunedi|domenica)/, a:"Siamo aperti dal martedì al giovedì 18:30–24:00, venerdì e sabato 18:30–01:30, domenica anche a pranzo 12:00–15:00. Lunedì chiuso. La cucina chiude mezz'ora prima."},
+  {q:"Si paga il coperto?", k:/coperto|servizio (e )?(incluso|compreso)/, a:"Il coperto è € 1,50 a persona; il servizio è incluso."},
+  {q:"Dov'è il bagno?", k:/bagn[oi]|toilette|servizi igienici/, a:"I bagni sono in fondo alla sala, a destra del bancone."},
+  {q:"C'è parcheggio?", k:/parchegg/, a:"C'è un parcheggio gratuito in piazza del Mercato, a due minuti a piedi."},
+  {q:"Quali pagamenti accettate?", k:/(accettate|prendete|si puo pagare|posso pagare).*(carta|carte|bancomat|satispay|contanti|buoni|ticket|revolut|apple|google)|buoni pasto|ticket restaurant/, a:"Accettiamo contanti, carte e bancomat, Satispay, Apple Pay, Google Pay, Revolut Pay e Bancomat Pay. Non accettiamo buoni pasto. Puoi pagare in cassa o da qui: scrivi «conto»."},
+  {q:"Fate asporto o consegne?", k:/asporto|portare via|portar via|domicilio|consegn/, a:"Facciamo asporto (ordina in cassa o al telefono), non le consegne a domicilio."},
+  {q:"Si può prenotare?", k:/prenot/, a:"Sì, si prenota per telefono allo 0000 123456 o passando in cassa."},
+  {q:"Quanto si aspetta?", k:/quanto (tempo )?(ci vuole|ci mette|ci mettete|si aspetta|bisogna aspettare|c e da aspettare)|tempi di attesa|quanto tempo/, a:"Di solito 10–15 minuti per pizze e hamburger, 15–20 per primi e secondi. Nelle sere piene un po' di più."},
+  {q:"Come sono le porzioni?", k:/porzion|abbondant|quanto e grande|quanti grammi|quanto pesa/, a:"Le porzioni sono abbondanti. L'hamburger è da 180 g (doppio 360 g), il Gigante da 400 g; le pizze hanno 32 cm di diametro."},
+  {q:"Avete qualcosa per i bambini?", k:/bambin|bimb|baby|piccoli/, a:"Per i più piccoli vanno forte margherita, gnocchi al pomodoro, cotoletta con patatine e patatine fritte. Su richiesta facciamo la mezza porzione di pasta.", show:"bimbi"},
+  {q:"Si può dividere il conto?", k:/divid.*conto|alla romana|pagare separat|conti separati|ognuno (paga )?il suo/, a:"Sì: potete pagare tutto insieme, ognuno la sua parte o dividere in parti uguali. In questa demo si prova solo il pagamento dell'intero conto."},
+  {q:"Si può fumare?", k:/fumare|fumatori|sigarett/, a:"Si può fumare solo nel dehors."},
+  {q:"Fate feste o compleanni?", k:/compleann|festa|feste|torta di|gruppo|gruppi|tavolata/, a:"Sì, per compleanni e tavolate da 10 persone in su chiamate lo 0000 123456: prepariamo un menu fisso e potete portare la torta."}
+];
 
 /* ---------- Comprensione della richiesta (regole semplici, solo per la demo) ---------- */
-function interpret(raw){
-  const t = norm(raw);
-  if(!t) return {type:"empty"};
-  if(/allerg|celiac|glutin|intolleran|lattosio|senza lattosio/.test(t)) return {type:"blocked"};
-  if(/camerier/.test(t)) return {type:"waiter"};
-  if(/carrello|riepilogo|cosa abbiamo/.test(t)) return {type:"cart"};
-  if(/conferm|invia l ordine|ordina tutto|ordiniamo/.test(t)) return {type:"confirm"};
-  if(/\bconto\b|pagare|pago\b|pagamento/.test(t)) return {type:"pay"};
-  if(/menu complet|tutto il menu|menu inter|^menu$|il menu$|vedere il menu/.test(t)) return {type:"fullmenu"};
-  const STOP = ["avete","avere","posso","possiamo","potete","cosa","come","quanto","dove","quando","fate","siete","sono","anche","vostro","vostra"];
-  const toks = x => norm(x).replace(/wi fi/g,"wifi").split(" ").filter(w => w.length > 3 && !STOP.includes(w));
-  const words = toks(raw);
-  for(const l of state.learned){
-    const lw = toks(l.q);
-    const hit = lw.filter(w => words.includes(w)).length;
-    if(lw.length && hit / lw.length >= 0.6) return {type:"learned", a:l.a};
+function lev(a,b){ if(Math.abs(a.length-b.length) > 2) return 9; const d = Array.from({length:a.length+1},(_,i)=>[i]); for(let j=1;j<=b.length;j++) d[0][j]=j;
+  for(let i=1;i<=a.length;i++) for(let j=1;j<=b.length;j++) d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+(a[i-1]===b[j-1]?0:1)); return d[a.length][b.length]; }
+const COMUNI = new Set("avete vorrei posso possiamo potete cosa come quanto quanta quanti costa costano sono siamo senza anche altro altra tutto tutti tutta quali quale fate dove quando conto pagare pagato grazie ciao salve menu carrello ordine ordini tavolo cameriere prendo prendiamo aggiungi togli bere mangiare qualcosa niente molto poco meno sotto sopra euro prezzo prezzi vedere dammi dimmi fammi portami ancora adesso subito prima dopo oggi stasera buono buona buoni buone forte piatto piatti della delle degli nella nelle questo questa quello quella basta essere avere fatto fare volevo voglio vogliamo ordino ordiniamo conferma confermo invia quanto porta portaci mettimi metti solo soltanto invece oppure perche allora scusa scusi piacere favore cortesia mezzo mezza grande piccolo piccola media medio doppio doppia normale classica classico caldo calda freddo fredda fresco fresca leggero leggera pronto pronta manca arriva punto stato primo secondo dolce vostro vostra nostro nostra casa posto persone persona amici locale serata sera cena pranzo acqua".split(" "));
+const QTY = {un:1,uno:1,una:1,due:2,tre:3,quattro:4,cinque:5,sei:6,sette:7,otto:8,nove:9,dieci:10};
+const VOCAB = [...new Set([...CATS.flatMap(c => c.syn), ...INGREDIENTI.flatMap(x => norm(x).split(" ")), ...ITEMS.flatMap(i => i.k.flatMap(k => norm(k).split(" "))), ...CIBI.flatMap(x => x.split(" ")),
+  "allergia","allergie","allergico","allergica","allergeni","celiaco","celiaca","celiachia","glutine","lattosio","intollerante","intolleranza","vegetariano","vegetariana","vegetariani","vegano","vegana","vegani","piccante","piccanti","analcolico","analcolica","cameriere","carrello","conferma","consigli","consiglio","economico","prenotare","parcheggio"].filter(w => w.length >= 5))];
+function correggi(t){
+  return t.split(" ").map(w => {
+    if(w.length < 5 || COMUNI.has(w) || VOCAB.includes(w) || /\d/.test(w)) return w;
+    const max = w.length >= 7 ? 2 : 1; let best = null, bd = 9;
+    for(const v of VOCAB){ if(v[0] !== w[0]) continue; const d = lev(w,v); if(d < bd){ bd = d; best = v; } }
+    return bd <= max ? best : w;
+  }).join(" ");
+}
+const has = (t, phrase) => (" " + t + " ").includes(" " + phrase + " ");
+function removable(it, ing){ return it.groups.some(g => GROUPS[g].opts.some(o => norm(o[0]) === "senza " + norm(ing))); }
+function addable(it, ing){ for(const g of it.groups){ const G = GROUPS[g]; if(G.type !== "many") continue; const o = G.opts.find(o => norm(o[0]) === norm(ing) || norm(o[0]).split(" ")[0] === norm(ing).split(" ")[0]); if(o && !/^senza/.test(norm(o[0]))) return o; } return null; }
+function namedItems(t){
+  const out = [];
+  for(const it of ITEMS){
+    const k = it.k.map(norm).sort((a,b) => b.length - a.length).find(k => has(t, k));
+    if(k) out.push({it, k, pos:(" " + t + " ").indexOf(" " + k + " ")});
   }
-  const f = {cats:[], con:[], senza:[], max:null, item:null};
-  for(const c of CATS) if(c.syn.some(s => new RegExp("\\b"+s+"\\b").test(t))) f.cats.push(c.id);
+  /* se un nome più lungo contiene quello più corto (es. "vino rosso" e "rosso") tiene il più lungo */
+  return out.filter(a => !out.some(b => b !== a && b.k.length > a.k.length && b.k.includes(a.k) && Math.abs(b.pos - a.pos) <= b.k.length)).sort((a,b) => a.pos - b.pos);
+}
+function pickOptions(it, t){
+  const opts = []; let price = it.price;
+  for(const g of it.groups){ const G = GROUPS[g];
+    if(G.type === "one"){ let idx = 0;
+      G.opts.forEach((o,i) => { const key = norm(o[0]); const w = key.split(" ")[0]; if(i > 0 && (has(t,key) || (w.length >= 5 && (has(t,w) || t.split(" ").some(x => x.length >= 5 && x.slice(0,-1) === w.slice(0,-1)))))) idx = i; });
+      opts.push(G.opts[idx][0]); price += G.opts[idx][1];
+    } else G.opts.forEach(o => { const key = norm(o[0]); if(has(t,key) || (!/^senza/.test(key) && has(t,"con " + key.split(" ")[0])) || (!/^senza/.test(key) && has(t,"e " + key.split(" ")[0]))){ opts.push(o[0]); price += o[1]; } });
+  }
+  return {opts, price};
+}
+function interpret(raw){
+  let t = norm(raw);
+  if(!t) return {type:"empty"};
+  if(/allerg|celiac|glutin|gluten|intolleran|lattosio|lattos|anafila|favism|nichel|istamin/.test(t)) return {type:"blocked"};
+  t = correggi(t);
+  if(/allerg|celiac|glutin|intolleran|lattosio/.test(t)) return {type:"blocked"};
+  if(/camerier|qualcuno al tavolo|parlare con/.test(t)) return {type:"waiter"};
+  for(const f of FAQ) if(f.k.test(t)) return {type:"faq", a:f.a, show:f.show};
+  const toks = x => norm(x).replace(/wi fi/g,"wifi").split(" ").filter(w => w.length > 3 && !COMUNI.has(w));
+  const words = toks(t);
+  for(const l of state.learned){ const lw = toks(l.q); const hit = lw.filter(w => words.includes(w)).length; if(lw.length && hit / lw.length >= 0.6) return {type:"learned", a:l.a}; }
+  if(/svuota|cancella tutto|togli tutto|ricomincia/.test(t)) return {type:"clearcart"};
+  if(/^(togli|rimuovi|elimina|leva|cancella|niente piu)\b/.test(t)){ const n = namedItems(t); if(n.length) return {type:"remove", ids:n.map(x => x.it.id)}; return {type:"cart"}; }
+  if(/carrello|riepilogo|cosa abbiamo (preso|ordinato|messo)|cosa ho (preso|ordinato|messo)/.test(t)) return {type:"cart"};
+  if(/a che punto|quanto manca|quando arriva|dov e (l |il mio |il nostro )?ordin|stato (dell |del mio )?ordin|e pronto|sono pronte|in ritardo|non e (ancora )?arrivat/.test(t)) return {type:"status"};
+  if(/conferm|invia (l )?ordin|manda (l )?ordin|ordina tutto|ordiniamo tutto|va bene cosi|basta cosi|e tutto|abbiamo finito di scegliere/.test(t)) return {type:"confirm"};
+  if(/\bconto\b|pagare|pago\b|paghiamo|pagamento|scontrino/.test(t)) return {type:"pay"};
+  if(/^(grazie|ok grazie|perfetto|ottimo|va bene|ok|a posto|arrivederci|buona serata)( mille| grazie)?$/.test(t)) return {type:"thanks"};
+  if(/menu complet|tutto il menu|menu inter|^(il )?menu$|vedere il menu|mostra(mi)? il menu|fammi vedere il menu|la carta|listino/.test(t)) return {type:"fullmenu"};
+
+  const f = {cats:[], con:[], senza:[], max:null, ignoti:[], flags:[]};
+  for(const c of CATS) if(c.syn.some(s => has(t, s))) f.cats.push(c.id);
+  if(/primi piatti/.test(t) && !f.cats.includes("primi")) f.cats.push("primi");
+  if(/secondi piatti/.test(t) && !f.cats.includes("secondi")) f.cats.push("secondi");
   if(f.cats.includes("xxl")) f.cats = ["xxl"];
-  const m = t.match(/(?:sotto|meno di|massimo|max|entro)\s+(?:i|gli|le)?\s*(\d+)(?:[.,](\d+))?/);
+  const daBere = /da bere|\bbere\b|qualcosa di fresco|dissetante/.test(t), daMangiare = /da mangiare|\bmangiare\b|\bcibo\b|si mangia|\bfame\b/.test(t);
+  const m = t.match(/(?:sotto|meno di|massimo|max|entro|non piu di|al massimo)\s+(?:i|gli|le|a)?\s*(\d+)(?:[.,](\d+))?/);
   if(m) f.max = parseFloat(m[1] + "." + (m[2] || "0"));
+  if(/vegetarian|senza carne|non mangio carne/.test(t)) f.flags.push("vegetariano");
+  if(/vegan/.test(t)) f.flags.push("vegano");
+  if(/piccant/.test(t) && !/non piccant|senza piccant|poco piccant/.test(t)) f.flags.push("piccante");
+  if(/analcolic|senza alcol|non alcolic|non bevo alcol|zero alcol/.test(t)) f.flags.push("analcolico");
+  const economico = /piu economic|costa(no)? (di )?meno|meno car|spendere poco|low cost|a poco/.test(t);
   let rest = " " + t + " ";
   for(const [k,v] of Object.entries(ING_SYN)) rest = rest.replace(new RegExp("\\b"+k+"\\b","g"), v);
-  const senzaPart = rest.split(/\bsenza\b/).slice(1).join(" , ");
-  for(const ing of INGREDIENTI){
-    const n = norm(ing);
-    if(senzaPart.includes(n)) f.senza.push(ing);
-    else if(rest.includes(" "+n) ) f.con.push(ing);
-  }
-  if(/vegetarian/.test(t)) f.veg = true;
-  /* ingrediente chiesto ma non presente nel menu (es. "dolci con nutella") */
-  f.ignoti = [];
-  const NON_ING = ["spina","piastra","griglia","brace","forno","cassa","carta","tavolo","noi","voi","calma","contanti","telefono","satispay","bancomat","menu","meno","massimo"];
-  const conPart = rest.split(/\bsenza\b/)[0];
+  const named = namedItems(t);
+  let scan = rest; named.forEach(n => { scan = scan.replace(" " + n.k + " ", " ~ "); });
+  const senzaPart = scan.split(/\bsenza\b/).slice(1).join(" , ");
+  const conPart = scan.split(/\bsenza\b/)[0];
+  for(const ing of INGREDIENTI){ const n = norm(ing);
+    if(senzaPart.includes(" " + n) || senzaPart.startsWith(n)) f.senza.push(ing);
+    else if(conPart.includes(" " + n + " ")) f.con.push(ing); }
+  const conosciuto = w => ITEMS.some(i => i.ing.some(x => norm(x).split(" ").includes(w))) || CATS.some(c => c.syn.includes(w)) || ITEMS.some(i => i.k.some(k => norm(k).split(" ").includes(w)) || norm(i.name).split(" ").includes(w)) || Object.values(GROUPS).some(G => G.opts.some(o => norm(o[0]).split(" ").includes(w)));
+  const NON_ING = ["spina","piastra","griglia","brace","forno","cassa","carta","tavolo","noi","voi","calma","contanti","telefono","satispay","bancomat","menu","meno","massimo","ghiaccio","cortesia","favore","piacere","amici","bambini","cane","calice","bottiglia","tanto","tanta","poco","poca","dentro","sopra","parte","volo","momento"];
   const reCon = /\b(?:con|alla|al|allo|ai|alle|agli)\s+((?:(?:il|la|lo|l|i|le|gli|un|una|uno|della|del|dello|dei|delle|tanta|tanto|molta|molto|doppia|doppio|extra|po|di)\s+)*)([a-z]+)/g;
-  let mm;
-  while((mm = reCon.exec(conPart))){
-    const w = mm[2];
-    if(w.length < 3 || NON_ING.includes(w) || /^\d/.test(w)) continue;
-    const noto = INGREDIENTI.some(x => norm(x).split(" ").includes(w)) || CATS.some(c => c.syn.includes(w)) || ITEMS.some(i => norm(i.name).split(" ").includes(w));
-    if(!noto && !f.ignoti.includes(w)) f.ignoti.push(w);
+  let mm; while((mm = reCon.exec(conPart))){ const w = mm[2]; if(w.length < 3 || w === "~" || NON_ING.includes(w) || COMUNI.has(w) || conosciuto(w)) continue; if(!f.ignoti.includes(w)) f.ignoti.push(w); }
+  for(const c of CIBI){ if(has(scan.trim(), c) && !c.split(" ").every(conosciuto) && !f.ignoti.some(x => c.includes(x))) f.ignoti.push(c); }
+  f.ignoti = f.ignoti.filter(x => !f.ignoti.some(y => y !== x && y.includes(x)));
+
+  /* ordinare direttamente: "due margherite e una birra media" */
+  const verbo = /\b(vorrei|vorremmo|prendo|prendiamo|voglio|vogliamo|ordino|ordiniamo|aggiungi|aggiungimi|aggiungici|portami|portaci|per me|mettimi|metti|mettici|dammi|dacci|facciamo)\b/.test(t);
+  const primaParola = t.split(" ")[0];
+  /* "una birra", "un vino": parola generica → il prodotto più comune di quella categoria */
+  const GENERICI = {birra:"bionda", vino:"vrosso"};
+  const inOrdine = verbo || primaParola in QTY || /^\d+$/.test(primaParola);
+  if(inOrdine) for(const [w,id] of Object.entries(GENERICI)){ const it = byId(id);
+    if(has(t,w) && !named.some(n => n.it.cat === it.cat)){ named.push({it, k:w, pos:(" " + t + " ").indexOf(" " + w + " ")}); named.sort((a,b) => a.pos - b.pos); } }
+  if(named.length && !f.ignoti.length && inOrdine && !(f.con.length && named.length === 1 && named[0].k in GENERICI)){
+    const tSenzaNomi = named.reduce((s,n) => (" " + s + " ").replace(" " + n.k + " ", " ~ ").trim(), t);
+    const lines = named.map((n,i) => { const before = t.slice(0, n.pos).trim().split(" ").slice(-2); let q = 1;
+      for(const b of before){ if(b in QTY) q = QTY[b]; else if(/^\d+$/.test(b)) q = Math.min(20, parseInt(b,10)); }
+      const seg = named.length === 1 ? tSenzaNomi : t.slice(n.pos + n.k.length, i + 1 < named.length ? named[i+1].pos : t.length).replace(/\b(un|uno|una|due|tre|quattro|cinque|sei|\d+)\s*$/, "");
+      const o = pickOptions(n.it, seg); return {id:n.it.id, qty:Math.max(1,q), opts:o.opts, price:o.price}; });
+    return {type:"order", lines};
   }
-  const named = ITEMS.filter(i => { const n = norm(i.name).split(" ")[0]; return n.length > 3 && new RegExp("\\b"+norm(i.name)+"\\b").test(t) || (norm(i.name).split(" ").length === 1 && new RegExp("\\b"+n+"\\b").test(t)); });
-  if(named.length === 1 && !f.con.length && !f.senza.length && f.max === null) return {type:"item", id:named[0].id};
-  if(!f.cats.length && !f.con.length && !f.senza.length && f.max === null && !f.veg && !f.ignoti.length){
-    if(/^(ciao|salve|buonasera|buongiorno|hey|ehi)\b/.test(t)) return {type:"hello"};
+  const filtri = f.con.length || f.senza.length || f.max !== null || f.flags.length || economico;
+  if(named.length === 1 && !filtri && !f.ignoti.length && (!f.cats.length || f.cats.includes(named[0].it.cat) || named[0].k.split(" ").length > 1)) return {type:"item", id:named[0].it.id};
+  if(named.length > 1 && !filtri && !f.ignoti.length && !f.cats.length) return {type:"search", f, ids:named.map(n => n.it.id), label:"quello che hai chiesto"};
+  if(/consigli|specialit|piatto forte|piu vendut|piu buon|cosa prendere|suggeri|cosa prendo|non so cosa|indecis|tipic/.test(t)){
+    const pool = ITEMS.filter(i => !f.cats.length || f.cats.includes(i.cat)); const top = ["salsfriar","carbonara","baconbbq","tagliata","tiramisu","spritz","bionda","tagliere","vrosso","patatine","caffe","insalata"];
+    const ids = top.filter(id => pool.some(i => i.id === id)).slice(0, f.cats.length ? 2 : 4); return {type:"recommend", ids: ids.length ? ids : pool.slice(0,2).map(i => i.id)}; }
+  if(!f.cats.length && !filtri && !f.ignoti.length){
+    if(daBere) return {type:"overview", kind:"bere"};
+    if(daMangiare) return {type:"overview", kind:"cibo"};
+    if(/cosa avete|cosa c e|che avete|che c e|cosa offrite|cosa fate|cosa proponete|cosa si puo|categorie|che cosa avete/.test(t)) return {type:"overview", kind:null};
+    if(/^(ciao|salve|buonasera|buongiorno|buona sera|hey|ehi|hola|hello)\b/.test(t)) return {type:"hello"};
     return {type:"unknown"};
   }
-  const CARNE = ["manzo","salsiccia","bacon","salame piccante"];
-  const res = ITEMS.filter(i =>
-    (!f.cats.length || f.cats.includes(i.cat)) &&
-    f.con.every(x => i.ing.includes(x)) &&
+  if(!f.cats.length && daBere) f.kind = "bere"; if(!f.cats.length && daMangiare) f.kind = "cibo";
+  const notes = {};
+  let res = ITEMS.filter(i =>
+    (!f.cats.length || f.cats.includes(i.cat)) && (!f.kind || catOf(i).kind === f.kind) &&
+    f.con.every(x => { if(i.ing.includes(x)) return true; const o = addable(i, x); if(o){ notes[i.id] = "Si può aggiungere " + o[0].toLowerCase() + (o[1] ? " (+" + euro(o[1]) + ")" : ""); return true; } return false; }) &&
     (f.max === null || i.price <= f.max) &&
-    (!f.veg || (!i.ing.some(x => CARNE.includes(x)) && !["birre","drink"].includes(i.cat))) &&
-    f.senza.every(x => !i.ing.includes(x) || removable(i, x)));
+    (!f.flags.includes("vegetariano") || isVeg(i)) && (!f.flags.includes("vegano") || i.tags.includes("vegano")) &&
+    (!f.flags.includes("piccante") || i.tags.includes("piccante")) &&
+    (!f.flags.includes("analcolico") || i.tags.includes("analcolico") || i.id === "spritz") &&
+    f.senza.every(x => { if(!i.ing.includes(x)) return true; if(removable(i, x)){ notes[i.id] = "Si può chiedere senza " + x; return true; } return false; }));
+  /* se l'ingrediente c'è davvero in qualche piatto, non proporre quelli dove è solo un'aggiunta */
+  if(f.con.length && res.some(i => !notes[i.id])) res = res.filter(i => !notes[i.id] || f.senza.length);
+  if(f.flags.includes("analcolico")) res.forEach(i => { if(i.id === "spritz") notes[i.id] = "Disponibile anche analcolico"; });
+  if(economico) res = res.slice().sort((a,b) => a.price - b.price).slice(0,4);
   if(f.ignoti.length) return {type:"noingr", f, ids:(f.cats.length ? res : []).map(i => i.id)};
-  return {type:"search", f, ids:res.map(i => i.id)};
+  return {type:"search", f, ids:res.map(i => i.id), notes, economico};
 }
-function removable(it, ing){ return it.groups.some(g => GROUPS[g].opts.some(o => norm(o[0]) === "senza " + norm(ing))); }
 function describe(f){
   const p = [];
   if(f.cats.length) p.push(f.cats.map(c => CATS.find(x => x.id === c).name.toLowerCase()).join(" e "));
-  if(f.veg) p.push("vegetariani");
+  else if(f.kind) p.push(f.kind === "bere" ? "da bere" : "da mangiare");
+  f.flags.forEach(x => p.push(x === "analcolico" ? "analcolici" : x === "piccante" ? "piccanti" : x === "vegano" ? "vegani" : "vegetariani"));
   if(f.con.length) p.push("con " + f.con.join(" e "));
   if(f.senza.length) p.push("senza " + f.senza.join(" e "));
   if(f.max !== null) p.push("fino a " + euro(f.max));
@@ -403,7 +524,7 @@ const log = document.getElementById("log");
 function add(cls, html){ const d = document.createElement("div"); d.className = "msg " + cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
 const bot = html => add("bot", html);
 const quick = arr => '<div class="quick">' + arr.map(([l,a,v]) => `<button type="button" data-act="${a}" data-v="${esc(v||"")}">${esc(l)}</button>`).join("") + "</div>";
-const MAINQ = () => quick([["Menu completo","say","menu completo"], ...CATS.map(c => [c.name,"say",c.name]), ["Chiama il cameriere","waiter"]]);
+const MAINQ = () => quick([["Menu completo","say","menu completo"],["Da mangiare","say","cosa avete da mangiare"],["Da bere","say","cosa avete da bere"],["Consigliami","say","cosa mi consigli"],["Chiama il cameriere","waiter"]]);
 function pcard(it, note){
   const al = "";
   return `<div class="pcard"><div class="thumb" aria-hidden="true">${it.em}</div><div>
@@ -482,26 +603,42 @@ function handle(text){
   switch(r.type){
     case "empty": return;
     case "hello": return welcome();
+    case "thanks": bot("<p>Prego! Se serve altro sono qui.</p>"); return;
     case "blocked": bot(`<p><b>Su questo non posso rispondere: chiama il cameriere.</b></p><p class="muted" style="font-size:13px">Il locale ha scelto di far rispondere il personale su allergeni e celiachia.</p>` + quick([["Chiama il cameriere","waiter","domanda su allergeni"]])); return;
     case "waiter": return waiter();
     case "cart": return showCart();
+    case "clearcart": state.cart = []; return showCart();
+    case "remove": { let n = 0; r.ids.forEach(id => { const i = state.cart.findIndex(c => c.id === id); if(i >= 0){ state.cart.splice(i,1); n++; } });
+      if(!n) bot("<p>Nel carrello non c'è.</p>"); return showCart(); }
     case "confirm": return confirmOrder();
     case "pay": return payMenu();
+    case "status": {
+      if(!state.orders.length){ bot("<p>Non avete ancora inviato ordini. Quando il carrello è pronto, uno di voi conferma per tutto il tavolo.</p>" + quick([["Vedi il carrello","cart"]])); return; }
+      bot("<p><b>I vostri ordini</b></p>" + state.orders.map(o => `<div class="cartline"><span>Ordine n. ${o.n}, ore ${fmtOra(o.when)}<br><small class="muted">${o.items.length} ${o.items.length === 1 ? "voce" : "voci"} · ${o.pagato ? "pagato" : "da pagare"}</small></span><b>${STATI[o.stato]}</b></div>`).join("")); return; }
+    case "faq": bot(`<p>${esc(r.a)}</p>`); if(r.show) showItems(ITEMS.filter(i => i.tags.includes(r.show)).map(i => i.id), "Eccoli:"); return;
     case "learned": bot(`<p>${esc(r.a)}</p>`); return;
     case "fullmenu": return showItems(ITEMS.map(i => i.id), "Ecco il menu completo.");
+    case "overview": {
+      const cs = CATS.filter(c => !r.kind || c.kind === r.kind);
+      bot(`<p>${r.kind === "bere" ? "Da bere abbiamo:" : r.kind === "cibo" ? "Da mangiare abbiamo:" : "Ecco cosa abbiamo. Tocca una categoria:"}</p>` + quick(cs.map(c => [c.name,"say",c.name]).concat([["Menu completo","say","menu completo"]]))); return; }
+    case "recommend": return showItems(r.ids, "Ti consiglio questi, sono i più richiesti:");
+    case "order": {
+      let tot = 0; const righe = [];
+      r.lines.forEach(l => { const it = byId(l.id); for(let i = 0; i < l.qty; i++){ state.cart.push({id:it.id, name:it.name, opts:l.opts, price:l.price, who:"Tu"}); tot += l.price; }
+        righe.push(`${l.qty} × <b>${esc(it.name)}</b>${l.opts.length ? " (" + esc(l.opts.join(", ")) + ")" : ""}`); });
+      document.getElementById("cart-n").textContent = state.cart.length;
+      bot(`<p>Aggiunto al carrello del tavolo: ${righe.join(", ")}. Subtotale ${euro(tot)}.</p>` + quick([["Vedi il carrello","cart"],["Conferma per tutto il tavolo","confirm"],["Aggiungi altro","say","cosa avete"]])); return; }
     case "item": { const it = byId(r.id);
-      bot(`<p>${pcard(it)}</p>` + (it.groups.length ? optionsText(it) : "")); return; }
+      bot(pcard(it) + (it.groups.length ? optionsText(it) : "")); return; }
     case "noingr": {
       const cosa = r.f.ignoti.join(" e ");
       saveQuestion(text);
       const cat = r.f.cats.length ? r.f.cats.map(c => CATS.find(x => x.id === c).name.toLowerCase()).join(" e ") : "";
-      if(r.ids.length) return showItems(r.ids, `Ho cercato tra gli ingredienti: nel menu non c'è nulla con <b>${esc(cosa)}</b>. Questi sono i nostri ${esc(cat)}:`);
-      bot(`<p>Ho cercato tra gli ingredienti: nel menu non c'è nulla con <b>${esc(cosa)}</b>. L'ho segnalato al gestore.</p>` + MAINQ()); return; }
+      if(r.ids.length) return showItems(r.ids, `Ho cercato nel menu e tra gli ingredienti: non abbiamo nulla con <b>${esc(cosa)}</b>. Questi sono i nostri ${esc(cat)}:`);
+      bot(`<p>Ho cercato nel menu e tra gli ingredienti: non abbiamo <b>${esc(cosa)}</b>. L'ho segnalato al gestore.</p>` + MAINQ()); return; }
     case "search": {
       if(!r.ids.length){ bot(`<p>Non ho trovato nulla ${esc(describe(r.f))} nel menu.</p>` + MAINQ()); return; }
-      const notes = {};
-      r.f.senza.forEach(x => r.ids.forEach(id => { const it = byId(id); if(it.ing.includes(x)) notes[id] = "Si può chiedere senza " + x; }));
-      return showItems(r.ids, `Ecco cosa abbiamo: <b>${esc(describe(r.f))}</b>.`, notes); }
+      return showItems(r.ids, r.label ? "Ecco " + r.label + ":" : `${r.economico ? "I meno cari" : "Ecco cosa abbiamo"}: <b>${esc(describe(r.f))}</b>.`, r.notes); }
     default:
       saveQuestion(text);
       bot(`<p>A questa domanda non so rispondere. L'ho messa da parte per il gestore, così la prossima volta saprò cosa dire.</p>` + quick([["Chiama il cameriere","waiter"],["Menu completo","say","menu completo"]]));
@@ -562,7 +699,7 @@ function renderGestore(){
      <label for="ans-${i}" style="position:absolute;left:-9999px">Risposta</label><textarea id="ans-${i}" placeholder="Scrivi la risposta che il chatbot dovrà dare"></textarea>
      <div class="quick"><button type="button" data-act="teach" data-v="${i}">Salva risposta</button><button type="button" data-act="ignore" data-v="${i}">Ignora</button></div></div>`).join("")
     : `<p class="empty">Nessuna domanda in attesa. Prova a chiedere al chatbot «avete il seggiolone?».</p>`;
-  document.getElementById("learned").innerHTML = state.learned.map(l => `<p style="margin:6px 0"><b>${esc(l.q)}</b><br><span class="muted">${esc(l.a)}</span></p>`).join("");
+  document.getElementById("learned").innerHTML = [...state.learned, ...FAQ].map(l => `<p style="margin:6px 0"><b>${esc(l.q)}</b><br><span class="muted">${esc(l.a)}</span></p>`).join("");
 }
 
 /* ---------- Menu pubblico ---------- */
@@ -638,7 +775,7 @@ window.addEventListener("hashchange", route);
   const now = new Date();
   const s = fmtData(now); document.getElementById("oggi").textContent = s.charAt(0).toUpperCase() + s.slice(1);
   document.getElementById("aperto").textContent = "Ore " + fmtOra(now) + " · cucina aperta fino a mezz'ora prima della chiusura";
-  document.getElementById("try").innerHTML = ["solo le pizze","pizze con salsiccia","hamburger senza cipolla","qualcosa sotto i 5 euro","quanto costa la margherita?","è senza glutine?","dolci con nutella","avete il seggiolone?","avete il wifi?"]
+  document.getElementById("try").innerHTML = ["cosa c'è come primi?","pizze con salsiccia","hamburger senza cipolla","due margherite e una birra media","qualcosa di vegetariano","cosa mi consigli?","dolci con nutella","qualcosa sotto i 5 euro","è senza glutine?","a che punto è l'ordine?","si paga il coperto?","avete il seggiolone?"]
     .map(t => `<button type="button" data-act="say" data-v="${esc(t)}">${esc(t)}</button>`).join("");
   renderMenu(); renderGestore(); welcome(); route();
 })();

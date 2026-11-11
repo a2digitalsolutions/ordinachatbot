@@ -6,6 +6,6 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
-    "tipi": "tsc --noEmit -p tsconfig.json"
+    "tipi": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.test.json"
   }
 }

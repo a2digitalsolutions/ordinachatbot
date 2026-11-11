@@ -55,10 +55,9 @@ gantt
     OC3-02 Pagamento dal tavolo con Apple Pay, Google Pay e car… :oc3_02, 2026-12-18, 2026-12-22
     OC3-05 Conferma dell'incasso, invio in cucina dopo il pagam… :oc3_05, 2026-12-22, 2026-12-24
     OC3-07 Ricevuta al cliente e riepilogo incassi per il titol… :oc3_07, 2026-12-28, 2026-12-29
-    OC3-04 Pagamento con Bancomat Pay :oc3_04, 2027-01-29, 2027-02-02
-    OC3-06 Conto del tavolo — paga tutto, paga la tua parte, di… :oc3_06, 2027-01-29, 2027-02-02
-    OC3-03 Pagamento con Satispay, Revolut Pay e PayPal :oc3_03, 2027-02-03, 2027-02-04
-    Pagamenti dal tavolo pronti (collaudo con il prim… :milestone, m3, 2027-02-03, 0d
+    OC3-06 Conto del tavolo — paga tutto, paga la tua parte, di… :oc3_06, 2027-01-07, 2027-01-09
+    OC3-03 Pagamento con Satispay, Revolut Pay e PayPal :oc3_03, 2027-01-08, 2027-01-09
+    Pagamenti dal tavolo pronti (collaudo con il prim… :milestone, m3, 2027-01-08, 0d
     section Fase 4 Stampanti termiche per le comande (pron…
     OC4-01 Servizio di stampa — coda, formato della comanda, ri… :oc4_01, 2026-12-17, 2026-12-19
     OC4-02 Collegamento delle stampanti termiche del locale :oc4_02, 2026-12-21, 2026-12-23
@@ -73,35 +72,36 @@ gantt
     OC5-02 Indirizzi — sottodominio nostro e dominio proprio de… :oc5_02, 2027-01-04, 2027-01-06
     OC5-09 Locale pilota — installazione e prova con clienti ve… :oc5_09, 2027-01-04, 2027-01-08
     OC5-01 Sito del locale (facoltativo) — social, contatti, or… :oc5_01, 2027-01-07, 2027-01-09
-    OC5-04 Piani e moduli SaaS (base, stampanti, pagamenti, cas… :oc5_04, 2027-01-07, 2027-01-08
-    OC5-03 Passaggio dal nostro dominio a quello del locale sen… :oc5_03, 2027-01-08, 2027-01-09
-    OC5-10 Rilascio versione 1 :oc5_10, 2027-01-11, 2027-01-12
-    Prima consegna (versione 1) — chatbot, area coman… :milestone, m5, 2027-01-11, 0d
+    OC5-03 Passaggio dal nostro dominio a quello del locale sen… :oc5_03, 2027-01-11, 2027-01-12
+    OC5-04 Piani e moduli SaaS (base, stampanti, pagamenti, cas… :oc5_04, 2027-01-11, 2027-01-12
+    OC5-10 Rilascio versione 1 :oc5_10, 2027-01-12, 2027-01-13
+    Prima consegna (versione 1) — chatbot, area coman… :milestone, m5, 2027-01-12, 0d
     section Fase 6 Cassa e gestionale, dopo la consegna (v…
     OC6-01 Attivazione del modulo cassa per locale e postazioni… :oc6_01, 2026-11-26, 2026-11-27
-    OC6-02 Reparti, aliquote IVA, metodi di pagamento, coperto… :oc6_02, 2027-01-08, 2027-01-09
-    OC6-03 Schermata di cassa per monitor touch — vendita veloc… :oc6_03, 2027-01-11, 2027-01-13
-    OC6-04 Mappa dei tavoli — stati a colori, apri, sposta, uni… :oc6_04, 2027-01-13, 2027-01-15
-    OC6-05 Conto del tavolo in cassa — preconto, sconti, divisi… :oc6_05, 2027-01-15, 2027-01-19
-    OC6-07 Stampante fiscale RT — scontrino, annullo, reso, lot… :oc6_07, 2027-01-19, 2027-01-22
-    OC6-08 Apertura e chiusura giornaliera, fondo cassa, turni… :oc6_08, 2027-01-19, 2027-01-21
-    OC6-10 Resoconti — incassi per metodo, reparto, prodotto, f… :oc6_10, 2027-01-27, 2027-01-29
+    OC6-02 Reparti, aliquote IVA, metodi di pagamento, coperto… :oc6_02, 2027-01-12, 2027-01-13
+    OC6-03 Schermata di cassa per monitor touch — vendita veloc… :oc6_03, 2027-01-13, 2027-01-15
+    OC6-04 Mappa dei tavoli — stati a colori, apri, sposta, uni… :oc6_04, 2027-01-14, 2027-01-16
+    OC6-05 Conto del tavolo in cassa — preconto, sconti, divisi… :oc6_05, 2027-01-18, 2027-01-20
+    OC6-07 Stampante fiscale RT — scontrino, annullo, reso, lot… :oc6_07, 2027-01-20, 2027-01-23
+    OC6-08 Apertura e chiusura giornaliera, fondo cassa, turni… :oc6_08, 2027-01-20, 2027-01-22
+    OC6-10 Resoconti — incassi per metodo, reparto, prodotto, f… :oc6_10, 2027-01-28, 2027-01-30
     OC6-06 Ordini del chatbot in cassa in automatico pagato dal… :oc6_06, 2027-02-01, 2027-02-02
     OC6-09 Storni e annulli con permessi per operatore e regist… :oc6_09, 2027-02-02, 2027-02-03
     OC6-11 Cassa utilizzabile senza internet e ripresa automati… :oc6_11, 2027-02-02, 2027-02-04
-    OC6-12 Collaudo sul kit reale e Demo 5 :oc6_12, 2027-02-04, 2027-02-05
-    Cassa e gestionale — modulo in vendita :milestone, m6, 2027-02-04, 0d
+    OC6-12 Collaudo sul kit reale e Demo 5 :oc6_12, 2027-02-05, 2027-02-06
+    Cassa e gestionale — modulo in vendita :milestone, m6, 2027-02-05, 0d
     section Fase 7 Dopo la consegna — configurazione con i…
-    OC0-03 Conto Stripe — apertura e configurazione insieme al… :oc0_03, 2027-01-12, 2027-01-15
-    OC0-06 Stampante termica — scelta e collegamento insieme al… :oc0_06, 2027-01-12, 2027-01-19
-    OC7-03 Asporto e consegna a domicilio :oc7_03, 2027-01-13, 2027-01-19
-    OC4-05 Collaudo sulla stampante reale del primo locale :oc4_05, 2027-01-20, 2027-01-21
-    OC7-01 Registrazione autonoma dei locali e pagamento dell'a… :oc7_01, 2027-01-21, 2027-01-26
-    OC7-02 Prenotazione dei tavoli :oc7_02, 2027-01-22, 2027-01-27
-    OC7-04 Altre lingue, offerte a orario (es. aperitivo), racc… :oc7_04, 2027-01-26, 2027-01-29
+    OC0-03 Conto Stripe — apertura e configurazione insieme al… :oc0_03, 2027-01-13, 2027-01-16
+    OC0-06 Stampante termica — scelta e collegamento insieme al… :oc0_06, 2027-01-13, 2027-01-20
+    OC7-01 Registrazione autonoma dei locali e pagamento dell'a… :oc7_01, 2027-01-15, 2027-01-20
+    OC3-08 Collaudo dei pagamenti con il conto Stripe del primo… :oc3_08, 2027-01-21, 2027-01-22
+    OC7-03 Asporto e consegna a domicilio :oc7_03, 2027-01-22, 2027-01-28
+    OC7-02 Prenotazione dei tavoli :oc7_02, 2027-01-25, 2027-01-28
+    OC7-04 Altre lingue, offerte a orario (es. aperitivo), racc… :oc7_04, 2027-01-28, 2027-02-02
+    OC4-05 Collaudo sulla stampante reale del primo locale :oc4_05, 2027-01-29, 2027-01-30
+    OC3-04 Pagamento con Bancomat Pay :oc3_04, 2027-02-03, 2027-02-05
     OC5-06 Statistiche per il titolare (più ordinati, orari di… :oc5_06, 2027-02-04, 2027-02-05
-    OC3-08 Collaudo dei pagamenti con il conto Stripe del primo… :oc3_08, 2027-02-05, 2027-02-06
-    Primo locale configurato insieme — Stripe e stamp… :milestone, m7, 2027-02-05, 0d
+    Primo locale configurato insieme — Stripe e stamp… :milestone, m7, 2027-01-29, 0d
 ```
 
 ## Date previste
@@ -159,30 +159,30 @@ gantt
 | OC5-08 | Manuale definitivo con le schermate e guida di avvio per i locali | da fare |  | 30/12/2026 | 30/12/2026 |
 | OC5-02 | Indirizzi — sottodominio nostro e dominio proprio del locale con certificato | da fare |  | 04/01/2027 | 05/01/2027 |
 | OC5-09 | Locale pilota — installazione e prova con clienti veri | da fare |  | 04/01/2027 | 07/01/2027 |
+| OC3-06 | Conto del tavolo — paga tutto, paga la tua parte, dividi in parti uguali, mancia | da fare |  | 07/01/2027 | 08/01/2027 |
 | OC5-01 | Sito del locale (facoltativo) — social, contatti, orari, mappa, pulsante menu | da fare |  | 07/01/2027 | 08/01/2027 |
-| OC5-04 | Piani e moduli SaaS (base, stampanti, pagamenti, cassa, sito) | da fare |  | 07/01/2027 | 07/01/2027 |
-| OC5-03 | Passaggio dal nostro dominio a quello del locale senza ristampare i QR | da fare |  | 08/01/2027 | 08/01/2027 |
-| OC6-02 | Reparti, aliquote IVA, metodi di pagamento, coperto e servizio | da fare |  | 08/01/2027 | 08/01/2027 |
-| OC5-10 | Rilascio versione 1 | da fare |  | 11/01/2027 | 11/01/2027 |
-| OC6-03 | Schermata di cassa per monitor touch — vendita veloce al banco | da fare |  | 11/01/2027 | 12/01/2027 |
-| OC0-03 | Conto Stripe — apertura e configurazione insieme al primo locale | da fare |  | 12/01/2027 | 14/01/2027 |
-| OC0-06 | Stampante termica — scelta e collegamento insieme al primo locale che la vuole | da fare |  | 12/01/2027 | 18/01/2027 |
-| OC6-04 | Mappa dei tavoli — stati a colori, apri, sposta, unisci | da fare |  | 13/01/2027 | 14/01/2027 |
-| OC7-03 | Asporto e consegna a domicilio | da fare |  | 13/01/2027 | 18/01/2027 |
-| OC6-05 | Conto del tavolo in cassa — preconto, sconti, divisione, pagamenti misti | da fare |  | 15/01/2027 | 18/01/2027 |
-| OC6-07 | Stampante fiscale RT — scontrino, annullo, reso, lotteria degli scontrini | da fare |  | 19/01/2027 | 21/01/2027 |
-| OC6-08 | Apertura e chiusura giornaliera, fondo cassa, turni degli operatori | da fare |  | 19/01/2027 | 20/01/2027 |
-| OC4-05 | Collaudo sulla stampante reale del primo locale | da fare |  | 20/01/2027 | 20/01/2027 |
-| OC7-01 | Registrazione autonoma dei locali e pagamento dell'abbonamento | da fare |  | 21/01/2027 | 25/01/2027 |
-| OC7-02 | Prenotazione dei tavoli | da fare |  | 22/01/2027 | 26/01/2027 |
-| OC7-04 | Altre lingue, offerte a orario (es. aperitivo), raccolta punti | da fare |  | 26/01/2027 | 28/01/2027 |
-| OC6-10 | Resoconti — incassi per metodo, reparto, prodotto, fascia oraria; esportazione | da fare |  | 27/01/2027 | 28/01/2027 |
-| OC3-04 | Pagamento con Bancomat Pay | da fare |  | 29/01/2027 | 01/02/2027 |
-| OC3-06 | Conto del tavolo — paga tutto, paga la tua parte, dividi in parti uguali, mancia | da fare |  | 29/01/2027 | 01/02/2027 |
+| OC3-03 | Pagamento con Satispay, Revolut Pay e PayPal | da fare |  | 08/01/2027 | 08/01/2027 |
+| OC5-03 | Passaggio dal nostro dominio a quello del locale senza ristampare i QR | da fare |  | 11/01/2027 | 11/01/2027 |
+| OC5-04 | Piani e moduli SaaS (base, stampanti, pagamenti, cassa, sito) | da fare |  | 11/01/2027 | 11/01/2027 |
+| OC5-10 | Rilascio versione 1 | da fare |  | 12/01/2027 | 12/01/2027 |
+| OC6-02 | Reparti, aliquote IVA, metodi di pagamento, coperto e servizio | da fare |  | 12/01/2027 | 12/01/2027 |
+| OC0-03 | Conto Stripe — apertura e configurazione insieme al primo locale | da fare |  | 13/01/2027 | 15/01/2027 |
+| OC0-06 | Stampante termica — scelta e collegamento insieme al primo locale che la vuole | da fare |  | 13/01/2027 | 19/01/2027 |
+| OC6-03 | Schermata di cassa per monitor touch — vendita veloce al banco | da fare |  | 13/01/2027 | 14/01/2027 |
+| OC6-04 | Mappa dei tavoli — stati a colori, apri, sposta, unisci | da fare |  | 14/01/2027 | 15/01/2027 |
+| OC7-01 | Registrazione autonoma dei locali e pagamento dell'abbonamento | da fare |  | 15/01/2027 | 19/01/2027 |
+| OC6-05 | Conto del tavolo in cassa — preconto, sconti, divisione, pagamenti misti | da fare |  | 18/01/2027 | 19/01/2027 |
+| OC6-07 | Stampante fiscale RT — scontrino, annullo, reso, lotteria degli scontrini | da fare |  | 20/01/2027 | 22/01/2027 |
+| OC6-08 | Apertura e chiusura giornaliera, fondo cassa, turni degli operatori | da fare |  | 20/01/2027 | 21/01/2027 |
+| OC3-08 | Collaudo dei pagamenti con il conto Stripe del primo locale | da fare |  | 21/01/2027 | 21/01/2027 |
+| OC7-03 | Asporto e consegna a domicilio | da fare |  | 22/01/2027 | 27/01/2027 |
+| OC7-02 | Prenotazione dei tavoli | da fare |  | 25/01/2027 | 27/01/2027 |
+| OC6-10 | Resoconti — incassi per metodo, reparto, prodotto, fascia oraria; esportazione | da fare |  | 28/01/2027 | 29/01/2027 |
+| OC7-04 | Altre lingue, offerte a orario (es. aperitivo), raccolta punti | da fare |  | 28/01/2027 | 01/02/2027 |
+| OC4-05 | Collaudo sulla stampante reale del primo locale | da fare |  | 29/01/2027 | 29/01/2027 |
 | OC6-06 | Ordini del chatbot in cassa in automatico; pagato dal tavolo = conto saldato | da fare |  | 01/02/2027 | 01/02/2027 |
 | OC6-09 | Storni e annulli con permessi per operatore e registro delle operazioni | da fare |  | 02/02/2027 | 02/02/2027 |
 | OC6-11 | Cassa utilizzabile senza internet e ripresa automatica | da fare |  | 02/02/2027 | 03/02/2027 |
-| OC3-03 | Pagamento con Satispay, Revolut Pay e PayPal | da fare |  | 03/02/2027 | 03/02/2027 |
+| OC3-04 | Pagamento con Bancomat Pay | da fare |  | 03/02/2027 | 04/02/2027 |
 | OC5-06 | Statistiche per il titolare (più ordinati, orari di punta, spesa media) | da fare |  | 04/02/2027 | 04/02/2027 |
-| OC6-12 | Collaudo sul kit reale e Demo 5 | da fare |  | 04/02/2027 | 04/02/2027 |
-| OC3-08 | Collaudo dei pagamenti con il conto Stripe del primo locale | da fare |  | 05/02/2027 | 05/02/2027 |
+| OC6-12 | Collaudo sul kit reale e Demo 5 | da fare |  | 05/02/2027 | 05/02/2027 |

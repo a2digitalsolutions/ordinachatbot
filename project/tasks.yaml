@@ -494,7 +494,7 @@ tasks:
     dipende_da: [OC3-02, OC0-03]
     esterno: true
     note: Dipende dall'esito di OC0-03; può richiedere un secondo fornitore.
-    note: Si può verificare solo con un conto Stripe vero: si fa con il primo locale, dopo la consegna.
+    note: "Si può verificare solo con un conto Stripe vero: si fa con il primo locale, dopo la consegna."
 
   - id: OC3-05
     titolo: Conferma dell'incasso, invio in cucina dopo il pagamento, errori e rimborsi

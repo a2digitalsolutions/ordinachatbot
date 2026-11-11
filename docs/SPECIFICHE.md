@@ -25,9 +25,11 @@ e pizzerie.
 Il modulo base è sempre attivo; gli altri si accendono locale per locale.
 
 **Ordine di sviluppo e di vendita.** La **versione 1** (obiettivo: primi di
-dicembre 2026) comprende base (con l'area comande su smartphone) e sito; il cliente paga in
-cassa. I **pagamenti dal tavolo** (Stripe) e le **stampanti termiche** per le
-comande arrivano dopo la prima consegna, in quest'ordine. **Cassa e gestionale** si sviluppano dopo e si vendono a parte: un
+dicembre 2026) comprende base (con l'area comande su smartphone), pagamenti dal tavolo,
+stampa delle comande e sito. Pagamenti e stampanti sono pronti ma **spenti**
+alla consegna: li configuriamo insieme al gestore subito dopo (conto Stripe con
+il suo IBAN; stampanti termiche se le vuole). Fino ad allora il cliente paga in
+cassa e le comande arrivano nell'area comande. **Cassa e gestionale** si sviluppano dopo e si vendono a parte: un
 locale con la versione 1 continua a usare il proprio registratore di cassa.
 
 | Modulo | Contenuto | Obbligatorio |

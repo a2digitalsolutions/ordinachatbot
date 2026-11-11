@@ -34,7 +34,7 @@ TASKS = ROOT / "project" / "tasks.yaml"
 GANTT = ROOT / "docs" / "GANTT.md"
 STATO = ROOT / "docs" / "STATO.md"
 
-ULTIMA_FASE_V1 = 3  # le fasi successive sono "dopo il rilascio"
+ULTIMA_FASE_V1 = 5  # le fasi successive sono "dopo il rilascio"
 STATI = {"da_fare", "in_corso", "fatto", "bloccato"}
 ETICHETTA = {
     "da_fare": "da fare",

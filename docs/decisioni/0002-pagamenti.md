@@ -2,8 +2,8 @@
 
 - **Task:** OC0-03
 - **Data:** mercoledì 11 novembre 2026
-- **Stato:** fornitore deciso da Paolo. Il conto Stripe si apre alla consegna
-  del primo locale; lo sviluppo dei pagamenti parte allora.
+- **Stato:** fornitore deciso da Paolo. Il conto Stripe si apre con il primo
+  locale, dopo la consegna; lo sviluppo non lo aspetta.
 
 ## Decisione
 
@@ -34,15 +34,20 @@ attivi. Un metodo non configurato non si mostra e non si simula.
 
 ## Quando si apre il conto Stripe
 
-Deciso da Paolo l'11/11/2026: nessun conto Stripe adesso; si apre alla consegna
-del primo locale. Di conseguenza:
+Deciso da Paolo l'11/11/2026: nessun conto Stripe adesso. Alla prima consegna i
+pagamenti dal tavolo sono già nel programma, spenti; subito dopo configuriamo
+Stripe insieme al gestore e lui li accende. Lo stesso vale per le stampanti.
 
-- la prima consegna esce con il solo pagamento in cassa;
-- i pagamenti dal tavolo si sviluppano dopo, tutti insieme, perché senza un
-  conto di prova non si possono provare e non vanno mai simulati come
-  funzionanti;
-- quando si aprirà il conto servono: Connect attivo in modalità di prova e le
-  chiavi di prova consegnate in modo sicuro (mai in chat o nel repository).
+Conseguenze:
+
+- i pagamenti si sviluppano seguendo la documentazione di Stripe e si provano
+  con risposte finte: fino al collaudo dal vero sono etichettati «non
+  collaudato» e non si mostrano mai come funzionanti;
+- **il primo pagamento vero è anche il primo collaudo** (task OC3-08): va fatto
+  insieme al primo locale, con importi piccoli, prima di aprirlo ai clienti, e
+  bisogna mettere in conto qualche correzione;
+- quando si aprirà il conto servono: Connect attivo e le chiavi consegnate in
+  modo sicuro (mai in chat o nel repository).
 
 ## Da sapere prima dei pagamenti veri
 

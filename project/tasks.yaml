@@ -7,10 +7,9 @@
 # Campi di ogni task:
 #   id          codice univoco (es. OC1-03)
 #   titolo      cosa si fa
-#   fase        0-7 (vedi elenco fasi sotto). Riordino dell'11/11/2026: il rilascio
-#               (OC5-xx) è in fase 3; pagamenti (OC3-xx) in fase 4 e stampanti (OC4-xx)
-#               in fase 5, tutti e due dopo la consegna.
-#               Gli ID non cambiano.
+#   fase        0-7 (vedi elenco fasi sotto). Riordino dell'11/11/2026: pagamenti e
+#               stampanti si sviluppano per la prima consegna; conto Stripe, kit e
+#               collaudi dal vero (OC0-03, OC0-06, OC3-08, OC4-05) sono in fase 7.
 #   giorni      stima in giorni lavorativi (anche mezze giornate: 0.5, 1.5)
 #   impegno     giorni di lavoro effettivo, se minori di "giorni": il resto è attesa
 #               di terzi (fornitori, consulente) e non occupa nessuno del team
@@ -44,11 +43,11 @@ fasi:
   0: Avvio e impostazione
   1: Locale, menu, aspetto e QR code (Demo 1)
   2: Chatbot, ordini e area comande su smartphone (Demo 2)
-  3: Sito, domini, SaaS e prima consegna (versione 1, si paga in cassa)
-  4: Pagamenti dal tavolo con Stripe, tutti insieme, dopo la consegna
-  5: Stampanti termiche per le comande, dopo la consegna
+  3: Pagamenti dal tavolo con Stripe, tutti insieme (pronti, spenti finché il locale non li configura)
+  4: Stampanti termiche per le comande (pronte, spente finché il locale non le collega)
+  5: Sito, domini, SaaS e prima consegna (versione 1)
   6: Cassa e gestionale, dopo la consegna (vendibile a parte)
-  7: Altre funzioni dopo il rilascio
+  7: Dopo la consegna — configurazione con il locale (Stripe, stampanti) e altre funzioni
 
 milestone:
   - id: M1
@@ -57,15 +56,18 @@ milestone:
   - id: M2
     titolo: "Demo 2 — si ordina con il chatbot e le comande arrivano sugli smartphone"
     dopo: [OC2-12]
-  - id: M5
-    titolo: "Prima consegna (versione 1) — chatbot e area comande, si paga in cassa"
-    dopo: [OC5-10]
   - id: M3
-    titolo: "Pagamenti dal tavolo con Stripe"
-    dopo: [OC3-08]
+    titolo: "Pagamenti dal tavolo pronti (collaudo con il primo locale)"
+    dopo: [OC3-03, OC3-04, OC3-06, OC3-07]
   - id: M4
-    titolo: "Stampanti termiche — le comande escono anche dalla stampante"
-    dopo: [OC4-05]
+    titolo: "Stampa delle comande pronta (collaudo con il primo locale)"
+    dopo: [OC4-04]
+  - id: M5
+    titolo: "Prima consegna (versione 1) — chatbot, area comande, pagamenti e stampanti da configurare"
+    dopo: [OC5-10]
+  - id: M7
+    titolo: "Primo locale configurato insieme — Stripe e stampanti collaudati dal vero"
+    dopo: [OC3-08, OC4-05]
   - id: M6
     titolo: "Cassa e gestionale — modulo in vendita"
     dopo: [OC6-12]
@@ -102,8 +104,8 @@ tasks:
     assegnato: Paolo
 
   - id: OC0-03
-    titolo: Scelta del fornitore di pagamenti e conto di prova
-    fase: 4
+    titolo: Conto Stripe — apertura e configurazione insieme al primo locale
+    fase: 7
     giorni: 3
     impegno: 0.5
     dipende_da: [OC0-01, OC5-10]
@@ -116,9 +118,8 @@ tasks:
       attivazione. Aprire un conto di prova. Vedi SPECIFICHE §7.
       Riordino dell'11/11/2026: conta nella fase 3 con tutti gli altri pagamenti.
       Deciso l'11/11/2026: Stripe (docs/decisioni/0002-pagamenti.md). Il conto
-      Stripe si apre alla consegna del primo locale (decisione di Paolo): fino
-      ad allora i pagamenti dal tavolo non si sviluppano, perché non si possono
-      provare.
+      Stripe si apre alla consegna del primo locale (decisione di Paolo): lo
+      sviluppo dei pagamenti non lo aspetta (fase 3).
     stato: da_fare
 
   - id: OC0-04
@@ -136,8 +137,8 @@ tasks:
     note: Solo dati finti. Le chiavi non vanno mai nel repository.
 
   - id: OC0-06
-    titolo: Scelta dell'hardware di riferimento e acquisto di un kit di prova
-    fase: 5
+    titolo: Stampante termica — scelta e collegamento insieme al primo locale che la vuole
+    fase: 7
     giorni: 5
     impegno: 0.5
     dipende_da: [OC0-01, OC5-10]
@@ -152,7 +153,7 @@ tasks:
 
   - id: OC0-07
     titolo: Verifica fiscale e privacy con un consulente
-    fase: 3
+    fase: 5
     giorni: 5
     impegno: 0.5
     dipende_da: [OC0-01, OC2-12]
@@ -461,29 +462,34 @@ tasks:
       gestore che non scavalcano il blocco; nota di allergia evidenziata sulla
       comanda. Un solo errore blocca il rilascio.
 
-  # ---------------- FASE 4 — PAGAMENTI DAL TAVOLO (DOPO LA CONSEGNA; gli ID restano OC3-xx) ----------------
+  # ---------------- FASE 3 — PAGAMENTI DAL TAVOLO ----------------
   - id: OC3-01
     titolo: Collegamento del conto di incasso del locale
-    fase: 4
+    fase: 3
     giorni: 1.5
-    dipende_da: [OC0-03, OC1-05]
-    esterno: true
+    dipende_da: [OC1-05]
+    note: >
+      Si sviluppa senza conto Stripe (decisione di Paolo dell'11/11/2026): il
+      conto si apre con il primo locale, dopo la consegna. Fino al collaudo dal
+      vero (OC3-08) tutta la fase 3 si prova con risposte finte di Stripe ed è
+      etichettata «non collaudato»; il modulo resta spento finché il locale non
+      collega il proprio conto con l'IBAN.
 
   - id: OC3-02
     titolo: Pagamento dal tavolo con Apple Pay, Google Pay e carta
-    fase: 4
+    fase: 3
     giorni: 1.5
     dipende_da: [OC3-01, OC2-08]
 
   - id: OC3-03
     titolo: Pagamento con Satispay, Revolut Pay e PayPal
-    fase: 4
+    fase: 3
     giorni: 1
     dipende_da: [OC3-02]
 
   - id: OC3-04
     titolo: Pagamento con Bancomat Pay
-    fase: 4
+    fase: 3
     giorni: 1.5
     dipende_da: [OC3-02]
     esterno: true
@@ -491,94 +497,101 @@ tasks:
 
   - id: OC3-05
     titolo: Conferma dell'incasso, invio in cucina dopo il pagamento, errori e rimborsi
-    fase: 4
+    fase: 3
     giorni: 1.5
     dipende_da: [OC3-02]
     note: L'ordine parte solo con la conferma del fornitore, mai dalla pagina del cliente.
 
   - id: OC3-06
     titolo: Conto del tavolo — paga tutto, paga la tua parte, dividi in parti uguali, mancia
-    fase: 4
+    fase: 3
     giorni: 1.5
     dipende_da: [OC3-05]
 
   - id: OC3-07
     titolo: Ricevuta al cliente e riepilogo incassi per il titolare
-    fase: 4
+    fase: 3
     giorni: 1
     dipende_da: [OC3-05]
 
   - id: OC3-08
-    titolo: Prove in ambiente di test dei pagamenti e demo dei pagamenti
-    fase: 4
+    titolo: Collaudo dei pagamenti con il conto Stripe del primo locale
+    fase: 7
     giorni: 0.5
-    dipende_da: [OC3-03, OC3-04, OC3-06, OC3-07]
+    dipende_da: [OC3-03, OC3-04, OC3-06, OC3-07, OC0-03]
+    esterno: true
 
-  # ---------------- FASE 5 — STAMPANTI TERMICHE (DOPO LA CONSEGNA; gli ID restano OC4-xx) ----------------
+  # ---------------- FASE 4 — STAMPANTI PER LE COMANDE ----------------
   - id: OC4-01
     titolo: Servizio di stampa — coda, formato della comanda, ristampa
-    fase: 5
+    fase: 4
     giorni: 1.5
     dipende_da: [OC2-07]
 
   - id: OC4-02
     titolo: Collegamento delle stampanti termiche del locale
-    fase: 5
+    fase: 4
     giorni: 2
-    dipende_da: [OC4-01, OC0-06]
+    dipende_da: [OC4-01]
     note: >
       Il nostro server non raggiunge da solo le stampanti dentro il locale:
       o stampanti che si collegano loro a internet, o un piccolo programma
       "ponte" su un dispositivo del locale. Scelta in docs/hardware.md.
+    note: >
+      Si sviluppa senza stampante (decisione di Paolo dell'11/11/2026) e si prova
+      con una stampante finta via software; il collaudo dal vero è OC4-05, con
+      il primo locale che vuole le stampanti. Modulo spento finché il locale non
+      lo attiva.
 
   - id: OC4-03
     titolo: Zone di stampa (cucina, pizzeria, bar, cassa) e categorie associate
-    fase: 5
+    fase: 4
     giorni: 1
     dipende_da: [OC4-01]
 
   - id: OC4-04
     titolo: Controllo delle stampanti — carta finita, spenta, stampa di riserva, avvisi
-    fase: 5
+    fase: 4
     giorni: 1
     dipende_da: [OC4-02, OC4-03]
 
   - id: OC4-05
-    titolo: Collaudo sul kit reale e demo delle stampanti
-    fase: 5
+    titolo: Collaudo sulla stampante reale del primo locale
+    fase: 7
     giorni: 0.5
-    dipende_da: [OC4-04]
+    dipende_da: [OC4-04, OC0-06]
+    esterno: true
 
-  # ---------------- FASE 3 — SITO, DOMINI, SAAS, PRIMA CONSEGNA (VERSIONE 1; gli ID restano OC5-xx) ----------------
+  # ---------------- FASE 5 — SITO, DOMINI, SAAS, PRIMA CONSEGNA (VERSIONE 1) ----------------
   - id: OC5-01
     titolo: Sito del locale (facoltativo) — social, contatti, orari, mappa, pulsante menu
-    fase: 3
+    fase: 5
     giorni: 1.5
     dipende_da: [OC1-14]
 
   - id: OC5-02
     titolo: Indirizzi — sottodominio nostro e dominio proprio del locale con certificato
-    fase: 3
+    fase: 5
     giorni: 2
     dipende_da: [OC1-05, OC0-02]
     esterno: true
 
   - id: OC5-03
     titolo: Passaggio dal nostro dominio a quello del locale senza ristampare i QR
-    fase: 3
+    fase: 5
     giorni: 0.5
     dipende_da: [OC5-02, OC1-13]
 
   - id: OC5-04
     titolo: Piani e moduli SaaS (base, stampanti, pagamenti, cassa, sito)
-    fase: 3
+    fase: 5
     giorni: 1
     dipende_da: [OC1-03]
     note: Per ora i piani li assegnano gli amministratori; il pagamento dell'abbonamento è OC7-01.
 
   - id: OC5-05
     titolo: Privacy — informative, cookie, conservazione dei dati, contratto con i locali
-    fase: 3
+    fase: 5
     giorni: 1.5
     dipende_da: [OC0-07]
     esterno: true
@@ -596,20 +609,19 @@ tasks:
 
   - id: OC5-07
     titolo: Sicurezza, copie di salvataggio, controllo del servizio, prova di carico
-    fase: 3
+    fase: 5
     giorni: 1.5
     dipende_da: [OC2-12]
 
   - id: OC5-08
     titolo: Manuale definitivo con le schermate e guida di avvio per i locali
-    fase: 3
+    fase: 5
     giorni: 1
-    dipende_da: [OC2-12]
-    note: Le parti su pagamenti dal tavolo e stampanti si aggiungono al manuale con le fasi 4 e 5.
+    dipende_da: [OC2-12, OC3-07, OC4-04]
 
   - id: OC5-09
     titolo: Locale pilota — installazione e prova con clienti veri
-    fase: 3
+    fase: 5
     giorni: 3
     impegno: 1.5
     dipende_da: [OC5-05, OC5-07, OC5-08, OC2-15]
@@ -617,7 +629,7 @@ tasks:
 
   - id: OC5-10
     titolo: Rilascio versione 1
-    fase: 3
+    fase: 5
     giorni: 0.5
     dipende_da: [OC5-09, OC5-03, OC5-04, OC5-01]
 

@@ -10,7 +10,7 @@ Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 27 giorni lavorativi
 
 | Fase | Fatti | In corso | Da fare | Avanzamento |
 |---|---|---|---|---|
-| 0. Avvio e impostazione | 2 | 2 | 5 | 8% |
+| 0. Avvio e impostazione | 2 | 3 | 4 | 8% |
 | 1. Locale, menu, aspetto e QR code (Demo 1) | 0 | 0 | 15 | 0% |
 | 2. Chatbot e ordini dal tavolo (Demo 2) | 0 | 0 | 15 | 0% |
 | 3. Pagamenti dal tavolo (Demo 3) | 0 | 0 | 8 | 0% |
@@ -32,10 +32,10 @@ Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 27 giorni lavorativi
 
 - OC0-02 — Decisioni di architettura (stack, hosting, motore del chatbot) (Paolo, dal 2026-11-11, fine prevista 11/11)
 - OC0-03 — Scelta del fornitore di pagamenti e conto di prova (Paolo, dal 2026-11-11, fine prevista 13/11)
+- OC0-06 — Scelta dell'hardware di riferimento e acquisto di un kit di prova (Paolo, dal 2026-11-11, fine prevista 17/11)
 
 ## Prossimi task liberi (si possono avviare subito)
 
-- OC0-06 — Scelta dell'hardware di riferimento e acquisto di un kit di prova (5 g) — richiede account o credenziali esterne
 - OC0-07 — Verifica fiscale e privacy con un consulente (5 g) — richiede account o credenziali esterne
 
 ## Da preparare all'esterno (account, credenziali, decisioni)

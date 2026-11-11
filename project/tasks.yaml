@@ -142,6 +142,9 @@ tasks:
       "cloud", cioè che si collega da sola a internet): senza, la fase 4 si
       sviluppa ma non si collauda. Stampante fiscale RT e monitor touch servono
       solo per la cassa (fase 6) e si comprano dopo. Modelli in docs/hardware.md.
+    stato: in_corso
+    inizio: 2026-11-11
+    assegnato: Paolo
 
   - id: OC0-07
     titolo: Verifica fiscale e privacy con un consulente

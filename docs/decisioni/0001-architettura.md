@@ -2,21 +2,21 @@
 
 - **Task:** OC0-02
 - **Data:** mercoledì 11 novembre 2026
-- **Stato:** proposta — i punti 2 e 4 li ha decisi Paolo; i punti 1 e 3 aspettano
-  il suo sì; i dettagli del server aspettano Enrico (vedi «Cosa serve da Enrico»).
+- **Stato:** decisa da Paolo l'11/11/2026. Restano da avere da Enrico i dati del
+  server (vedi «Cosa serve da Enrico»), che servono al task OC0-05.
 
 ## In breve
 
-| # | Argomento | Scelta | Stato |
-|---|---|---|---|
-| 1 | Stack | React + TypeScript, server Node.js + TypeScript, PostgreSQL, tutto in contenitori Docker | proposta |
-| 2 | Hosting | VPS di Enrico adesso; VPS nostra dopo le prime demo, con trasloco completo (database compreso) | decisa da Paolo |
-| 3 | Motore del chatbot | Modello linguistico a consumo (Claude Haiku 5.5), dietro un'interfaccia sostituibile | proposta |
-| 4 | Dominio | Dominio A2 Digital Solutions, con un sottodominio per il prodotto | decisa da Paolo, manca l'indirizzo esatto |
+| # | Argomento | Scelta |
+|---|---|---|
+| 1 | Stack | React + TypeScript, server Node.js + TypeScript, PostgreSQL, tutto in contenitori Docker. Come FarmacoFacile, senza Supabase |
+| 2 | Hosting | VPS di Enrico, anche per i primi locali veri; poi VPS nostra, con trasloco completo (database compreso) |
+| 3 | Motore del chatbot | Gratuito: motore a regole scritto da noi, dietro un'interfaccia sostituibile |
+| 4 | Dominio | `a2digital.it`, con il prodotto su `ordina.a2digital.it` |
 
 ## 1. Stack
 
-**Proposta:** stesso linguaggio e stessa base di FarmacoFacile (React + TypeScript,
+**Deciso:** stesso linguaggio e stessa base di FarmacoFacile (React + TypeScript,
 PostgreSQL), ma **senza servizi gestiti esterni**: database, accessi e foto
 stanno tutti sul nostro server.
 
@@ -47,60 +47,67 @@ trasloco non sarebbe più «copia e avvia».
 
 ## 2. Hosting
 
-**Deciso da Paolo (11/11/2026):** si parte sulla VPS di Enrico. Dopo le prime
-demo compriamo una VPS nostra e trasferiamo tutto, database compreso.
+**Deciso:** si parte sulla VPS di Enrico, **anche con i primi locali veri**. Più
+avanti compriamo una VPS nostra e trasferiamo tutto, database compreso.
 
 Regole che ne derivano:
 
-- Sulla VPS di Enrico vanno **solo dati dimostrativi e di prova**. I locali veri
-  con clienti veri (locale pilota, OC5-09) partono sulla VPS nostra.
-- **Copia di sicurezza** del database ogni notte, conservata anche fuori dal
-  server.
+- Dal primo locale vero sul server ci sono ordini e incassi reali: la **copia di
+  sicurezza** del database ogni notte, conservata anche fuori dal server, è
+  obbligatoria prima di accendere il primo locale. Va provato anche il
+  ripristino.
+- Dati dimostrativi e dati reali restano separati ed etichettati, come da
+  regole tecniche.
 - Il **trasloco** si prova almeno una volta prima di farlo davvero: copia del
-  database, copia delle foto, avvio sul server nuovo, cambio dell'indirizzo.
-  Durata prevista del fermo: pochi minuti.
+  database, copia delle foto, avvio sul server nuovo, cambio dell'indirizzo. Si
+  fa in orario di chiusura dei locali; fermo previsto di pochi minuti.
 - L'indirizzo pubblico non cambia con il trasloco, quindi i **QR già stampati
   continuano a funzionare**.
-- Le chiavi (database, modello linguistico, pagamenti) stanno solo sul server e
-  nei segreti di GitHub, mai nel repository.
+- Le chiavi (database, pagamenti) stanno solo sul server e nei segreti di
+  GitHub, mai nel repository.
+- Da chiedere al consulente (OC0-07): dati dei clienti dei locali su un server
+  intestato a Enrico — cosa va scritto nel contratto e nell'informativa.
 
 ## 3. Motore del chatbot
 
-**Proposta:** modello linguistico a pagamento a consumo, **Claude Haiku 5.5**.
+**Deciso:** il motore deve essere **gratuito**. Niente modelli a pagamento a
+consumo.
 
-| | A consumo | Open source sul nostro server |
-|---|---|---|
-| Tempo di risposta | 1-2 secondi | Su una VPS normale (senza scheda grafica) molti secondi: l'obiettivo di 2-3 secondi non si raggiunge |
-| Costo fisso | Nessuno | Server con scheda grafica: qualche centinaio di euro al mese |
-| Costo per uso | Meno di un centesimo a conversazione | Nessuno |
-| Qualità in italiano (sinonimi, richieste strane) | Alta | Più bassa con i modelli che stanno su un server piccolo |
-| Manutenzione | Nessuna | Aggiornamenti e sorveglianza a carico nostro |
+**Come:** un motore a regole scritto da noi, che parte da quello della demo
+(`demo/index.html`, già provato con 512 frasi). Riconosce categorie,
+ingredienti, sinonimi e famiglie (sugo = pomodoro), quantità, varianti,
+aggiunte, «senza», «poco», cottura, fasce di prezzo, anche con errori di
+battitura.
 
-**Stima dei costi** (prezzi di listino di ottobre 2026: 0,10 $ per milione di
-token in ingresso, 0,50 $ in uscita): una conversazione di una decina di
-messaggi con il menu del locale costa circa 0,004 $. Un locale con 100
-conversazioni al giorno spende circa 12 $ al mese. È una stima: va misurata con
-la Demo 2.
+| | Motore a regole nostro | Modello open source sul server | Modello a consumo |
+|---|---|---|---|
+| Costo | Zero | Zero, ma su una VPS senza scheda grafica è troppo lento | Circa 0,004 $ a conversazione |
+| Tempo di risposta | Immediato | Molti secondi | 1-2 secondi |
+| Frasi libere e strane | Capisce quelle previste; il resto lo chiede | Discreto | Molto buono |
+| Risposte prevedibili (allergeni) | Sempre uguali, provabili una per una | No | No |
 
-**Il modello fa solo due cose:** capire cosa chiede il cliente e scrivere la
-risposta. Prodotti, prezzi, totali, stati e blocco allergeni restano nel codice
-del server, come vogliono le regole di prodotto.
+**Limite da conoscere:** un motore a regole capisce meno frasi libere di un
+modello linguistico. Lo compensiamo così:
 
-**Sostituibile:** il motore sta dietro un'interfaccia. Si può cambiare modello o
-fornitore (altri hanno prezzi simili), o passare all'open source più avanti,
-senza riscrivere il chatbot.
+- quando non capisce **chiede** e propone i pulsanti, non mostra mai tutto;
+- la frase finisce in «Domande da rivedere» e il gestore insegna la risposta;
+- sinonimi e modi di dire nuovi si aggiungono a un dizionario comune a tutti i
+  locali, e ogni frase aggiunta diventa una prova automatica
+  (`docs/test/frasi-difficili.md`).
 
-**Serve:** un account API con carta di credito e un tetto di spesa mensile.
+**Sostituibile:** il motore sta dietro un'interfaccia. Se un giorno servirà, si
+può affiancare un modello linguistico (open source su una VPS più potente, o a
+consumo) senza riscrivere il chatbot. Per confronto, il listino di ottobre 2026
+di un modello a consumo economico è 0,10 $ per milione di token in ingresso e
+0,50 $ in uscita.
 
 ## 4. Nome e dominio
 
-**Deciso da Paolo (11/11/2026):** si usa il dominio di A2 Digital Solutions.
+**Deciso:** dominio `a2digital.it` (sito di A2Digital Solutions).
 
-**Proposta di struttura** (da confermare con l'indirizzo esatto del dominio):
-
-- prodotto: `ordina.<dominio>`
-- ogni locale: `nomelocale.ordina.<dominio>`
-- pannello dei super amministratori: `admin.ordina.<dominio>`
+- prodotto: `ordina.a2digital.it`
+- ogni locale: `nomelocale.ordina.a2digital.it`
+- pannello dei super amministratori: `admin.ordina.a2digital.it`
 
 Da tenere presente: se più avanti compriamo un dominio dedicato al prodotto, i
 vecchi indirizzi devono continuare a rispondere, perché sono stampati sui QR dei
@@ -116,11 +123,12 @@ Nome commerciale e prezzi dei piani restano aperti (SPECIFICHE §13, punto 6).
    le usa? In quel caso va deciso come far convivere le due cose.
 4. Un utente sul server per le pubblicazioni automatiche da GitHub (chiave SSH
    da mettere nei segreti del repository).
-5. Chi gestisce il DNS del dominio: servono due voci, `ordina` e `*.ordina`,
+5. Chi gestisce il DNS di `a2digital.it`: servono due voci, `ordina` e `*.ordina`,
    che puntano all'indirizzo della VPS.
 
 ## Cosa sblocca
 
-Con il sì ai punti 1 e 3 partono OC0-04 (struttura del progetto, test e CI) e
-OC2-03. Con le risposte di Enrico parte OC0-05 (ambiente di sviluppo) e più
-avanti OC5-02 (indirizzi dei locali).
+Parte subito OC0-04 (struttura del progetto, test e CI); OC2-03 (motore del
+chatbot) non aspetta più questa decisione. Con le
+risposte di Enrico parte OC0-05 (ambiente di sviluppo) e più avanti OC5-02
+(indirizzi dei locali).

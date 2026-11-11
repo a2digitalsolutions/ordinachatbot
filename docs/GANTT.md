@@ -14,11 +14,11 @@ gantt
     OC0-08 Demo cliccabile da mostrare ai locali (sito, menu, c… :done, oc0_08, 2026-11-10, 2026-11-11
     OC0-02 Decisioni di architettura (stack, hosting, motore de… :done, oc0_02, 2026-11-11, 2026-11-12
     OC0-04 Struttura del progetto, controlli di qualità, test e… :done, oc0_04, 2026-11-11, 2026-11-12
+    OC0-09 Regole di sicurezza su allergeni e celiachia — logic… :active, oc0_09, 2026-11-11, 2026-11-12
     OC0-05 Ambiente di sviluppo (database, accessi, archivio fo… :oc0_05, 2026-11-12, 2026-11-13
-    OC0-09 Regole di sicurezza su allergeni e celiachia — logic… :oc0_09, 2026-11-12, 2026-11-13
     section Fase 1 Locale, menu, aspetto e QR code (Demo 1)
+    OC1-04 Componenti grafici di base e struttura del pannello :oc1_04, 2026-11-12, 2026-11-13
     OC1-01 Schema dei dati multi-locale e isolamento tra locali :oc1_01, 2026-11-13, 2026-11-17
-    OC1-04 Componenti grafici di base e struttura del pannello :oc1_04, 2026-11-13, 2026-11-14
     OC1-02 Accesso e ruoli (super amministratore, titolare, cas… :oc1_02, 2026-11-17, 2026-11-18
     OC1-05 Configurazione guidata del locale (dati, tipologie,… :oc1_05, 2026-11-18, 2026-11-19
     OC1-06 Menu — categorie libere con foto, ordine e orari di… :oc1_06, 2026-11-19, 2026-11-20
@@ -112,10 +112,10 @@ gantt
 | OC0-08 | Demo cliccabile da mostrare ai locali (sito, menu, chatbot, vista gestore) | fatto | Claude | 10/11/2026 | 10/11/2026 |
 | OC0-02 | Decisioni di architettura (stack, hosting, motore del chatbot) | fatto | Paolo | 11/11/2026 | 11/11/2026 |
 | OC0-04 | Struttura del progetto, controlli di qualità, test e CI su GitHub Actions | fatto | Paolo | 11/11/2026 | 11/11/2026 |
+| OC0-09 | Regole di sicurezza su allergeni e celiachia — logica comune con prove automatiche | in corso | Paolo | 11/11/2026 | 11/11/2026 |
 | OC0-05 | Ambiente di sviluppo (database, accessi, archivio foto, variabili d'ambiente) | da fare |  | 12/11/2026 | 12/11/2026 |
-| OC0-09 | Regole di sicurezza su allergeni e celiachia — logica comune con prove automatiche | da fare |  | 12/11/2026 | 12/11/2026 |
+| OC1-04 | Componenti grafici di base e struttura del pannello | da fare |  | 12/11/2026 | 12/11/2026 |
 | OC1-01 | Schema dei dati multi-locale e isolamento tra locali | da fare |  | 13/11/2026 | 16/11/2026 |
-| OC1-04 | Componenti grafici di base e struttura del pannello | da fare |  | 13/11/2026 | 13/11/2026 |
 | OC1-02 | Accesso e ruoli (super amministratore, titolare, cassa, sala, cucina) | da fare |  | 17/11/2026 | 17/11/2026 |
 | OC1-05 | Configurazione guidata del locale (dati, tipologie, orari, moduli attivi) | da fare |  | 18/11/2026 | 18/11/2026 |
 | OC1-06 | Menu — categorie libere con foto, ordine e orari di disponibilità | da fare |  | 19/11/2026 | 19/11/2026 |

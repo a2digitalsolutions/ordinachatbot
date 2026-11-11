@@ -10,7 +10,7 @@ Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 21 giorni lavorativi
 
 | Fase | Fatti | In corso | Da fare | Avanzamento |
 |---|---|---|---|---|
-| 0. Avvio e impostazione | 4 | 0 | 2 | 64% |
+| 0. Avvio e impostazione | 4 | 1 | 1 | 64% |
 | 1. Locale, menu, aspetto e QR code (Demo 1) | 0 | 0 | 15 | 0% |
 | 2. Chatbot, ordini e area comande su smartphone (Demo 2) | 0 | 0 | 15 | 0% |
 | 3. Pagamenti dal tavolo con Stripe, tutti insieme (pronti, spenti finché il locale non li configura) | 0 | 0 | 6 | 0% |
@@ -31,12 +31,11 @@ Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 21 giorni lavorativi
 
 ## In corso
 
-- Nessun task in corso.
+- OC0-09 — Regole di sicurezza su allergeni e celiachia — logica comune con prove automatiche (Paolo, dal 2026-11-11, fine prevista 11/11)
 
 ## Prossimi task liberi (si possono avviare subito)
 
 - OC0-05 — Ambiente di sviluppo (database, accessi, archivio foto, variabili d'ambiente) (1 g) — richiede account o credenziali esterne
-- OC0-09 — Regole di sicurezza su allergeni e celiachia — logica comune con prove automatiche (1 g)
 - OC1-04 — Componenti grafici di base e struttura del pannello (1 g)
 
 ## Da preparare all'esterno (account, credenziali, decisioni)

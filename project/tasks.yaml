@@ -194,6 +194,9 @@ tasks:
       ingrediente → piatto, regola dell'etichetta «senza glutine», riconoscimento
       dei messaggi su allergeni/celiachia. Regole in docs/allergeni.md. Le prove
       girano a ogni modifica e bloccano l'unione se falliscono.
+    stato: in_corso
+    inizio: 2026-11-11
+    assegnato: Paolo
 
   # ---------------- FASE 1 — LOCALE, MENU, ASPETTO, QR ----------------
   - id: OC1-01

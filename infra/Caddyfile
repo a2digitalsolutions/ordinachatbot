@@ -1,0 +1,12 @@
+# Configurazione di sviluppo e demo. Domini veri e certificati: task OC5-02.
+:80 {
+	encode gzip
+	handle /api/* {
+		reverse_proxy server:3000
+	}
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+}

@@ -1,0 +1,26 @@
+# Server Ordinachatbot (Node.js)
+FROM node:22-alpine AS build
+WORKDIR /app
+COPY package.json package-lock.json ./
+COPY packages/shared/package.json packages/shared/
+COPY apps/server/package.json apps/server/
+COPY apps/web/package.json apps/web/
+RUN npm ci
+COPY tsconfig.base.json ./
+COPY packages/shared packages/shared
+COPY apps/server apps/server
+RUN npm run build -w @ordinachatbot/server && npm prune --omit=dev
+
+FROM node:22-alpine
+ENV NODE_ENV=production
+WORKDIR /app
+COPY --from=build /app/node_modules node_modules
+COPY --from=build /app/apps/server/dist dist
+COPY --from=build /app/apps/server/migrations migrations
+ENV CARTELLA_MIGRAZIONI=/app/migrations
+USER node
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD wget -qO- http://127.0.0.1:3000/api/salute || exit 1
+# prima le migrazioni, poi il server
+CMD ["sh", "-c", "node dist/migra.js && node dist/main.js"]

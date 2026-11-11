@@ -19,14 +19,29 @@ dal telefono. Per bar, pub, ristoranti e pizzerie, in abbonamento (SaaS).
 
 ## Fasi e demo
 
-0. **Avvio** — decisioni, fornitore dei pagamenti, stampante di prova, consulente
+0. **Avvio** — decisioni e struttura del progetto
 1. **Locale, menu, aspetto, QR** → *Demo 1*
-2. **Chatbot e ordini dal tavolo** → *Demo 2*
-3. **Pagamenti dal tavolo** → *Demo 3*
-4. **Stampanti per le comande** → *Demo 4*
-5. **Sito, domini, SaaS, rilascio** → ***Versione 1 in vendita*** (obiettivo: primi di dicembre 2026)
-6. **Cassa e gestionale** — dopo il rilascio, modulo vendibile a parte
-7. **Altre funzioni** — iscrizione autonoma, prenotazioni, asporto
+2. **Chatbot, ordini e area comande su smartphone** → *Demo 2*
+3. **Pagamenti dal tavolo con Stripe** — pronti, spenti finché il locale non li configura
+4. **Stampanti per le comande** — pronte, spente finché il locale non le collega
+5. **Sito, domini, SaaS** → ***prima consegna (versione 1)***
+6. **Cassa e gestionale** — dopo la consegna, modulo vendibile a parte
+7. **Dopo la consegna** — configurazione di Stripe e stampanti insieme al locale, altre funzioni
+
+Le decisioni prese sono in [docs/decisioni](docs/decisioni).
+
+## Struttura del codice
+
+| Cartella | Contenuto |
+|---|---|
+| `apps/server` | Server (Node.js + TypeScript): regole, totali, stati, migrazioni del database |
+| `apps/web` | Schermate (React + TypeScript): chat del cliente, pannello, area comande |
+| `packages/shared` | Codice comune a server e schermate (per ora i formati italiani di date e prezzi) |
+| `infra` | File Docker e Caddy; `docker-compose.yml` avvia database, server e schermate insieme |
+| `.github/workflows` | Controlli automatici a ogni modifica: regole del codice, tipi, prove, build, immagini Docker |
+
+A ogni pull request GitHub esegue da solo tutti i controlli (`npm run controlli`
+li esegue tutti insieme). Una modifica si unisce a `main` solo se sono verdi.
 
 ## Come lavoriamo
 

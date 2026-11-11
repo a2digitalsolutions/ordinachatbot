@@ -93,6 +93,9 @@ tasks:
       (3) motore del chatbot: modello linguistico a pagamento a consumo oppure
       open source sul nostro server (costi e velocità a confronto, serve risposta
       entro 2-3 secondi); (4) nome e dominio del prodotto. Vedi SPECIFICHE §13.
+    stato: in_corso
+    inizio: 2026-11-11
+    assegnato: Paolo
 
   - id: OC0-03
     titolo: Scelta del fornitore di pagamenti e conto di prova

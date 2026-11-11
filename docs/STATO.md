@@ -1,6 +1,6 @@
 # Stato del progetto Ordinachatbot
 
-_Aggiornato il 10/11/2026 da `scripts/piano.py`._
+_Aggiornato il 11/11/2026 da `scripts/piano.py`._
 
 **Avanzamento versione 1: 2%** (1.5 giorni di lavoro completati su 86). Fine prevista: **20/01/2027**.
 
@@ -10,7 +10,7 @@ Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 27 giorni lavorativi
 
 | Fase | Fatti | In corso | Da fare | Avanzamento |
 |---|---|---|---|---|
-| 0. Avvio e impostazione | 2 | 0 | 7 | 8% |
+| 0. Avvio e impostazione | 2 | 1 | 6 | 8% |
 | 1. Locale, menu, aspetto e QR code (Demo 1) | 0 | 0 | 15 | 0% |
 | 2. Chatbot e ordini dal tavolo (Demo 2) | 0 | 0 | 15 | 0% |
 | 3. Pagamenti dal tavolo (Demo 3) | 0 | 0 | 8 | 0% |
@@ -30,11 +30,10 @@ Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 27 giorni lavorativi
 
 ## In corso
 
-- Nessun task in corso.
+- OC0-02 — Decisioni di architettura (stack, hosting, motore del chatbot) (Paolo, dal 2026-11-11, fine prevista 11/11)
 
 ## Prossimi task liberi (si possono avviare subito)
 
-- OC0-02 — Decisioni di architettura (stack, hosting, motore del chatbot) (1 g) — richiede account o credenziali esterne
 - OC0-03 — Scelta del fornitore di pagamenti e conto di prova (3 g) — richiede account o credenziali esterne
 - OC0-06 — Scelta dell'hardware di riferimento e acquisto di un kit di prova (5 g) — richiede account o credenziali esterne
 - OC0-07 — Verifica fiscale e privacy con un consulente (5 g) — richiede account o credenziali esterne

@@ -1,6 +1,6 @@
 # Diagramma di Gantt — Ordinachatbot
 
-_Aggiornato il 2026-11-10 da `scripts/piano.py`. Non modificare a mano: cambia `project/tasks.yaml` e rigenera._
+_Aggiornato il 2026-11-11 da `scripts/piano.py`. Non modificare a mano: cambia `project/tasks.yaml` e rigenera._
 
 Legenda: grigio = fatto, blu chiaro con bordo = in corso, rosso = bloccato, rombi = demo e rilascio. La linea verticale è la data di oggi.
 
@@ -12,7 +12,7 @@ gantt
     section Fase 0 Avvio e impostazione
     OC0-01 Repository, piano di progetto, regole di lavoro, spe… :done, oc0_01, 2026-11-10, 2026-11-11
     OC0-08 Demo cliccabile da mostrare ai locali (sito, menu, c… :done, oc0_08, 2026-11-10, 2026-11-11
-    OC0-02 Decisioni di architettura (stack, hosting, motore de… :oc0_02, 2026-11-11, 2026-11-12
+    OC0-02 Decisioni di architettura (stack, hosting, motore de… :active, oc0_02, 2026-11-11, 2026-11-12
     OC0-03 Scelta del fornitore di pagamenti e conto di prova :oc0_03, 2026-11-11, 2026-11-14
     OC0-06 Scelta dell'hardware di riferimento e acquisto di un… :oc0_06, 2026-11-11, 2026-11-18
     OC0-04 Struttura del progetto, controlli di qualità, test e… :oc0_04, 2026-11-12, 2026-11-13
@@ -109,7 +109,7 @@ gantt
 |---|---|---|---|---|---|
 | OC0-01 | Repository, piano di progetto, regole di lavoro, specifiche e manuale (bozza) | fatto | Claude | 10/11/2026 | 10/11/2026 |
 | OC0-08 | Demo cliccabile da mostrare ai locali (sito, menu, chatbot, vista gestore) | fatto | Claude | 10/11/2026 | 10/11/2026 |
-| OC0-02 | Decisioni di architettura (stack, hosting, motore del chatbot) | da fare |  | 11/11/2026 | 11/11/2026 |
+| OC0-02 | Decisioni di architettura (stack, hosting, motore del chatbot) | in corso | Paolo | 11/11/2026 | 11/11/2026 |
 | OC0-03 | Scelta del fornitore di pagamenti e conto di prova | da fare |  | 11/11/2026 | 13/11/2026 |
 | OC0-06 | Scelta dell'hardware di riferimento e acquisto di un kit di prova | da fare |  | 11/11/2026 | 17/11/2026 |
 | OC0-04 | Struttura del progetto, controlli di qualità, test e CI su GitHub Actions | da fare |  | 12/11/2026 | 12/11/2026 |

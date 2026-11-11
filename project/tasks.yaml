@@ -115,6 +115,8 @@ tasks:
       altri circuiti, es. Nexi XPay). Confrontare commissioni e tempi di
       attivazione. Aprire un conto di prova. Vedi SPECIFICHE §7.
       Riordino dell'11/11/2026: conta nella fase 3 con tutti gli altri pagamenti.
+      Deciso l'11/11/2026: Stripe (docs/decisioni/0002-pagamenti.md). Manca solo
+      il conto di prova con Connect attivo e le chiavi di prova.
     stato: in_corso
     inizio: 2026-11-11
     assegnato: Paolo
@@ -474,7 +476,7 @@ tasks:
     dipende_da: [OC3-01, OC2-08]
 
   - id: OC3-03
-    titolo: Pagamento con Satispay e Revolut Pay
+    titolo: Pagamento con Satispay, Revolut Pay e PayPal
     fase: 3
     giorni: 1
     dipende_da: [OC3-02]

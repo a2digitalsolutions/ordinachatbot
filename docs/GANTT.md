@@ -56,7 +56,7 @@ gantt
     OC3-02 Pagamento dal tavolo con Apple Pay, Google Pay e car… :oc3_02, 2026-12-18, 2026-12-22
     OC3-04 Pagamento con Bancomat Pay :oc3_04, 2026-12-22, 2026-12-24
     OC3-05 Conferma dell'incasso, invio in cucina dopo il pagam… :oc3_05, 2026-12-22, 2026-12-24
-    OC3-03 Pagamento con Satispay e Revolut Pay :oc3_03, 2026-12-23, 2026-12-24
+    OC3-03 Pagamento con Satispay, Revolut Pay e PayPal :oc3_03, 2026-12-23, 2026-12-24
     OC3-06 Conto del tavolo — paga tutto, paga la tua parte, di… :oc3_06, 2026-12-28, 2026-12-30
     OC3-07 Ricevuta al cliente e riepilogo incassi per il titol… :oc3_07, 2026-12-28, 2026-12-29
     OC3-08 Prove in ambiente di test dei pagamenti e Demo 3 :oc3_08, 2026-12-30, 2026-12-31
@@ -152,7 +152,7 @@ gantt
 | OC5-04 | Piani e moduli SaaS (base, stampanti, pagamenti, cassa, sito) | da fare |  | 21/12/2026 | 21/12/2026 |
 | OC3-04 | Pagamento con Bancomat Pay | da fare |  | 22/12/2026 | 23/12/2026 |
 | OC3-05 | Conferma dell'incasso, invio in cucina dopo il pagamento, errori e rimborsi | da fare |  | 22/12/2026 | 23/12/2026 |
-| OC3-03 | Pagamento con Satispay e Revolut Pay | da fare |  | 23/12/2026 | 23/12/2026 |
+| OC3-03 | Pagamento con Satispay, Revolut Pay e PayPal | da fare |  | 23/12/2026 | 23/12/2026 |
 | OC3-06 | Conto del tavolo — paga tutto, paga la tua parte, dividi in parti uguali, mancia | da fare |  | 28/12/2026 | 29/12/2026 |
 | OC3-07 | Ricevuta al cliente e riepilogo incassi per il titolare | da fare |  | 28/12/2026 | 28/12/2026 |
 | OC5-05 | Privacy — informative, cookie, conservazione dei dati, contratto con i locali | da fare |  | 29/12/2026 | 30/12/2026 |

@@ -34,7 +34,7 @@ locale con la versione 1 continua a usare il proprio registratore di cassa.
 |---|---|---|
 | **Base** | Menu, aspetto, tavoli e QR, chatbot, ordini, area comande su smartphone per gestore e camerieri | sì |
 | **Stampanti** | Comande su stampanti termiche in cucina, al bar, alla cassa | no* |
-| **Pagamenti dal tavolo** | Apple Pay, Google Pay, Satispay, Revolut Pay, Bancomat Pay, carta | no |
+| **Pagamenti dal tavolo** | Apple Pay, Google Pay, Satispay, Revolut Pay, PayPal, Bancomat Pay, carta; con Stripe, attivati dal locale con il proprio IBAN | no |
 | **Cassa e gestionale** | Cassa touch, mappa tavoli, reparti, stampante fiscale RT, resoconti | no |
 | **Sito** | Pagina del locale con social, contatti, orari e pulsante del menu | no |
 
@@ -313,7 +313,7 @@ statistiche; cassa senza internet; privacy e contratto; locale pilota.
 
 1. Stack e hosting: **deciso**, vedi `docs/decisioni/0001-architettura.md`.
 2. Motore del chatbot: **deciso**, gratuito, a regole (stesso documento).
-3. Fornitore dei pagamenti e copertura di Bancomat Pay (OC0-03).
+3. Fornitore dei pagamenti: **deciso**, Stripe (`docs/decisioni/0002-pagamenti.md`). Resta la copertura di Bancomat Pay (OC3-04).
 4. Modelli di stampanti e RT supportati (OC0-06).
 5. Aspetti fiscali e allergeni (OC0-07).
 6. Nome commerciale e prezzi dei piani (dominio deciso: `ordina.a2digital.it`).

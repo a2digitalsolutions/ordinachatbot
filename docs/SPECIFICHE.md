@@ -25,22 +25,22 @@ e pizzerie.
 Il modulo base è sempre attivo; gli altri si accendono locale per locale.
 
 **Ordine di sviluppo e di vendita.** La **versione 1** (obiettivo: primi di
-dicembre 2026) comprende base, pagamenti dal tavolo, stampanti per le comande e
-sito. **Cassa e gestionale** si sviluppano dopo e si vendono a parte: un locale
-con la versione 1 continua a usare il proprio registratore di cassa.
+dicembre 2026) comprende base (con l'area comande su smartphone), pagamenti dal tavolo e
+sito. Le **stampanti termiche** per le comande si collegano dopo la prima
+consegna. **Cassa e gestionale** si sviluppano dopo e si vendono a parte: un
+locale con la versione 1 continua a usare il proprio registratore di cassa.
 
 | Modulo | Contenuto | Obbligatorio |
 |---|---|---|
-| **Base** | Menu, aspetto, tavoli e QR, chatbot, ordini, schermo ordini per il personale | sì |
-| **Stampanti** | Comande su stampanti termiche in cucina, al bar, alla cassa | sì se non c'è la cassa* |
+| **Base** | Menu, aspetto, tavoli e QR, chatbot, ordini, area comande su smartphone per gestore e camerieri | sì |
+| **Stampanti** | Comande su stampanti termiche in cucina, al bar, alla cassa | no* |
 | **Pagamenti dal tavolo** | Apple Pay, Google Pay, Satispay, Revolut Pay, Bancomat Pay, carta | no |
 | **Cassa e gestionale** | Cassa touch, mappa tavoli, reparti, stampante fiscale RT, resoconti | no |
 | **Sito** | Pagina del locale con social, contatti, orari e pulsante del menu | no |
 
-\* Senza cassa serve almeno una stampante termica (accanto alla cassa) e,
-consigliata, una per ogni zona di preparazione. Con la cassa le stampanti di
-cucina restano facoltative ma consigliate. Lo schermo ordini funziona sempre e
-fa da riserva.
+\* Le comande arrivano sempre nell'area comande, sullo smartphone di gestore
+e camerieri. Le stampanti sono un'aggiunta: il locale può usare l'area comande,
+le stampanti o tutte e due.
 
 ## 4. Configurazione del locale
 
@@ -228,9 +228,11 @@ anticipato. Limite di messaggi per evitare abusi del chatbot.
 
 ## 6. Dove arrivano gli ordini
 
-- **Schermo ordini** (tablet/telefono/monitor): tutti gli ordini per tavolo,
-  avviso sonoro, pulsanti per farli avanzare.
-- **Stampanti termiche**: ogni categoria è associata a una **zona** (cucina,
+- **Area comande** (smartphone di gestore e camerieri, anche tablet o
+  monitor): tutte le comande per tavolo appena confermate, avviso sonoro,
+  pulsanti per farle avanzare. È sempre attiva ed è il modo principale nella
+  prima consegna.
+- **Stampanti termiche** (dopo la prima consegna, facoltative): ogni categoria è associata a una **zona** (cucina,
   pizzeria, bar…) e ogni zona a una stampante. Una comanda con pizze e birre
   esce divisa nelle due zone, con tavolo, ora, voci, note, chi ha ordinato.
   Copia riepilogativa alla stampante di cassa.
@@ -303,7 +305,7 @@ supportati in `docs/hardware.md`).
 ## 12. Cose aggiunte rispetto alla richiesta
 
 Chiamata del cameriere; prodotto esaurito; note per la cucina; orari delle categorie; coperto; divisione del conto e mancia; protezione
-dagli ordini da fuori locale; schermo ordini come riserva delle stampanti;
+dagli ordini da fuori locale; area comande su smartphone;
 controllo carta/stampante spenta; ruoli del personale; italiano e inglese;
 statistiche; cassa senza internet; privacy e contratto; locale pilota.
 

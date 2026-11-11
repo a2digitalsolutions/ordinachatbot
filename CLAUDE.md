@@ -2,8 +2,9 @@
 
 SaaS per bar, pub, ristoranti e pizzerie: il cliente inquadra il QR code del
 tavolo, chatta con un assistente che mostra il menu, ordina per il tavolo e paga
-in cassa o dal telefono; l'ordine arriva su stampanti, schermo ordini e, se
-attiva, sulla cassa. Specifiche complete: `docs/SPECIFICHE.md`. Manuale:
+in cassa o dal telefono; l'ordine arriva nell'area comande sugli smartphone di
+gestore e camerieri, sulle stampanti (dopo la prima consegna) e, se attiva,
+sulla cassa. Specifiche complete: `docs/SPECIFICHE.md`. Manuale:
 `docs/MANUALE.md`.
 
 Il team lavora in italiano e non tutti sono sviluppatori: rispondi in italiano,

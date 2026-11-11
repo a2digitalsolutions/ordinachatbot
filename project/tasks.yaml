@@ -7,7 +7,9 @@
 # Campi di ogni task:
 #   id          codice univoco (es. OC1-03)
 #   titolo      cosa si fa
-#   fase        0-7 (vedi elenco fasi sotto)
+#   fase        0-7 (vedi elenco fasi sotto). Riordino dell'11/11/2026: le stampanti
+#               (OC4-xx) sono in fase 5, dopo la consegna; il rilascio (OC5-xx) in fase 4.
+#               Gli ID non cambiano.
 #   giorni      stima in giorni lavorativi (anche mezze giornate: 0.5, 1.5)
 #   impegno     giorni di lavoro effettivo, se minori di "giorni": il resto è attesa
 #               di terzi (fornitori, consulente) e non occupa nessuno del team
@@ -40,11 +42,11 @@ progetto:
 fasi:
   0: Avvio e impostazione
   1: Locale, menu, aspetto e QR code (Demo 1)
-  2: Chatbot e ordini dal tavolo (Demo 2)
-  3: Pagamenti dal tavolo (Demo 3)
-  4: Stampanti per le comande (Demo 4)
-  5: Sito, domini, SaaS e rilascio della versione 1
-  6: Cassa e gestionale, dopo il rilascio (vendibile a parte)
+  2: Chatbot, ordini e area comande su smartphone (Demo 2)
+  3: Pagamenti dal tavolo, tutti insieme (Demo 3)
+  4: Sito, domini, SaaS e prima consegna (versione 1)
+  5: Stampanti termiche per le comande, dopo la consegna
+  6: Cassa e gestionale, dopo la consegna (vendibile a parte)
   7: Altre funzioni dopo il rilascio
 
 milestone:
@@ -52,17 +54,17 @@ milestone:
     titolo: "Demo 1 — menu, grafica e QR code dei tavoli"
     dopo: [OC1-15]
   - id: M2
-    titolo: "Demo 2 — si ordina dal tavolo con il chatbot"
+    titolo: "Demo 2 — si ordina con il chatbot e le comande arrivano sugli smartphone"
     dopo: [OC2-12]
   - id: M3
     titolo: "Demo 3 — si paga dal tavolo"
     dopo: [OC3-08]
-  - id: M4
-    titolo: "Demo 4 — le comande escono dalla stampante"
-    dopo: [OC4-05]
   - id: M5
-    titolo: "Versione 1 in vendita — chatbot, pagamenti, stampante comande"
+    titolo: "Prima consegna (versione 1) — chatbot, area comande, pagamenti"
     dopo: [OC5-10]
+  - id: M4
+    titolo: "Stampanti termiche — le comande escono anche dalla stampante"
+    dopo: [OC4-05]
   - id: M6
     titolo: "Cassa e gestionale — modulo in vendita"
     dopo: [OC6-12]
@@ -100,7 +102,7 @@ tasks:
 
   - id: OC0-03
     titolo: Scelta del fornitore di pagamenti e conto di prova
-    fase: 0
+    fase: 3
     giorni: 3
     impegno: 0.5
     dipende_da: [OC0-01]
@@ -112,6 +114,7 @@ tasks:
       Google Pay, Satispay, Revolut Pay; verificare Bancomat Pay (oggi passa da
       altri circuiti, es. Nexi XPay). Confrontare commissioni e tempi di
       attivazione. Aprire un conto di prova. Vedi SPECIFICHE §7.
+      Riordino dell'11/11/2026: conta nella fase 3 con tutti gli altri pagamenti.
     stato: in_corso
     inizio: 2026-11-11
     assegnato: Paolo
@@ -132,20 +135,18 @@ tasks:
 
   - id: OC0-06
     titolo: Scelta dell'hardware di riferimento e acquisto di un kit di prova
-    fase: 0
+    fase: 5
     giorni: 5
     impegno: 0.5
-    dipende_da: [OC0-01]
+    dipende_da: [OC0-01, OC5-10]
     esterno: true
-    anticipa: true
     note: >
-      Per la versione 1 basta una stampante termica di rete 80 mm (meglio se
-      "cloud", cioè che si collega da sola a internet): senza, la fase 4 si
-      sviluppa ma non si collauda. Stampante fiscale RT e monitor touch servono
-      solo per la cassa (fase 6) e si comprano dopo. Modelli in docs/hardware.md.
-    stato: in_corso
-    inizio: 2026-11-11
-    assegnato: Paolo
+      Riordino dell'11/11/2026: le stampanti si collegano dopo la prima consegna,
+      quindi il kit si compra allora. Basta una stampante termica di rete 80 mm
+      (meglio se "cloud", cioè che si collega da sola a internet). Stampante
+      fiscale RT e monitor touch servono solo per la cassa (fase 6).
+      Modelli in docs/hardware.md.
+    stato: da_fare
 
   - id: OC0-07
     titolo: Verifica fiscale e privacy con un consulente
@@ -402,11 +403,17 @@ tasks:
     dipende_da: [OC2-03]
 
   - id: OC2-11
-    titolo: Schermo ordini per il personale, in tempo reale con avviso sonoro
+    titolo: Area comande su smartphone per gestore e camerieri — tempo reale, avviso sonoro, avanzamento
     fase: 2
-    giorni: 1.5
+    giorni: 2
     dipende_da: [OC2-07]
-    note: Funziona su tablet o telefono; è anche la riserva se una stampante si ferma.
+    note: >
+      È il modo principale di ricevere le comande nella prima consegna
+      (richiesta di Paolo dell'11/11/2026). Gestore e camerieri entrano dal
+      proprio smartphone (anche tablet o monitor), vedono le comande per tavolo
+      appena confermate, con suono, e le fanno avanzare. Deve restare utile
+      anche quando arriveranno le stampanti: il locale usa l'una, le altre o
+      tutte e due.
 
   - id: OC2-12
     titolo: Prove complete del chatbot e Demo 2
@@ -502,21 +509,21 @@ tasks:
     dipende_da: [OC3-05]
 
   - id: OC3-08
-    titolo: Prove in ambiente di test dei pagamenti e Demo 4
+    titolo: Prove in ambiente di test dei pagamenti e Demo 3
     fase: 3
     giorni: 0.5
     dipende_da: [OC3-03, OC3-04, OC3-06, OC3-07]
 
-  # ---------------- FASE 4 — STAMPANTI PER LE COMANDE ----------------
+  # ---------------- FASE 5 — STAMPANTI TERMICHE (DOPO LA CONSEGNA; gli ID restano OC4-xx) ----------------
   - id: OC4-01
     titolo: Servizio di stampa — coda, formato della comanda, ristampa
-    fase: 4
+    fase: 5
     giorni: 1.5
     dipende_da: [OC2-07]
 
   - id: OC4-02
     titolo: Collegamento delle stampanti termiche del locale
-    fase: 4
+    fase: 5
     giorni: 2
     dipende_da: [OC4-01, OC0-06]
     note: >
@@ -526,87 +533,89 @@ tasks:
 
   - id: OC4-03
     titolo: Zone di stampa (cucina, pizzeria, bar, cassa) e categorie associate
-    fase: 4
+    fase: 5
     giorni: 1
     dipende_da: [OC4-01]
 
   - id: OC4-04
     titolo: Controllo delle stampanti — carta finita, spenta, stampa di riserva, avvisi
-    fase: 4
+    fase: 5
     giorni: 1
     dipende_da: [OC4-02, OC4-03]
 
   - id: OC4-05
-    titolo: Collaudo sul kit reale e Demo 3
-    fase: 4
+    titolo: Collaudo sul kit reale e demo delle stampanti
+    fase: 5
     giorni: 0.5
     dipende_da: [OC4-04]
 
-  # ---------------- FASE 5 — SITO, DOMINI, SAAS, RILASCIO (VERSIONE 1) ----------------
+  # ---------------- FASE 4 — SITO, DOMINI, SAAS, PRIMA CONSEGNA (VERSIONE 1; gli ID restano OC5-xx) ----------------
   - id: OC5-01
     titolo: Sito del locale (facoltativo) — social, contatti, orari, mappa, pulsante menu
-    fase: 5
+    fase: 4
     giorni: 1.5
     dipende_da: [OC1-14]
 
   - id: OC5-02
     titolo: Indirizzi — sottodominio nostro e dominio proprio del locale con certificato
-    fase: 5
+    fase: 4
     giorni: 2
     dipende_da: [OC1-05, OC0-02]
     esterno: true
 
   - id: OC5-03
     titolo: Passaggio dal nostro dominio a quello del locale senza ristampare i QR
-    fase: 5
+    fase: 4
     giorni: 0.5
     dipende_da: [OC5-02, OC1-13]
 
   - id: OC5-04
     titolo: Piani e moduli SaaS (base, stampanti, pagamenti, cassa, sito)
-    fase: 5
+    fase: 4
     giorni: 1
     dipende_da: [OC1-03]
     note: Per ora i piani li assegnano gli amministratori; il pagamento dell'abbonamento è OC7-01.
 
   - id: OC5-05
     titolo: Privacy — informative, cookie, conservazione dei dati, contratto con i locali
-    fase: 5
+    fase: 4
     giorni: 1.5
     dipende_da: [OC0-07]
     esterno: true
 
   - id: OC5-06
     titolo: Statistiche per il titolare (più ordinati, orari di punta, spesa media)
-    fase: 5
+    fase: 7
     giorni: 1
     dipende_da: [OC2-07]
+    note: Parte secondaria del pannello del gestore, rimandata a dopo la consegna (11/11/2026).
 
   - id: OC5-07
     titolo: Sicurezza, copie di salvataggio, controllo del servizio, prova di carico
-    fase: 5
+    fase: 4
     giorni: 1.5
     dipende_da: [OC2-12]
 
   - id: OC5-08
     titolo: Manuale definitivo con le schermate e guida di avvio per i locali
-    fase: 5
+    fase: 4
     giorni: 1
-    dipende_da: [OC3-08, OC4-05]
+    dipende_da: [OC3-08]
+    note: La parte sulle stampanti si aggiunge al manuale con la fase 5.
 
   - id: OC5-09
     titolo: Locale pilota — installazione e prova con clienti veri
-    fase: 5
+    fase: 4
     giorni: 3
     impegno: 1.5
-    dipende_da: [OC5-05, OC5-07, OC5-08, OC4-05, OC2-15]
+    dipende_da: [OC5-05, OC5-07, OC5-08, OC2-15]
     esterno: true
 
   - id: OC5-10
     titolo: Rilascio versione 1
-    fase: 5
+    fase: 4
     giorni: 0.5
-    dipende_da: [OC5-09, OC5-03, OC5-04, OC5-01, OC5-06]
+    dipende_da: [OC5-09, OC5-03, OC5-04, OC5-01]
 
   # ---------------- FASE 6 — CASSA E GESTIONALE (DOPO IL RILASCIO, VENDIBILE A PARTE) ----------------
   - id: OC6-01

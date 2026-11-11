@@ -229,7 +229,7 @@ chiedi a noi). I QR già stampati continuano a funzionare.
 ## Parte 2 — Personale
 
 - Accedi con le tue credenziali: vedi solo le sezioni del tuo ruolo.
-- **Schermo ordini**: ogni nuovo ordine suona e compare con tavolo, ora e voci.
+- **Area comande** (sullo smartphone di gestore e camerieri): ogni nuovo ordine suona e compare con tavolo, ora e voci.
   Tocca *Pronto* quando esce dalla cucina e *Servito* quando è al tavolo.
 - **Chiamata dal tavolo**: compare un avviso «Tavolo 7 chiama» (con il motivo,
   es. *domanda su allergeni*). Tocca *Ci vado* per toglierlo agli altri.
@@ -286,4 +286,4 @@ ordine o il pagamento anticipato; se serve rigenera il QR.
 **Finisce un piatto durante il servizio?** Interruttore *Esaurito*.
 
 **La stampante non stampa?** Guarda l'avviso sul pannello; intanto le comande
-escono in cassa e sono sullo schermo ordini. *Ristampa* quando è a posto.
+escono in cassa e sono nell'area comande. *Ristampa* quando è a posto.

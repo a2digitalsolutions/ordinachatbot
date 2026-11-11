@@ -2,7 +2,8 @@
 
 - **Task:** OC0-03
 - **Data:** mercoledì 11 novembre 2026
-- **Stato:** fornitore deciso da Paolo. Resta da aprire il conto di prova.
+- **Stato:** fornitore deciso da Paolo. Il conto Stripe si apre alla consegna
+  del primo locale; lo sviluppo dei pagamenti parte allora.
 
 ## Decisione
 
@@ -31,13 +32,17 @@
 Regola: nella chat il cliente vede solo i metodi che il locale ha davvero
 attivi. Un metodo non configurato non si mostra e non si simula.
 
-## Cosa serve ancora per chiudere OC0-03
+## Quando si apre il conto Stripe
 
-1. **Conto Stripe della piattaforma**, aperto da Paolo o Enrico. Per la prova
-   bastano un'email e una password; non servono dati aziendali.
-2. **Attivare Connect** in modalità di prova dal pannello di Stripe.
-3. **Chiavi di prova** consegnate in modo sicuro (segreti di GitHub o file sul
-   server), mai in chat e mai nel repository.
+Deciso da Paolo l'11/11/2026: nessun conto Stripe adesso; si apre alla consegna
+del primo locale. Di conseguenza:
+
+- la prima consegna esce con il solo pagamento in cassa;
+- i pagamenti dal tavolo si sviluppano dopo, tutti insieme, perché senza un
+  conto di prova non si possono provare e non vanno mai simulati come
+  funzionanti;
+- quando si aprirà il conto servono: Connect attivo in modalità di prova e le
+  chiavi di prova consegnate in modo sicuro (mai in chat o nel repository).
 
 ## Da sapere prima dei pagamenti veri
 

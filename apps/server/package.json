@@ -1,0 +1,19 @@
+{
+  "name": "@ordinachatbot/server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "build": "tsup",
+    "tipi": "tsc --noEmit -p tsconfig.json",
+    "migra": "tsx src/migra.ts"
+  },
+  "dependencies": {
+    "@ordinachatbot/shared": "*",
+    "fastify": "^5.12.8",
+    "pg": "^8.23.1",
+    "zod": "^4.6.7"
+  }
+}

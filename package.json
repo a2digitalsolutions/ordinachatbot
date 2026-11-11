@@ -1,0 +1,47 @@
+{
+  "name": "ordinachatbot",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w @ordinachatbot/server",
+    "dev:web": "npm run dev -w @ordinachatbot/web",
+    "lint": "eslint .",
+    "formato": "prettier --check .",
+    "formato:correggi": "prettier --write .",
+    "tipi": "npm run tipi --workspaces",
+    "test": "vitest run",
+    "test:demo": "node demo/prove-domande.mjs",
+    "build": "npm run build --workspaces --if-present",
+    "migra": "npm run migra -w @ordinachatbot/server",
+    "controlli": "npm run lint && npm run formato && npm run tipi && npm run test && npm run test:demo && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
+    "jsdom": "^31.0.0",
+    "prettier": "^3.9.10",
+    "tsup": "^9.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  }
+}

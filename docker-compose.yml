@@ -1,0 +1,45 @@
+# Tutto il programma con un comando:  docker compose up --build
+# Serve un file .env con POSTGRES_PASSWORD (vedi .env.example).
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ordinachatbot
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Impostare POSTGRES_PASSWORD nel file .env}
+      POSTGRES_DB: ordinachatbot
+      TZ: Europe/Rome
+    volumes:
+      - dati_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ordinachatbot']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  server:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.server
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORTA: 3000
+      DATABASE_URL: postgres://ordinachatbot:${POSTGRES_PASSWORD}@db:5432/ordinachatbot
+      TZ: Europe/Rome
+
+  web:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.web
+    restart: unless-stopped
+    depends_on:
+      - server
+    ports:
+      - '${PORTA_WEB:-8080}:80'
+
+volumes:
+  dati_db:

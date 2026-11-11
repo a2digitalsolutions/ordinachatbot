@@ -1,0 +1,16 @@
+{
+  "name": "@ordinachatbot/web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "tipi": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@ordinachatbot/shared": "*",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

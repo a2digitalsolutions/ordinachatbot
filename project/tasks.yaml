@@ -159,6 +159,9 @@ tasks:
       scontrino per i pagamenti dal tavolo, collegamento POS-RT anche per i
       pagamenti online, reparti e aliquote IVA, chi è titolare dei dati dei
       clienti, obblighi sugli allergeni nel menu digitale, contratto SaaS.
+    stato: in_corso
+    inizio: 2026-11-11
+    assegnato: Paolo
 
   - id: OC0-08
     titolo: Demo cliccabile da mostrare ai locali (sito, menu, chatbot, vista gestore)

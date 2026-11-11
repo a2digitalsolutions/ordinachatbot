@@ -14,7 +14,7 @@ gantt
     OC0-08 Demo cliccabile da mostrare ai locali (sito, menu, c… :done, oc0_08, 2026-11-10, 2026-11-11
     OC0-02 Decisioni di architettura (stack, hosting, motore de… :done, oc0_02, 2026-11-11, 2026-11-12
     OC0-04 Struttura del progetto, controlli di qualità, test e… :done, oc0_04, 2026-11-11, 2026-11-12
-    OC0-09 Regole di sicurezza su allergeni e celiachia — logic… :active, oc0_09, 2026-11-11, 2026-11-12
+    OC0-09 Regole di sicurezza su allergeni e celiachia — logic… :done, oc0_09, 2026-11-11, 2026-11-12
     OC0-05 Ambiente di sviluppo (database, accessi, archivio fo… :oc0_05, 2026-11-12, 2026-11-13
     section Fase 1 Locale, menu, aspetto e QR code (Demo 1)
     OC1-04 Componenti grafici di base e struttura del pannello :oc1_04, 2026-11-12, 2026-11-13
@@ -112,7 +112,7 @@ gantt
 | OC0-08 | Demo cliccabile da mostrare ai locali (sito, menu, chatbot, vista gestore) | fatto | Claude | 10/11/2026 | 10/11/2026 |
 | OC0-02 | Decisioni di architettura (stack, hosting, motore del chatbot) | fatto | Paolo | 11/11/2026 | 11/11/2026 |
 | OC0-04 | Struttura del progetto, controlli di qualità, test e CI su GitHub Actions | fatto | Paolo | 11/11/2026 | 11/11/2026 |
-| OC0-09 | Regole di sicurezza su allergeni e celiachia — logica comune con prove automatiche | in corso | Paolo | 11/11/2026 | 11/11/2026 |
+| OC0-09 | Regole di sicurezza su allergeni e celiachia — logica comune con prove automatiche | fatto | Paolo | 11/11/2026 | 11/11/2026 |
 | OC0-05 | Ambiente di sviluppo (database, accessi, archivio foto, variabili d'ambiente) | da fare |  | 12/11/2026 | 12/11/2026 |
 | OC1-04 | Componenti grafici di base e struttura del pannello | da fare |  | 12/11/2026 | 12/11/2026 |
 | OC1-01 | Schema dei dati multi-locale e isolamento tra locali | da fare |  | 13/11/2026 | 16/11/2026 |

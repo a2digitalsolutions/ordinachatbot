@@ -2,7 +2,7 @@
 
 _Aggiornato il 11/11/2026 da `scripts/piano.py`._
 
-**Avanzamento versione 1: 3%** (2.5 giorni di lavoro completati su 75). Fine prevista: **12/01/2027**.
+**Avanzamento versione 1: 5%** (3.5 giorni di lavoro completati su 75). Fine prevista: **12/01/2027**.
 
 Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 21 giorni lavorativi di ritardo**.
 
@@ -10,7 +10,7 @@ Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 21 giorni lavorativi
 
 | Fase | Fatti | In corso | Da fare | Avanzamento |
 |---|---|---|---|---|
-| 0. Avvio e impostazione | 3 | 1 | 2 | 45% |
+| 0. Avvio e impostazione | 4 | 0 | 2 | 64% |
 | 1. Locale, menu, aspetto e QR code (Demo 1) | 0 | 0 | 15 | 0% |
 | 2. Chatbot, ordini e area comande su smartphone (Demo 2) | 0 | 0 | 15 | 0% |
 | 3. Pagamenti dal tavolo con Stripe, tutti insieme (pronti, spenti finché il locale non li configura) | 0 | 0 | 6 | 0% |
@@ -31,11 +31,13 @@ Obiettivo: fine sviluppo entro il 04/12/2026 — **previsti 21 giorni lavorativi
 
 ## In corso
 
-- OC0-04 — Struttura del progetto, controlli di qualità, test e CI su GitHub Actions (Paolo, dal 2026-11-11, fine prevista 11/11)
+- Nessun task in corso.
 
 ## Prossimi task liberi (si possono avviare subito)
 
 - OC0-05 — Ambiente di sviluppo (database, accessi, archivio foto, variabili d'ambiente) (1 g) — richiede account o credenziali esterne
+- OC0-09 — Regole di sicurezza su allergeni e celiachia — logica comune con prove automatiche (1 g)
+- OC1-04 — Componenti grafici di base e struttura del pannello (1 g)
 
 ## Da preparare all'esterno (account, credenziali, decisioni)
 

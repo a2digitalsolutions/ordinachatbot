@@ -127,7 +127,8 @@ tasks:
     fase: 0
     giorni: 1
     dipende_da: [OC0-02]
-    stato: in_corso
+    stato: fatto
+    fine: 2026-11-11
     inizio: 2026-11-11
     assegnato: Paolo
 

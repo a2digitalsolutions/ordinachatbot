@@ -127,6 +127,9 @@ tasks:
     fase: 0
     giorni: 1
     dipende_da: [OC0-02]
+    stato: in_corso
+    inizio: 2026-11-11
+    assegnato: Paolo
 
   - id: OC0-05
     titolo: Ambiente di sviluppo (database, accessi, archivio foto, variabili d'ambiente)

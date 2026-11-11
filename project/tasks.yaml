@@ -58,7 +58,7 @@ milestone:
     dopo: [OC2-12]
   - id: M3
     titolo: "Pagamenti dal tavolo pronti (collaudo con il primo locale)"
-    dopo: [OC3-03, OC3-04, OC3-06, OC3-07]
+    dopo: [OC3-03, OC3-06, OC3-07]
   - id: M4
     titolo: "Stampa delle comande pronta (collaudo con il primo locale)"
     dopo: [OC4-04]
@@ -489,11 +489,12 @@ tasks:
 
   - id: OC3-04
     titolo: Pagamento con Bancomat Pay
-    fase: 3
+    fase: 7
     giorni: 1.5
-    dipende_da: [OC3-02]
+    dipende_da: [OC3-02, OC0-03]
     esterno: true
     note: Dipende dall'esito di OC0-03; può richiedere un secondo fornitore.
+    note: Si può verificare solo con un conto Stripe vero: si fa con il primo locale, dopo la consegna.
 
   - id: OC3-05
     titolo: Conferma dell'incasso, invio in cucina dopo il pagamento, errori e rimborsi
@@ -518,7 +519,7 @@ tasks:
     titolo: Collaudo dei pagamenti con il conto Stripe del primo locale
     fase: 7
     giorni: 0.5
-    dipende_da: [OC3-03, OC3-04, OC3-06, OC3-07, OC0-03]
+    dipende_da: [OC3-03, OC3-06, OC3-07, OC0-03]
     esterno: true
 
   # ---------------- FASE 4 — STAMPANTI PER LE COMANDE ----------------
@@ -631,7 +632,7 @@ tasks:
     titolo: Rilascio versione 1
     fase: 5
     giorni: 0.5
-    dipende_da: [OC5-09, OC5-03, OC5-04, OC5-01]
+    dipende_da: [OC5-09, OC5-03, OC5-04, OC5-01, OC3-03, OC3-06, OC3-07, OC4-04]
 
   # ---------------- FASE 6 — CASSA E GESTIONALE (DOPO IL RILASCIO, VENDIBILE A PARTE) ----------------
   - id: OC6-01

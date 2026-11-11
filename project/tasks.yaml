@@ -150,20 +150,18 @@ tasks:
 
   - id: OC0-07
     titolo: Verifica fiscale e privacy con un consulente
-    fase: 0
+    fase: 4
     giorni: 5
     impegno: 0.5
-    dipende_da: [OC0-01]
+    dipende_da: [OC0-01, OC2-12]
     esterno: true
-    anticipa: true
     note: >
       Domande in docs/domande-consulente.md (da scrivere in questo task):
       scontrino per i pagamenti dal tavolo, collegamento POS-RT anche per i
       pagamenti online, reparti e aliquote IVA, chi è titolare dei dati dei
       clienti, obblighi sugli allergeni nel menu digitale, contratto SaaS.
-    stato: in_corso
-    inizio: 2026-11-11
-    assegnato: Paolo
+    stato: da_fare
+    # Decisione di Paolo dell'11/11/2026: il consulente si sente dopo la demo del chatbot.
 
   - id: OC0-08
     titolo: Demo cliccabile da mostrare ai locali (sito, menu, chatbot, vista gestore)
@@ -582,6 +580,10 @@ tasks:
     giorni: 1.5
     dipende_da: [OC0-07]
     esterno: true
+    note: >
+      Comprende il foglio da far firmare al locale alla consegna della prima
+      versione (accordo d'uso, responsabilità sul menu e sugli allergeni, dati
+      dei clienti): lo prepara Claude per Paolo (richiesta dell'11/11/2026).
 
   - id: OC5-06
     titolo: Statistiche per il titolare (più ordinati, orari di punta, spesa media)

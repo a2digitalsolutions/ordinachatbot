@@ -111,6 +111,9 @@ tasks:
       Google Pay, Satispay, Revolut Pay; verificare Bancomat Pay (oggi passa da
       altri circuiti, es. Nexi XPay). Confrontare commissioni e tempi di
       attivazione. Aprire un conto di prova. Vedi SPECIFICHE §7.
+    stato: in_corso
+    inizio: 2026-11-11
+    assegnato: Paolo
 
   - id: OC0-04
     titolo: Struttura del progetto, controlli di qualità, test e CI su GitHub Actions

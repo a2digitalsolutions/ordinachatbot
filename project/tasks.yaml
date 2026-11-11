@@ -93,7 +93,8 @@ tasks:
       (3) motore del chatbot: modello linguistico a pagamento a consumo oppure
       open source sul nostro server (costi e velocità a confronto, serve risposta
       entro 2-3 secondi); (4) nome e dominio del prodotto. Vedi SPECIFICHE §13.
-    stato: in_corso
+    stato: fatto
+    fine: 2026-11-11
     inizio: 2026-11-11
     assegnato: Paolo
 

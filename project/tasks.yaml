@@ -359,14 +359,15 @@ tasks:
       Parla in italiano; giorni, date, ore e prezzi sempre in formato italiano.
 
   - id: OC2-04
-    titolo: Blocco allergeni e celiachia configurabile e pulsante «Chiama il cameriere»
+    titolo: Blocco allergeni e celiachia configurabile (rimanda al cameriere)
     fase: 2
     giorni: 1
     dipende_da: [OC2-03, OC0-09]
     note: >
       Il titolare sceglie: allergeni, celiachia, tutti e due o nessuno. Sugli
       argomenti bloccati il chatbot risponde subito con il messaggio fisso e
-      avvisa il personale. Il blocco è una regola fissa, non lasciata al modello.
+      propone «Chiama il cameriere» (la chiamata vera e propria è OC2-18).
+      Il blocco è una regola fissa, non lasciata al modello.
 
   - id: OC2-05
     titolo: Carrello condiviso del tavolo — voci per persona, varianti, note per la cucina
@@ -415,20 +416,21 @@ tasks:
     titolo: Area comande su smartphone per gestore e camerieri — tempo reale, avviso sonoro, avanzamento
     fase: 2
     giorni: 2
-    dipende_da: [OC2-07]
+    dipende_da: [OC2-07, OC2-16]
     note: >
       È il modo principale di ricevere le comande nella prima consegna
       (richiesta di Paolo dell'11/11/2026). Gestore e camerieri entrano dal
       proprio smartphone (anche tablet o monitor), vedono le comande per tavolo
       appena confermate, con suono, e le fanno avanzare. Deve restare utile
       anche quando arriveranno le stampanti: il locale usa l'una, le altre o
-      tutte e due.
+      tutte e due. Richiesta di Paolo del 13/11/2026: ognuno vede solo le
+      comande dei propri reparti (OC2-16), la Sala e il gestore vedono tutto.
 
   - id: OC2-12
     titolo: Prove complete del chatbot e Demo 2
     fase: 2
     giorni: 1
-    dipende_da: [OC2-04, OC2-08, OC2-09, OC2-10, OC2-11, OC2-14, OC2-15]
+    dipende_da: [OC2-04, OC2-08, OC2-09, OC2-10, OC2-11, OC2-14, OC2-15, OC2-17, OC2-18, OC2-19]
     note: >
       Prova di accettazione: tutte le frasi di demo/prove-domande.mjs (512 al
       10/11, vedi docs/test/domande-tipiche.md) devono dare la risposta attesa
@@ -469,6 +471,66 @@ tasks:
       esserlo; piatto mai «senza glutine» se manca una verifica; risposte del
       gestore che non scavalcano il blocco; nota di allergia evidenziata sulla
       comanda. Un solo errore blocca il rilascio.
+
+  # Task aggiunti il 13/11/2026 su richiesta di Paolo (SPECIFICHE §4, §5, §6).
+  - id: OC2-16
+    titolo: Reparti di preparazione configurabili e instradamento delle comande (bar, cucina, friggitrice…)
+    fase: 2
+    giorni: 1.5
+    dipende_da: [OC1-07, OC1-02]
+    note: >
+      SPECIFICHE §6 "Reparti di preparazione". Il gestore crea i reparti che
+      vuole (Bar/Bevande, Cucina, Forno, Friggitrice, Griglia, Dolci… più Sala);
+      reparto sulla categoria, cambiabile sul singolo prodotto; per ogni reparto
+      sceglie dove arriva la comanda (smartphone del personale assegnato,
+      stampanti, o tutti e due) e chi lo segue. Il server divide ogni ordine in
+      pezzi per reparto, ognuno con i suoi stati; lo stato dell'ordine si
+      calcola dai pezzi. Nessuna voce senza reparto (va a Cucina); reparto non
+      presidiato → avviso alla Sala. Da non confondere con i reparti IVA della
+      cassa (OC6-02). Prove: ordine misto diviso bene, nessuna voce persa o doppia.
+
+  - id: OC2-17
+    titolo: Fuori menu su richiesta — piatti e condimenti non in menu, con prezzo, proposti solo se chiesti
+    fase: 2
+    giorni: 1
+    dipende_da: [OC1-08, OC2-03, OC2-16]
+    note: >
+      SPECIFICHE §4 e §5 "Fuori menu su richiesta". Esempio di Paolo: una
+      cliente chiede verdure grigliate e un filo d'olio. Il gestore inserisce
+      piatti a sé o aggiunte a qualsiasi piatto, con prezzo o gratis, reparto,
+      ingredienti con scheda allergeni e interruttore "disponibile oggi". Non
+      stanno nel menu: il chatbot li cerca prima di dire "non c'è" e li propone
+      con il pulsante Aggiungi. Se mancano: piatto più vicino, Chiama il
+      cameriere, segnalazione al gestore. Valgono blocco allergeni, prezzi dal
+      server, "FUORI MENU" sulla comanda.
+
+  - id: OC2-18
+    titolo: «Chiama il cameriere» sempre disponibile — pulsante fisso, frasi riconosciute, motivo, arrivo alla Sala
+    fase: 2
+    giorni: 1
+    dipende_da: [OC2-02, OC2-11]
+    note: >
+      SPECIFICHE §5 "Chiama il cameriere, sempre". Pulsante sempre visibile in
+      chat; qualsiasi modo di chiederlo ("chiamami il cameriere", "posso
+      parlare con qualcuno?", "waiter") è una regola nel codice che viene prima
+      di ogni altra risposta. Il chatbot lo propone per ogni dubbio che non sa
+      risolvere (allergeni bloccati, salute e gravidanza, fuori menu mancanti,
+      conto, lamentele). Motivo facoltativo; arrivo con suono agli smartphone
+      della Sala; il cliente vede "sta arrivando" e chi l'ha preso in carico;
+      anti-abuso 2 minuti. Prove: docs/test/frasi-cameriere.md, tutte.
+
+  - id: OC2-19
+    titolo: Accoglienza — il chatbot propone subito da bere, bevande confermabili da sole
+    fase: 2
+    giorni: 0.5
+    dipende_da: [OC2-03, OC2-06]
+    note: >
+      SPECIFICHE §5 punto 2. Al primo messaggio: "Intanto, cosa vi porto da
+      bere?" con le bevande più ordinate. Le bevande si confermano da sole
+      (stessa conferma unica del tavolo) e partono al reparto Bar mentre si
+      sceglie il resto. Il gestore può spegnere la proposta o cambiarla per
+      fascia oraria (Colazioni al mattino); non si ripete se il tavolo ha già
+      ordinato da bere.
 
   # ---------------- FASE 3 — PAGAMENTI DAL TAVOLO ----------------
   - id: OC3-01
@@ -553,10 +615,14 @@ tasks:
       lo attiva.
 
   - id: OC4-03
-    titolo: Zone di stampa (cucina, pizzeria, bar, cassa) e categorie associate
+    titolo: Stampanti dei reparti — una o più stampanti per reparto, copia in cassa, riserva
     fase: 4
-    giorni: 1
-    dipende_da: [OC4-01]
+    giorni: 0.5
+    dipende_da: [OC4-01, OC2-16]
+    note: >
+      13/11/2026: le "zone di stampa" sono diventate i reparti di OC2-16
+      (configurati lì insieme agli smartphone); qui si collegano solo le
+      stampanti ai reparti.
 
   - id: OC4-04
     titolo: Controllo delle stampanti — carta finita, spenta, stampa di riserva, avvisi
@@ -650,9 +716,10 @@ tasks:
     dipende_da: [OC1-05]
 
   - id: OC6-02
-    titolo: Reparti, aliquote IVA, metodi di pagamento, coperto e servizio
+    titolo: Reparti IVA, aliquote, metodi di pagamento, coperto e servizio
     fase: 6
     giorni: 1
+    note: Reparti fiscali della cassa, diversi dai reparti di preparazione (OC2-16).
     dipende_da: [OC6-01, OC1-07]
 
   - id: OC6-03

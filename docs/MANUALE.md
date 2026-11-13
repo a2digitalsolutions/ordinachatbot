@@ -1,6 +1,6 @@
 # Ordinachatbot — manuale di utilizzo
 
-Versione 0.4 (10/11/2026). Descrive il prodotto **come è stato progettato**: va
+Versione 0.5 (13/11/2026). Descrive il prodotto **come è stato progettato**: va
 aggiornato a ogni task chiuso e completato con le schermate nel task OC5-08.
 I nomi di pulsanti e menu potranno cambiare leggermente.
 
@@ -39,7 +39,8 @@ per decidere l'ordine. Puoi indicare gli orari in cui è disponibile.
 | **Importa da Excel** | hai già il menu in un file |
 
 Per ogni prodotto: nome, prezzo, categoria, descrizione, **foto** (facoltativa),
-**ingredienti**, varianti e aggiunte.
+**ingredienti**, varianti e aggiunte. Il **reparto** (dove va la comanda) lo
+prende dalla categoria; puoi cambiarlo sul singolo prodotto (vedi 1.9).
 
 **Varianti** (per cibi e drink) — *Menu → Varianti*: scelte in cui il cliente
 ne prende una, con il prezzo (Birra: piccola € 3,50 / media € 5,00; Impasto
@@ -65,6 +66,23 @@ pomodoro, pancetta = bacon) e ne puoi aggiungere di tuoi in *Chatbot → Sinonim
 **Ingredienti** — scrivendo un ingrediente lo scegli dall'elenco o lo crei al
 volo. Inserirli bene conviene: è grazie agli ingredienti che il chatbot sa
 rispondere a «pizze con i funghi» o «un panino senza cipolla».
+
+**Fuori menu su richiesta** — *Menu → Fuori menu*: le cose che hai ma non
+metti nel menu, perché le chiede solo qualcuno (verdure grigliate, olio a
+crudo, pasta in bianco, limone, peperoncino). Per ognuna scegli:
+
+| Campo | Cosa scegli |
+|---|---|
+| **Tipo** | *piatto a sé* (verdure grigliate € 5,00) oppure *aggiunta a qualsiasi piatto* (olio a crudo) |
+| **Prezzo** | una cifra oppure *gratis* |
+| **Reparto** | dove va la comanda (Cucina, Griglia, Bar…) |
+| **Ingredienti** | con la stessa scheda allergeni degli altri |
+| **Disponibile oggi** | un interruttore: spento, il chatbot dice che oggi non c'è |
+
+Il cliente non li vede nel menu: il chatbot li propone **solo se li chiede**
+(«avete verdure grigliate?», «posso avere un filo d'olio?»). Se un cliente
+chiede qualcosa che non hai inserito, la trovi in *Chatbot → Domande da
+rivedere* e puoi aggiungerla ai fuori menu.
 
 **Cambi veloci**
 - *Esaurito*: un interruttore accanto al prodotto; sparisce subito dal menu e torna quando lo riaccendi.
@@ -130,6 +148,15 @@ chiamare il cameriere e **mette da parte la domanda**.
 Due limiti: su allergeni e celiachia, se li hai bloccati, il chatbot continua a
 rimandare al cameriere; prezzi e piatti si cambiano dal menu, non da qui.
 
+**Proposta delle bevande** — *Chatbot → Accoglienza*: appena il cliente apre
+la chat, il chatbot chiede subito «Intanto, cosa vi porto da bere?» con i
+pulsanti delle bevande più ordinate. Le bevande si possono confermare subito e
+arrivano al bar mentre il tavolo sceglie il resto. Puoi spegnere la proposta o
+cambiarla per fascia oraria (es. al mattino «Colazioni»).
+
+Il pulsante **Chiama il cameriere** è sempre visibile al cliente e il chatbot
+lo propone per qualsiasi dubbio che non sa risolvere: non si può togliere.
+
 Il chatbot parla italiano e scrive date e orari all'italiana (martedì 10
 novembre 2026, ore 22:30) e i prezzi con la virgola (€ 8,50).
 
@@ -159,18 +186,31 @@ In *Ordini → Regole* scegli:
 - Dopo quanto tempo un tavolo pagato torna *libero* da solo.
 - Coperto e servizio, se li applichi.
 
-### 1.9 Stampanti
+### 1.9 Reparti e stampanti
 
-*Stampanti → Aggiungi stampante*, segui il collegamento guidato, poi:
-- crea le **zone** (Cucina, Pizzeria, Bar, Cassa);
-- associa ogni **categoria** a una zona: le pizze usciranno al forno, le birre al bar;
-- decidi se la stampante di cassa riceve una **copia** di ogni ordine.
+**Reparti** — *Comande → Reparti*: crea i reparti del tuo locale, quanti ne
+vuoi (Bar, Cucina, Forno, Friggitrice, Griglia, Dolci…). Ne trovi già alcuni
+pronti in base alla tipologia, più **Sala**, che riceve le chiamate del
+cameriere e vede gli ordini interi.
+
+1. Associa ogni **categoria** a un reparto: le birre al Bar, le pizze al Forno,
+   le patatine alla Friggitrice. Se serve, cambia il reparto di un singolo
+   prodotto.
+2. Per ogni reparto scegli **dove arriva la comanda**: sugli **smartphone** delle
+   persone che ci lavorano, su una **stampante**, o su tutti e due.
+3. In *Personale* indica chi segue quale reparto (una persona può seguirne più d'uno).
+
+Un ordine con birre, pizza e patatine si divide da solo: ogni reparto riceve
+solo le sue voci, con la nota degli altri reparti coinvolti; la Sala vede
+l'ordine intero e quando è tutto pronto.
+
+**Stampanti** (si collegano dopo la prima consegna) — *Stampanti → Aggiungi
+stampante*, segui il collegamento guidato, poi scegli a quale reparto serve e
+se la stampante di cassa riceve una **copia** di ogni ordine.
 
 Premi *Stampa di prova* per verificare. Se una stampante resta senza carta o si
-spegne, ricevi un avviso e la comanda esce su quella di cassa. Lo **schermo
-ordini** mostra comunque tutto.
-
-Senza il modulo cassa serve almeno la stampante accanto alla cassa.
+spegne, ricevi un avviso e la comanda esce sulla stampante di riserva che hai
+scelto. L'**area comande** mostra comunque tutto.
 
 ### 1.10 Pagamenti dal tavolo (modulo facoltativo)
 
@@ -229,10 +269,14 @@ chiedi a noi). I QR già stampati continuano a funzionare.
 ## Parte 2 — Personale
 
 - Accedi con le tue credenziali: vedi solo le sezioni del tuo ruolo.
-- **Area comande** (sullo smartphone di gestore e camerieri): ogni nuovo ordine suona e compare con tavolo, ora e voci.
-  Tocca *Pronto* quando esce dalla cucina e *Servito* quando è al tavolo.
-- **Chiamata dal tavolo**: compare un avviso «Tavolo 7 chiama» (con il motivo,
-  es. *domanda su allergeni*). Tocca *Ci vado* per toglierlo agli altri.
+- **Area comande** (sullo smartphone di gestore e camerieri): vedi le comande
+  dei **tuoi reparti** (il barista le bevande, la cucina i piatti); ogni nuova
+  comanda suona e compare con tavolo, ora, voci e gli altri reparti coinvolti.
+  Tocca *In preparazione* e *Pronto*; la Sala tocca *Servito* quando è al tavolo.
+- **Chiamata dal tavolo** (arriva alla Sala): compare un avviso «Tavolo 7
+  chiama» con il motivo, se indicato (*domanda*, *allergie o intolleranze*,
+  *il conto*). Tocca *Ci vado* per toglierlo agli altri: il cliente vede che
+  stai arrivando.
 - **Primo ordine da accettare** (se il titolare lo ha attivato): controlla che
   al tavolo ci sia davvero qualcuno e premi *Accetta*.
 - **Annullare** una voce o un ordine: *Annulla*, scegli il motivo. Se era già
@@ -245,6 +289,8 @@ chiedi a noi). I QR già stampati continuano a funzionare.
 
 1. **Inquadra il QR code** con la fotocamera: si apre la chat, senza scaricare nulla.
 2. Scrivi il tuo nome se vuoi (serve a distinguere chi ha ordinato cosa).
+   Il chatbot ti chiede subito cosa vuoi da bere: puoi ordinare le bevande
+   subito e scegliere il resto con calma.
 3. Tocca **Menu completo** o una categoria, oppure scrivi: «solo i secondi»,
    «pizze con la salsiccia», «un hamburger senza cipolla».
 4. Tocca **Aggiungi** sui piatti che vuoi. Puoi ordinare anche per gli altri.
@@ -253,7 +299,10 @@ chiedi a noi). I QR già stampati continuano a funzionare.
 7. Scegli **Pago in cassa** oppure **Pago ora** (Apple Pay, Google Pay,
    Satispay, Revolut Pay, Bancomat Pay, carta).
 8. Volete altro? Aggiungete e confermate di nuovo: è un nuovo ordine dello stesso tavolo.
-9. Per allergie, celiachia o qualsiasi dubbio: **Chiama il cameriere**.
+9. Per allergie, celiachia o qualsiasi dubbio: **Chiama il cameriere**, il
+   pulsante è sempre in fondo alla chat; oppure scrivi «chiamami il cameriere».
+10. Cerchi qualcosa che non è nel menu (verdure grigliate, un filo d'olio)?
+    Chiedilo al chatbot: se il locale ce l'ha te lo propone con il prezzo.
 
 ---
 

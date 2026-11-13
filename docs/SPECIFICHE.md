@@ -52,7 +52,9 @@ le stampanti o tutte e due.
   foto facoltativa, ordine a piacere, orari di disponibilità (es. Colazioni fino
   alle 11).
 - **Prodotti**: nome, prezzo, descrizione, foto facoltativa, ingredienti,
-  reparto di cassa, zona di stampa.
+  **reparto di preparazione** (dove va la comanda, vedi §6) e, solo con il
+  modulo cassa, reparto IVA. Il reparto si imposta sulla categoria e si può
+  cambiare sul singolo prodotto.
 - **Varianti** (cibi e drink), con il loro prezzo: se ne sceglie una (birra
   piccola/media, impasto integrale +1,00, hamburger doppio +3,00, spritz
   Aperol/Campari/analcolico). Il gestore crea il gruppo una volta e lo applica
@@ -74,6 +76,14 @@ le stampanti o tutte e due.
   aggiorna da solo.
 - **Ingredienti**: elenco del locale, riutilizzabile; è ciò che permette al
   chatbot di rispondere a «pizze con i funghi» o «senza cipolla».
+- **Fuori menu su richiesta**: piatti, contorni e condimenti che il locale ha
+  ma non mette nel menu, perché li chiede solo qualcuno (verdure grigliate,
+  olio extravergine a crudo, pasta in bianco, limone, peperoncino). Il gestore
+  li inserisce con prezzo (o gratis), reparto di preparazione, ingredienti con
+  la stessa scheda allergeni e un interruttore «disponibile oggi». Possono
+  essere un piatto a sé (verdure grigliate € 5,00) o un'aggiunta a qualsiasi
+  piatto (olio a crudo, gratis). Non compaiono nel menu né nelle proposte del
+  chatbot: il chatbot li offre **solo quando il cliente li chiede** (vedi §5).
 - **Allergeni e celiachia**: si inseriscono **sugli ingredienti**, con una
   scheda guidata (tre posizioni per ognuno dei 14 allergeni, stato del glutine,
   conferma «ho controllato l'etichetta»); il piatto eredita tutto. Un dato non
@@ -106,8 +116,14 @@ le stampanti o tutte e due.
 
 1. Il QR apre la chat già legata al tavolo. Il cliente scrive solo il proprio nome
    (facoltativo) per distinguere le voci.
-2. Il chatbot saluta e propone pulsanti: **Menu completo**, le **categorie**,
-   **Chiama il cameriere**. Si può anche scrivere liberamente («solo i secondi»,
+2. Il chatbot saluta e **propone subito da bere** («Intanto, cosa vi porto da
+   bere?») con i pulsanti delle bevande più ordinate e della categoria
+   bevande, più **Menu completo**, le **categorie** e **Chiama il cameriere**.
+   Le bevande si possono confermare subito, da sole: partono al reparto
+   bevande mentre il tavolo sceglie da mangiare (è un ordine come gli altri,
+   con la sua conferma). Il gestore può spegnere la proposta o cambiarla per
+   fascia oraria (es. al mattino «Colazioni»); se il tavolo ha già ordinato da
+   bere non la ripete. Si può anche scrivere liberamente («solo i secondi»,
    «pizze con la salsiccia», «qualcosa sotto i 10 euro»).
 3. I prodotti compaiono come schede con foto, prezzo e pulsante **Aggiungi**;
    le varianti e le aggiunte si scelgono con pulsanti.
@@ -122,6 +138,39 @@ le stampanti o tutte e due.
 
 Il chatbot mostra soltanto prodotti e prezzi presi dal menu del locale. Totali,
 disponibilità e stato dell'ordine li decide il server, non il modello linguistico.
+
+### Chiama il cameriere, sempre
+
+- Il pulsante **Chiama il cameriere** è **sempre visibile** in fondo alla chat,
+  in ogni momento, anche a carrello aperto, dopo l'ordine e con il chatbot in
+  difficoltà. Lo stesso vale se il cliente lo scrive in qualsiasi modo
+  («chiamami il cameriere», «posso parlare con qualcuno?», «c'è una persona?»,
+  «cameriere!», «waiter please»): è una **regola scritta nel codice**, come il
+  blocco allergeni, e viene prima di qualsiasi altra risposta.
+- Il chatbot propone il cameriere per **qualsiasi dubbio** che non sa
+  risolvere con certezza: allergeni e celiachia bloccati, domande sulla salute
+  (gravidanza, diete, intolleranze: il chatbot non dà consigli di salute),
+  richieste fuori menu che il gestore non ha inserito, lamentele, conto,
+  problemi col telefono.
+- Il cliente può aggiungere un motivo facoltativo (pulsanti «Ho una domanda»,
+  «Allergie o intolleranze», «Il conto», «Altro»). La chiamata arriva subito,
+  con suono, sugli smartphone dei camerieri di **sala** (reparto «Sala», vedi
+  §6) con tavolo, ora e motivo; il cliente vede «Il cameriere sta arrivando» e
+  poi «Preso in carico da Marco». Una seconda chiamata entro 2 minuti non
+  suona di nuovo (anti-abuso), ma resta visibile.
+
+### Fuori menu su richiesta
+
+- Quando il cliente chiede qualcosa che non è nel menu («avete verdure
+  grigliate?», «posso avere un filo d'olio?»), il chatbot cerca **prima** tra i
+  fuori menu del gestore: se c'è ed è disponibile oggi lo propone con il prezzo
+  e il pulsante **Aggiungi** (come piatto o come aggiunta al piatto scelto).
+- Se non c'è o non è disponibile oggi: lo dice, propone il prodotto più vicino
+  del menu e il pulsante **Chiama il cameriere**, e segnala la richiesta al
+  gestore (Domande da rivedere), che così può aggiungerla ai fuori menu.
+- I fuori menu seguono tutte le regole degli altri prodotti: prezzo dal
+  server, allergeni ereditati dagli ingredienti, blocco allergeni/celiachia,
+  stampa nel reparto giusto, «FUORI MENU» scritto sulla comanda.
 
 ### Ricerca per ingrediente
 
@@ -230,16 +279,45 @@ anticipato. Limite di messaggi per evitare abusi del chatbot.
 
 ## 6. Dove arrivano gli ordini
 
+### Reparti di preparazione
+
+- Il gestore crea i **reparti** che vuole, senza limite: Bar/Bevande, Cucina,
+  Pizzeria/Forno, Friggitrice (patatine e fritti), Griglia, Dolci… Di partenza
+  ne proponiamo alcuni in base alla tipologia; più **Sala**, che riceve le
+  chiamate del cameriere e le comande da servire.
+- Ogni **categoria** va in un reparto; un singolo prodotto o fuori menu può
+  andare in un reparto diverso (le patatine del menu hamburger alla
+  friggitrice). Una voce senza reparto va al reparto «Cucina» di partenza,
+  così nessuna comanda si perde.
+- Per ogni reparto il gestore sceglie **dove arriva** la comanda: sugli
+  **smartphone** del personale assegnato a quel reparto, su una o più
+  **stampanti termiche**, o su tutti e due. Una persona può seguire più
+  reparti (il barista anche la friggitrice).
+- **Instradamento**: un ordine con due birre, una margherita e una porzione di
+  patatine si divide da solo: le birre al bar, la pizza al forno, le patatine
+  alla friggitrice. Ogni pezzo riporta tavolo, ora, voci, modifiche, note,
+  chi ha ordinato e la scritta «Ordine n. 12 — anche: Forno, Friggitrice»,
+  così ogni reparto sa che il tavolo aspetta altro.
+- Ogni reparto segna i suoi pezzi «in preparazione» e «pronto»; la **Sala**
+  vede l'ordine intero e quando tutti i reparti sono pronti (stato dell'ordine
+  in §5 calcolato dal server sui pezzi).
+- I reparti di preparazione sono **diversi dai reparti IVA della cassa** (§8):
+  i primi dicono dove si prepara, i secondi come si tassa.
+
+### Area comande e stampanti
+
 - **Area comande** (smartphone di gestore e camerieri, anche tablet o
-  monitor): tutte le comande per tavolo appena confermate, avviso sonoro,
-  pulsanti per farle avanzare. È sempre attiva ed è il modo principale nella
-  prima consegna.
-- **Stampanti termiche** (dopo la prima consegna, facoltative): ogni categoria è associata a una **zona** (cucina,
-  pizzeria, bar…) e ogni zona a una stampante. Una comanda con pizze e birre
-  esce divisa nelle due zone, con tavolo, ora, voci, note, chi ha ordinato.
-  Copia riepilogativa alla stampante di cassa.
-- Se una stampante è spenta o senza carta: avviso al personale e stampa di
-  riserva sulla stampante di cassa.
+  monitor): ognuno vede le comande dei propri reparti appena confermate, con
+  avviso sonoro, e le fa avanzare; il gestore e la Sala vedono tutto. È sempre
+  attiva ed è il modo principale nella prima consegna.
+- **Stampanti termiche** (facoltative, si collegano dopo la prima consegna):
+  ogni reparto può avere una o più stampanti. Copia riepilogativa facoltativa
+  alla stampante di cassa.
+- Se una stampante è spenta o senza carta: la comanda resta comunque
+  sull'area comande del reparto, avviso al personale e stampa di riserva sulla
+  stampante scelta dal gestore (di solito quella di cassa).
+- Se un reparto non ha nessuno collegato e nessuna stampante, la comanda va
+  alla Sala con l'avviso «reparto non presidiato».
 
 ## 7. Pagamenti dal tavolo
 
@@ -306,7 +384,8 @@ supportati in `docs/hardware.md`).
 
 ## 12. Cose aggiunte rispetto alla richiesta
 
-Chiamata del cameriere; prodotto esaurito; note per la cucina; orari delle categorie; coperto; divisione del conto e mancia; protezione
+Chiamata del cameriere sempre disponibile; proposta delle bevande all'apertura;
+reparti di preparazione con instradamento; fuori menu su richiesta; prodotto esaurito; note per la cucina; orari delle categorie; coperto; divisione del conto e mancia; protezione
 dagli ordini da fuori locale; area comande su smartphone;
 controllo carta/stampante spenta; ruoli del personale; italiano e inglese;
 statistiche; cassa senza internet; privacy e contratto; locale pilota.
